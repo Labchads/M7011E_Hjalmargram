@@ -35,6 +35,11 @@ nav
 	font-size: 2em;
 }
 
+.topRight
+{
+	padding: auto, 0;
+}
+
 .topOfPost b
 {
   	line-height: 1em;
@@ -81,4 +86,20 @@ article
 	width: 4em;
 	border-radius:50%;
 	border: 2px #000 solid;
+}
+
+.tag, .tag:visited
+{
+	color: blue;
+}
+
+.commenter, .commenter:visited
+{
+	color: black;
+}
+
+.commenter:hover, 
+.tag:hover
+{
+	color: gray;
 }
