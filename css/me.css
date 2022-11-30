@@ -1,19 +1,7 @@
-*
+html, body
 {
-	font-family: 'Helvetica', 'Arial', sans-serif;
+	background-color: gray;
 	margin: 0;
-}
-
-html
-{
-	background-image: linear-gradient(to bottom, red, blue);
-	margin: 0;
-	padding: 0;
-}
-
-span
-{
-	font-size: 0.75em;
 }
 
 nav
@@ -88,9 +76,8 @@ article
 {
 	width: 90%;
 	border: 1px #000 solid;
-	padding: 1em;
+	padding: 2em;
 	margin: 1em auto;
-	font-size: 1.5em;
 }
 
 .pfp
