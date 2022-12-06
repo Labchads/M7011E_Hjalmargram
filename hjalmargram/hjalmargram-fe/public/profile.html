@@ -7,7 +7,7 @@
     </head>
     <body>
         <nav class ="Top">
-            <h2>Hjalmargram</h2>
+            <h2 onclick="location='index.html'">Hjalmargram</h2>
 			<a href="#">Search</a>
 			<a href="#">Notifications</a>
 			<a href="#">Menu</a>
@@ -22,78 +22,78 @@
             </div>
             <br>
             <div style="width: 50%; display:grid; grid-template-columns: 9fr 1fr;" class="followbuttons">
-                <button>Follow</button>
+                <button onclick="location='https://youtu.be/O_IYLqIjtMg?t=17'">Follow</button>
                 <button> DM </button>
             </div>
             <br>
             <p class="bio"><b>"</b>Live laugh love.<b>"</b></p>
         </article>
         <article class="buttons">
-            <a href="#">Images</a>
-            <a href="#">Videos</a>
-            <a href="#">Texts</a>
+            <button onclick="showImgs()">Images</button>
+            <button onclick="showEmpty()">Videos</button>
+            <button onclick="showTxts()">Texts</button>
         </article>
         
         <article class="imgposts">
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/Jek9412.png">
+                <img src="pfp/Jek9412.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
             <div class="image">
-                <img src="pfp/LeifTeorin.png">
+                <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'">
             </div>
         </article>
 
-       <!-- <article class="textposts">
-                <div class="textpost">
+       <article class="textposts">
+                 <div class="textpost" onclick="location='textpost.html'">
                         <p><a href="#">@LeifTeorin:</a> Var det verkligen 6 mille?</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; text-align: center;">
                                 <b><a href="#">Likes: 2</a></b><b><a href="#">Comments: 329</a></b>
                         </div>
                 </div>
                 <br>
-                 <div class="textpost">
+                 <div class="textpost" onclick="location='textpost.html'">
                         <p><a href="#">@LeifTeorin:</a> Idk about you guys men jag kom på en great lösning till flyktingfrågan.</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; text-align: center;">
                                 <b><a href="#">Likes: 1</a></b><b><a href="#">Comments: 0</a></b>
@@ -101,7 +101,7 @@
                 </div>
                 <br>
 
-                 <div class="textpost">
+                 <div class="textpost" onclick="location='textpost.html'">
                         <p><a href="#">@LeifTeorin:</a> Min källa är att jag hittade fan på det.</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; text-align: center;">
                                 <b><a href="#">Likes: 46</a></b><b><a href="#">Comments: 8</a></b>
@@ -109,18 +109,48 @@
                 </div>
                 <br>
 
-                 <div class="textpost">
+                 <div class="textpost" onclick="location='textpost.html'">
                         <p><a href="#">@LeifTeorin:</a> Klimatkris? More like dött ris lmao.</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; text-align: center;">
                                 <b><a href="#">Likes: 5</a></b><b><a href="#">Comments: 1</a></b>
                         </div>
                 </div>
                 <br>
-        </article>-->
+        </article>
 
-        <!--<article class="noposts">
+        <<article class="noposts">
             <img src="img/noposts.gif"/>
                 <p><b>@LeifTeorin</b> has not uploaded any posts yet. :/</p>
-        </article>-->
+        </article>
     </body>
+    <script>
+            var img = document.getElementsByClassName("imgposts")[0];
+            var vids = document.getElementsByClassName("noposts")[0];
+            var txts = document.getElementsByClassName("textposts")[0];
+
+            function showImgs()
+            {
+                toggle(img);
+            }
+
+            function showEmpty()
+            {
+                toggle(vids);
+            }
+
+            function showTxts()
+            {
+                toggle(txts);
+            }
+
+            function toggle(act)
+            {
+                img.style.display = "none";
+                vids.style.display = "none";
+                txts.style.display = "none";
+                act.style.display = "grid";
+            }
+
+            showImgs();
+        </script>
 </html>
