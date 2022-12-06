@@ -85,6 +85,10 @@ article
 	padding: 2em;
 }
 
+article
+{
+	border-radius: 20px;
+}
 
 .commentfield
 {
