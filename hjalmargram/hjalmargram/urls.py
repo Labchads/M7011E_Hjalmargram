@@ -23,4 +23,7 @@ urlpatterns = [
     path('hjalmargram/', include('kapsylgram.urls')),
     path('admin/', admin.site.urls),
     re_path(r'^api/kapsylgram/$', views.mainPage),
+    re_path(r'^api/kapsylgram/login$', views.login_user),
+    re_path(r'^api/kapsylgram/follow/([0-9])$', views.follow_user),
+    re_path(r'^api/kapsylgram/profile/([0-9])$', views.profile),
 ]

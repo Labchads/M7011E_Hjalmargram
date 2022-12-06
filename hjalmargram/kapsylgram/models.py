@@ -52,7 +52,7 @@ class Post(models.Model):
     postedWhen = models.DateTimeField('date published')
     posttype = models.PositiveIntegerField() # this is temporary will add file later xoxo
     comments = models.ManyToManyField(Comment)
-    likes = models.ManyToManyField(Like)
+    likes = models.ManyToManyField(User, blank = True, related_name="likes")
 
 class Report(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)

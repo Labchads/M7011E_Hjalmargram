@@ -23,33 +23,40 @@ class IndexView(generic.ListView):
 
 @api_view(['GET', 'POST'])
 def mainPage(request):
-    if 'user' in request.session:
-        return render(request, 'index.html')
+    if request.method == 'POST':
+        print(request)
+        u = User(username = request.username, password = request.password, displayname= request.displayname, email = request.email)
     else:
-        return redirect('login')
+        print(request.session)
+        users = User.objects.all()
+        serializer = UserSerializer(users, context={'request': request}, many=True)
+        return Response(serializer.data)
 
 @api_view(['GET', 'POST'])
 def profile(request, pk):
-    try:
-        user_obj = User.objects.get(pk = pk)
-    except User.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    posts = Post.objects.get(postedBy=user_obj)
-    session_user = User.objects.get(name=request.session['user'])
-    session_following = Followers.objects.get_or_create(user=session_user)
-    following = Followers.objects.get_or_create(user=session_user)
-    check_user_followers = Followers.objects.filter(another_user=user_obj)
+    if request.method == 'GET':
+        try:
+            user_obj = User.objects.get(pk = pk)
+        except User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        posts = Post.objects.get(postedBy=user_obj)
+        session_user = User.objects.get(name=request.session['user'])
+        session_following = Followers.objects.get_or_create(user=session_user)
+        following = Followers.objects.get_or_create(user=session_user)
+        check_user_followers = Followers.objects.filter(another_user=user_obj)
 
-    is_followed = False
-    if session_following.another_user.filter(pk=pk).exists() or following.another_user.filter(pk=pk).exists():
-        is_followed=True
-    else:
-        is_followed=False
-    param = {'user_obj': user_obj,'followers':check_user_followers, 'following': following,'is_followed':is_followed}
-    serializer = UserSerializer(user_obj, context={'request': request}, many=True)
-    serializer2 = PostSerializer(posts, context={'request': request}, many=True)
+        is_followed = False
+        if session_following.another_user.filter(pk=pk).exists() or following.another_user.filter(pk=pk).exists():
+            is_followed=True
+        else:
+            is_followed=False
+        param = {'user_obj': user_obj,'followers':check_user_followers, 'following': following,'is_followed':is_followed}
+        serializer = UserSerializer(user_obj, context={'request': request}, many=True)
+        serializer2 = PostSerializer(posts, context={'request': request}, many=True)
 
-    return Response(serializer.user_obj, serializer2.posts)
+        return Response(serializer.user_obj, serializer2.posts)
+    elif request.method == 'POST':
+        return Response(True)
 
 @api_view(['POST'])
 def follow_user(request, pk):
@@ -88,7 +95,17 @@ def login_user(request):
         check_user = User.objects.filter(name=name, pwd=password)
         if check_user:
             request.session['user'] = check_user.first().name
-            return redirect('index')
+            return Response()
         else:
-            return redirect('index')
+            return Response()
     return Response(request)
+
+@api_view(['POST'])
+def create_user(request, username, password, displayname, email):
+    if request.method == 'POST':
+        if User.objects.filter(username = username, password = password, email = email).exists():
+            return Response("that user exists bro")
+        else:
+            newuser = User.objects.create(username = username, password = password, displayname = displayname, email = email)
+            newuser.save()
+            return Response("User successfully created")
