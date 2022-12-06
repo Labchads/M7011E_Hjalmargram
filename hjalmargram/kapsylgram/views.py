@@ -28,8 +28,8 @@ def mainPage(request):
         u = User(username = request.username, password = request.password, displayname= request.displayname, email = request.email)
     else:
         print(request.session)
-        users = User.objects.all()
-        serializer = UserSerializer(users, context={'request': request}, many=True)
+        posts = Post.objects.all()
+        serializer = PostSerializer(posts, context={'request': request}, many=True)
         return Response(serializer.data)
 
 @api_view(['GET', 'POST'])
