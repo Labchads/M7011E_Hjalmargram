@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
@@ -28,8 +28,8 @@ def mainPage(request):
         u = User(username = request.username, password = request.password, displayname= request.displayname, email = request.email)
     else:
         print(request.session)
-        posts = Post.objects.all()
-        serializer = PostSerializer(posts, context={'request': request}, many=True)
+        posts = User.objects.all()
+        serializer = UserSerializer(posts, context={'request': request}, many=True)
         return Response(serializer.data)
 
 @api_view(['GET', 'POST'])
@@ -65,7 +65,7 @@ def follow_user(request, pk):
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
         
-    session_user = request.session['user']
+    session_user = request.user
     get_user = User.objects.get(name=session_user)
     check_follower = Followers.objects.get(user=get_user.id)
     is_followed = False
@@ -108,4 +108,5 @@ def create_user(request, username, password, displayname, email):
         else:
             newuser = User.objects.create(username = username, password = password, displayname = displayname, email = email)
             newuser.save()
-            return Response("User successfully created")
+            serializer = UserSerializer(newuser)
+            return Response(serializer.data)
