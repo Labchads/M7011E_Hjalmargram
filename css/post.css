@@ -1,0 +1,45 @@
+article
+{
+width: 75%;
+}
+
+.image
+{
+ width: 9   0%;
+ height: auto;
+ margin: 0 auto;
+}
+
+.Imgpost_desktop
+{
+    display:flex;
+    
+}
+
+.left
+{
+    width: 55%;
+}
+
+.right
+{
+    width: 40%;
+}
+
+.right, .left
+{
+    margin: 0 1em;  
+}
+
+.topOfPost
+{
+    height: 2em;
+}
+
+.comment
+{
+	width: 90%;
+	border: 1px #000 solid;
+	padding: 2em;
+	margin: 0.5em auto;
+}
