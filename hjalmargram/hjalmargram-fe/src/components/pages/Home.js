@@ -1,25 +1,28 @@
 import React, { Component } from "react";
-import {BrowserRouter as Router} from 'react-router-dom';
+import limpowitch from "./pfp/Limpowitch.png";
+import skor from "./img/Skor.png";
+import jek from "./pfp/Jek9412.png";
+import kapsyloffer from "./pfp/Kapsyloffer.png";
+import leifteorin from "./pfp/LeifTeorin.png";
 
+console.log(limpowitch);
+console.log(skor);
+console.log(jek);
+console.log(kapsyloffer);
+console.log(leifteorin);
 
-class Home extends React.Component {
+class Home extends Component {
 
     render(){
         return(
-            <body>
-                <nav class ="Top">
-                    <h2 onclick="location='index.html'">Hjalmargram</h2>
-                    <a href="#">Search</a>
-                    <a href="#">Notifications</a>
-                    <a href="#">Menu</a>
-                </nav>
+            <div>
                 <article class ="makePostButton">
                     <button>Make post</button>
                 </article>
                 <article class="Imgpost">
                     <div class="topOfPost">
                         <div>
-                            <img src="pfp/Limpowitch.png" class="pfp" style="height: 2em; width: 2em;"/>
+                            <img src={limpowitch} class="pfp" style="height: 2em; width: 2em;"/>
                             <b>Limpowitch</b>
                         </div>
                         <div>
@@ -27,10 +30,10 @@ class Home extends React.Component {
                         </div>
                     </div>
                     <div class="image">
-                        <img src="img/Skor.png" onclick="location = 'imgpost.html'"/>
+                        <img src={skor} onclick="location = 'imgpost.html'"/>
                     </div>
                     <div class="controls">
-                        <button>&lt;3</button>
+                        <button>3</button>
                         <b><a class="tag" href="profile.html">@Kapsyloffer</a> and 12 others like this.</b>
                     </div>
                     <hr/>
@@ -39,11 +42,11 @@ class Home extends React.Component {
                             <p><b><a href="profile.html" class="commenter">@Limpowitch</a>:</b>: Who did this lmao</p>
                         </div>
                         <div class ="comment">
-                            <img src="pfp/Jek9412.png" class="pfp"/>
+                            <img src={jek} class="pfp"/>
                             <p><b><a href="profile.html" class="commenter">@Jek9412</a>:</b>: Not me bro. It's <a class="tag" href="#">@Kapsyloffer</a></p>
                         </div>
                         <div class ="comment">
-                            <img src="pfp/Kapsyloffer.png" class="pfp"/>
+                            <img src={kapsyloffer} class="pfp"/>
                             <p><b><a href="profile.html" class="commenter">@Kapsyloffer</a>:</b>: Nah bro I went home early frfr</p>
                         </div>
                     </div>
@@ -51,7 +54,7 @@ class Home extends React.Component {
                 <article class="Textpost">
                     <div class="topOfPost">
                         <div class="topLeft">
-                            <img src="pfp/Kapsyloffer.png" class="pfp" style="height: 2em; width: 2em;"/>
+                            <img src={kapsyloffer} class="pfp" style="height: 2em; width: 2em;"/>
                             <b>Kapsyloffer</b>
                         </div>
                         <div class="topRight">
@@ -70,12 +73,12 @@ class Home extends React.Component {
                     <hr/>
                     <div class="commentfield">
                         <div class ="comment">
-                            <img src="pfp/Jek9412.png" class="pfp"/>
+                            <img src={jek} class="pfp"/>
                             <p><b><a href="profile.html" class="commenter">@Jek9412</a>:</b>: lmao</p>
                         </div>
                     </div>
                 </article>
-            </body>
+            </div>
         )
     }
 }

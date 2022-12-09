@@ -1,0 +1,31 @@
+.login
+{
+    display:grid;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.login button
+{
+    width: 40%;
+    height: 150%;
+    margin: auto;
+    background-color: blue;
+    color: white;
+    border: 1px #FFF solid;
+    border-radius: 5px;
+
+}
+
+.login button:hover
+{
+    background-color: rgb(46, 46, 252);
+}
+
+.login p
+{
+    text-align: left;
+    width: 20%;
+    margin: 0 auto;
+}
