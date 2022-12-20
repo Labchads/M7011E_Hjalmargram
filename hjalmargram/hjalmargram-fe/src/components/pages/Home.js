@@ -4,6 +4,7 @@ import skor from "./img/Skor.png";
 import jek from "./pfp/Jek9412.png";
 import kapsyloffer from "./pfp/Kapsyloffer.png";
 import leifteorin from "./pfp/LeifTeorin.png";
+import Comment from "./../Comment";
 
 console.log(limpowitch);
 console.log(skor);
@@ -38,17 +39,18 @@ class Home extends Component {
                     </div>
                     <hr/>
                     <div class="commentfield">
-                        <div class ="comment">
-                            <p><b><a href="profile.html" class="commenter">@Limpowitch</a>:</b>: Who did this lmao</p>
-                        </div>
-                        <div class ="comment">
-                            <img src={jek} class="pfp"/>
-                            <p><b><a href="profile.html" class="commenter">@Jek9412</a>:</b>: Not me bro. It's <a class="tag" href="#">@Kapsyloffer</a></p>
-                        </div>
-                        <div class ="comment">
-                            <img src={kapsyloffer} class="pfp"/>
-                            <p><b><a href="profile.html" class="commenter">@Kapsyloffer</a>:</b>: Nah bro I went home early frfr</p>
-                        </div>
+                        <Comment
+                        comment_text = "lmao who did this?"
+                        commentBy = "Limpowitch"
+                        />
+                        <Comment
+                        comment_text = "Not me bro. It's Kapsyloffer"
+                        commentBy = "Jek9412"
+                        />
+                        <Comment
+                        comment_text = "Nah bro I went home early frfr"
+                        commentBy = "Kapsyloffer"
+                        />
                     </div>
                 </article>
                 <article class="Textpost">

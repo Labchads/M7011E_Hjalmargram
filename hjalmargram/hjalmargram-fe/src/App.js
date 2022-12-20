@@ -1,5 +1,10 @@
 import React, { Component, Fragment } from "react";
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import './main.css';
 import Header from "./components/Header";
 import UserList from "./components/UserList";
@@ -8,13 +13,31 @@ import Login from "./components/pages/Login";
 import Profile from "./components/pages/Profile";
 import Comment from "./components/Comment";
 import axios from 'axios';
+import Post  from "./components/Post";
 
 function App() {
   return (
-    <html>
+    <>
       <Header/>
-      <Comment/>
-	  </html>
+      {/* <Link to="/about">About</Link> */}
+      <UserList/>
+      {/* <Comment
+        comment_text = "lmao who did this?"
+        commentBy = "Limpowitch"
+      /> */}
+      
+      {/* <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch> */}
+	  </>
   );
 }
 

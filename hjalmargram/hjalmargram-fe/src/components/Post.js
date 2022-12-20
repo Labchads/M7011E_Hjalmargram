@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import {BrowserRouter as Router} from 'react-router-dom';
+import axios from "axios";
 import limpowitch from "./pages/pfp/Limpowitch.png";
 import skor from "./pages/img/Skor.png";
 import jek from "./pages/pfp/Jek9412.png";
 import kapsyloffer from "./pages/pfp/Kapsyloffer.png";
 import "./pages/css/main.css";
+import Comment from "./Comment";
 
 console.log(limpowitch);
 console.log(skor);
@@ -12,8 +13,28 @@ console.log(jek);
 console.log(kapsyloffer);
 
 class Post extends Component {
-
+    state = {
+        post: [],
+        comments: []
+    };
+    componentDidMount() {
+        this.resetState();
+    }
+    getComments = () => {
+        axios.get("http://localhost:8000/api/kapsylgram/").then(res => this.setState({ comments: res.data }));
+    };
+    getPost = () => {
+        axios.get("http://localhost:8000/api/kapsylgram/").then(res => this.setState({ post: res.data }));
+    }
+    resetState = () => {
+        this.getComments();
+        this.getPost();
+    };
     render(){
+        this.getPost();
+        this.getComments();
+        const post = this.state.post;
+        const comments = this.state.comments;
         return(
             <article class="Imgpost">
                 <div class="topOfPost">
@@ -25,28 +46,31 @@ class Post extends Component {
                         <span>3h ago</span>
                     </div>
                 </div>
-                <hr/>
+                
                 <div class="image">
-                    <img src={skor}/>
+                    <img src={skor} alt = "skor"/>
                 </div>
-                <hr/>
+                
                 <div class="controls">
-                    <button>&lt;3</button>
-                    <b><a class="tag" href="profile.html">@Kapsyloffer</a> and 12 others like this.</b>
+                    {/* <button>&lt;3</button> */}
+                    <b><a class="tag">@Kapsyloffer</a> and 12 others like this.</b>
+                    <b>{post[0].likes.length} liked this</b>
                 </div>
-                <hr/>
+                
                 <div class="commentfield">
-                    <div class ="comment">
-                        <p><b><a href="profile.html" class="commenter">@Limpowitch</a>:</b>: Who did this lmao</p>
-                    </div>
-                    <div class ="comment">
-                        <img src={jek} class="pfp"/>
-                        <p><b><a href="profile.html" class="commenter">@Jek9412</a>:</b>: Not me bro. It's <a class="tag" href="#">@Kapsyloffer</a></p>
-                    </div>
-                    <div class ="comment">
-                        <img src={kapsyloffer} class="pfp"/>
-                        <p><b><a href="profile.html" class="commenter">@Kapsyloffer</a>:</b>: Nah bro I went home early frfr</p>
-                    </div>
+                    {!comments || comments.length <= 0 ? (
+                        <b>Ops, no comments here yet</b>
+                        ) : (
+                            comments.map(comment => (
+                            <tr key={comment.pk}>
+                                <Comment
+                                    comment_text = {comment.text}
+                                    commentBy = {comment.sender.username}
+                                />
+                            </tr>
+                            ))
+                        )
+                    }
                 </div>
 		    </article>
         )

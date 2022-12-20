@@ -61,7 +61,7 @@ def profile(request, pk):
 @api_view(['POST'])
 def follow_user(request, pk):
     try:
-        other_user = User.objects.get(pk = pk)
+        other_user = User.objects.get(id = pk)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
         
@@ -110,3 +110,11 @@ def create_user(request, username, password, displayname, email):
             newuser.save()
             serializer = UserSerializer(newuser)
             return Response(serializer.data)
+
+@api_view(['POST', 'GET'])
+def getComments(request, pk):
+    if request.method == 'GET':
+        post = Post.objects.get(id = pk)
+        comments = post.comments
+        serializer = CommentSerializer(comments, context = {'request': request}, many=True)
+        return Response(serializer.data)

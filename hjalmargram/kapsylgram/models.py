@@ -50,7 +50,7 @@ class Post(models.Model):
     postedBy = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=200)
     postedWhen = models.DateTimeField('date published')
-    posttype = models.PositiveIntegerField() # this is temporary will add file later xoxo
+    picture = models.ImageField()
     comments = models.ManyToManyField(Comment)
     likes = models.ManyToManyField(User, blank = True, related_name="likes")
 

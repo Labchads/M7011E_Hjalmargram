@@ -1,8 +1,12 @@
 import React, { Component } from "react";
+import './css/profile.css'
 
 
 class Profile extends Component{
-
+    state = {
+        user: [],
+        posts: []
+    }
     render(){
         return(
                 <div>

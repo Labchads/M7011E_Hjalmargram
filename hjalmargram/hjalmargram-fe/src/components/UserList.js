@@ -37,7 +37,7 @@ class UserList extends Component {
             ) : (
                 users.map(user => (
                 <tr key={user.pk}>
-                    <td>{user.name}</td>
+                    <td>{user.displayname}</td>
                     <td>{user.email}</td>
                     <td>{user.username}</td>
                 </tr>
