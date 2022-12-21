@@ -21,10 +21,10 @@ class Post extends Component {
         this.resetState();
     }
     getComments = () => {
-        axios.get("http://localhost:8000/api/kapsylgram/").then(res => this.setState({ comments: res.data }));
+        axios.get("http://localhost:8000/api/kapsylgram/post/${state.post[0].id}/comments").then(res => this.setState({ comments: res.data }));
     };
     getPost = () => {
-        axios.get("http://localhost:8000/api/kapsylgram/").then(res => this.setState({ post: res.data }));
+        axios.get("http://localhost:8000/api/kapsylgram/post/${state.post[0].id}").then(res => this.setState({ post: res.data }));
     }
     resetState = () => {
         this.getComments();
@@ -33,14 +33,15 @@ class Post extends Component {
     render(){
         this.getPost();
         this.getComments();
-        const post = this.state.post;
+        const post = this.state.post[0];
         const comments = this.state.comments;
+        const postedBy = post.postedBy;
         return(
             <article class="Imgpost">
                 <div class="topOfPost">
                     <div>
-                        <img src={limpowitch} alt="Limpowitch" class="pfp" style="height: 2em; width: 2em;"/>
-                        <b>Limpowitch</b>
+                        <img src={limpowitch} alt="Limpowitch" class="pfp2"/>
+                        <b>{postedBy.dispayname}</b>
                     </div>
                     <div>
                         <span>3h ago</span>
@@ -54,7 +55,7 @@ class Post extends Component {
                 <div class="controls">
                     {/* <button>&lt;3</button> */}
                     <b><a class="tag">@Kapsyloffer</a> and 12 others like this.</b>
-                    <b>{post[0].likes.length} liked this</b>
+                    <b>{post.likes.length} liked this</b>
                 </div>
                 
                 <div class="commentfield">

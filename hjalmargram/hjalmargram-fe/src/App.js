@@ -20,7 +20,7 @@ function App() {
     <>
       <Header/>
       {/* <Link to="/about">About</Link> */}
-      <UserList/>
+      <Home/>
       {/* <Comment
         comment_text = "lmao who did this?"
         commentBy = "Limpowitch"

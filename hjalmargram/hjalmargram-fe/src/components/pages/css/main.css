@@ -111,6 +111,13 @@ article
 	border: 2px #000 solid;
 }
 
+.pfp2{
+	height: 2em; 
+	width: 2em;
+	border-radius:50%;
+	border: 2px #000 solid;
+}
+
 .tag, .tag:visited
 {
 	color: blue;

@@ -26,4 +26,7 @@ urlpatterns = [
     re_path(r'^api/kapsylgram/login$', views.login_user),
     re_path(r'^api/kapsylgram/follow/([0-9])$', views.follow_user),
     re_path(r'^api/kapsylgram/profile/([0-9])$', views.profile),
+    re_path(r'^api/kapsylgram/profile/([0-9])/posts$', views.getPosts),
+    re_path(r'^api/kapsylgram/post/([0-9])$', views.getPost),
+    re_path(r'^api/kapsylgram/post/([0-9])/comments$', views.getComments),
 ]

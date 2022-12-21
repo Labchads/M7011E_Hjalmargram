@@ -15,11 +15,11 @@ class Profile extends Component{
                         <h2>Challe</h2>
                         <b>@LeifTeorin</b>
                         <br/>
-                        <div style = "display: grid; grid-template-columns: 1fr 1fr 1fr;">
+                        <div class = "profileinfo">
                             <b>Posts:<br/>23</b><a href="#"><b>Followers:</b><br/>69</a><a href="#"><b>Following:</b><br/>420</a>
                         </div>
                         <br/>
-                        <div style="width: 50%; display:grid; grid-template-columns: 9fr 1fr;" class="followbuttons">
+                        <div class="followbuttons">
                             <button onclick="location='https://youtu.be/O_IYLqIjtMg?t=17'">Follow</button>
                             <button> DM </button>
                         </div>
@@ -33,58 +33,58 @@ class Profile extends Component{
                     </article>
                     <article class="imgposts">
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/Jek9412.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/Jek9412.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                         <div class="image">
-                            <img src="pfp/LeifTeorin.png" onclick="location='imgpost.html'"/>
+                            <img src="pfp/LeifTeorin.png"/>
                         </div>
                     </article>
                     <article class="textposts">
                         <div class="textpost" onclick="location='textpost.html'">
                             <p><a href="#">@LeifTeorin:</a> Min källa är att jag hittade fan på det.</p>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; text-align: center;">
+                            <div class="textpostinfo">
                                 <b><a href="#">Likes: 46</a></b><b><a href="#">Comments: 8</a></b>
                             </div>
                         </div>

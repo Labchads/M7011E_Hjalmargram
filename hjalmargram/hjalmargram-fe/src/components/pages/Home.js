@@ -23,7 +23,7 @@ class Home extends Component {
                 <article class="Imgpost">
                     <div class="topOfPost">
                         <div>
-                            <img src={limpowitch} class="pfp" style="height: 2em; width: 2em;"/>
+                            <img src={limpowitch} class="pfp2"/>
                             <b>Limpowitch</b>
                         </div>
                         <div>
@@ -40,23 +40,23 @@ class Home extends Component {
                     <hr/>
                     <div class="commentfield">
                         <Comment
-                        comment_text = "lmao who did this?"
-                        commentBy = "Limpowitch"
+                            comment_text = "lmao who did this?"
+                            commentBy = "Limpowitch"
                         />
                         <Comment
-                        comment_text = "Not me bro. It's Kapsyloffer"
-                        commentBy = "Jek9412"
+                            comment_text = "Not me bro. It's Kapsyloffer"
+                            commentBy = "Jek9412"
                         />
                         <Comment
-                        comment_text = "Nah bro I went home early frfr"
-                        commentBy = "Kapsyloffer"
+                            comment_text = "Nah bro I went home early frfr"
+                            commentBy = "Kapsyloffer"
                         />
                     </div>
                 </article>
                 <article class="Textpost">
                     <div class="topOfPost">
                         <div class="topLeft">
-                            <img src={kapsyloffer} class="pfp" style="height: 2em; width: 2em;"/>
+                            <img src={kapsyloffer} class="pfp2"/>
                             <b>Kapsyloffer</b>
                         </div>
                         <div class="topRight">

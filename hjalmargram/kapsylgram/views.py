@@ -118,3 +118,16 @@ def getComments(request, pk):
         comments = post.comments
         serializer = CommentSerializer(comments, context = {'request': request}, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def getPost(request, pk):
+    post = Post.objects.get(id = pk)
+    serializer = PostSerializer(post, context = {'request': request}, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getPosts(request, pk):
+    user = User.objects.get(id = pk)
+    posts = Post.objects.get(postedBy = user)
+    serializer = PostSerializer(posts, context = {'request': request}, many=True)
+    return Response(serializer.data)

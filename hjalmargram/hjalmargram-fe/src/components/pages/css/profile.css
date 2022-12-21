@@ -95,9 +95,23 @@ a:hover
 .followbuttons
 {
     margin: 0 auto ;
+    width: 50%; 
+    display:grid; 
+    grid-template-columns: 9fr 1fr;
 }
 
 .bio
 {
     font-style: italic;
+}
+
+.profileinfo{
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.textpostinfo{
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    text-align: center;
 }
