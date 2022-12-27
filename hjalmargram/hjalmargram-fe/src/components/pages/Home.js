@@ -42,14 +42,17 @@ class Home extends Component {
                         <Comment
                             comment_text = "lmao who did this?"
                             commentBy = "Limpowitch"
+                            pic = {limpowitch}
                         />
                         <Comment
                             comment_text = "Not me bro. It's Kapsyloffer"
                             commentBy = "Jek9412"
+                            pic = {jek}
                         />
                         <Comment
                             comment_text = "Nah bro I went home early frfr"
                             commentBy = "Kapsyloffer"
+                            pic = {kapsyloffer}
                         />
                     </div>
                 </article>
@@ -74,10 +77,11 @@ class Home extends Component {
                     </div>
                     <hr/>
                     <div class="commentfield">
-                        <div class ="comment">
-                            <img src={jek} class="pfp"/>
-                            <p><b><a href="profile.html" class="commenter">@Jek9412</a>:</b>: lmao</p>
-                        </div>
+                        <Comment
+                            comment_text = "lmao"
+                            commentBy = "jek9412"
+                            pic = {jek}
+                        />
                     </div>
                 </article>
             </div>

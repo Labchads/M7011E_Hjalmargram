@@ -14,17 +14,14 @@ import Profile from "./components/pages/Profile";
 import Comment from "./components/Comment";
 import axios from 'axios';
 import Post  from "./components/Post";
+import CreateAccount from "./components/pages/CreateAccount";
 
 function App() {
   return (
     <>
       <Header/>
       {/* <Link to="/about">About</Link> */}
-      <Home/>
-      {/* <Comment
-        comment_text = "lmao who did this?"
-        commentBy = "Limpowitch"
-      /> */}
+      <CreateAccount/>
       
       {/* <Switch>
         <Route path="/login">

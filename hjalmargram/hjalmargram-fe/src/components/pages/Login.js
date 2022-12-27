@@ -17,7 +17,7 @@ class Login extends Component {
     loginAccount = e =>{
         e.preventDefault();
         axios.post('http://localhost:8000/api/kapsylgram/create-account', this.state)
-    }
+    };
 
     render(){
         return(

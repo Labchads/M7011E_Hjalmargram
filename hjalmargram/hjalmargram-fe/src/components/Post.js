@@ -21,15 +21,16 @@ class Post extends Component {
         this.resetState();
     }
     getComments = () => {
-        axios.get("http://localhost:8000/api/kapsylgram/post/${state.post[0].id}/comments").then(res => this.setState({ comments: res.data }));
+        axios.get(`http://localhost:8000/api/kapsylgram/post/${this.props.postid}/comments`).then(res => this.setState({ comments: res.data }));
     };
     getPost = () => {
-        axios.get("http://localhost:8000/api/kapsylgram/post/${state.post[0].id}").then(res => this.setState({ post: res.data }));
-    }
+        axios.get(`http://localhost:8000/api/kapsylgram/post/${this.props.postid}`).then(res => this.setState({ post: res.data }));
+    };
     resetState = () => {
         this.getComments();
         this.getPost();
     };
+
     render(){
         this.getPost();
         this.getComments();
@@ -53,7 +54,7 @@ class Post extends Component {
                 </div>
                 
                 <div class="controls">
-                    {/* <button>&lt;3</button> */}
+                    <button>&lt;3</button>
                     <b><a class="tag">@Kapsyloffer</a> and 12 others like this.</b>
                     <b>{post.likes.length} liked this</b>
                 </div>
@@ -67,6 +68,7 @@ class Post extends Component {
                                 <Comment
                                     comment_text = {comment.text}
                                     commentBy = {comment.sender.username}
+                                    pic = {limpowitch}
                                 />
                             </tr>
                             ))

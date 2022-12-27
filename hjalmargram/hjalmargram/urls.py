@@ -22,11 +22,11 @@ app_name = 'Hjalmargram'
 urlpatterns = [
     path('hjalmargram/', include('kapsylgram.urls')),
     path('admin/', admin.site.urls),
-    re_path(r'^api/kapsylgram/$', views.mainPage),
-    re_path(r'^api/kapsylgram/login$', views.login_user),
-    re_path(r'^api/kapsylgram/follow/([0-9])$', views.follow_user),
-    re_path(r'^api/kapsylgram/profile/([0-9])$', views.profile),
-    re_path(r'^api/kapsylgram/profile/([0-9])/posts$', views.getPosts),
-    re_path(r'^api/kapsylgram/post/([0-9])$', views.getPost),
-    re_path(r'^api/kapsylgram/post/([0-9])/comments$', views.getComments),
+    path('api/kapsylgram/', views.mainPage),
+    path('api/kapsylgram/login', views.login_user),
+    path('api/kapsylgram/follow/<int:pk>', views.follow_user),
+    path('api/kapsylgram/profile/<int:pk>', views.profile),
+    path('api/kapsylgram/profile/<int:pk>/posts', views.getPosts),
+    path('api/kapsylgram/post/<int:pk>', views.getPost),
+    path('api/kapsylgram/post/<int:pk>/comments', views.getComments),
 ]
