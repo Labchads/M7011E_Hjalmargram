@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import './pages/css/main.css';
-import Login from "./components/pages/Login";
-import Profile from "./components/pages/Profile";
-import Comment from "./components/Comment";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Comment from "./Comment";
 import axios from 'axios';
-import Post  from "./components/Post";
+import Post  from "./Post";
 
 console.log("ass2");
 class Header extends Component {
@@ -12,9 +12,9 @@ class Header extends Component {
     return (
         <nav class ="Top">
             <h2>Hjalmargram</h2>
-              <button onClick={(e) => this.navbar(search)}>Search</button>
-              <button onClick={(e) => this.navbar(nots)}>Notifications</button>
-              <button onClick={(e) => this.navbar(login)}>Login</button>
+              <button onClick={(e) => this.navbar("search")}>Search</button>
+              <button onClick={(e) => this.navbar("nots")}>Notifications</button>
+              <button onClick={(e) => this.navbar("login")}>Login</button>
         </nav>
     );
   }
@@ -22,13 +22,13 @@ class Header extends Component {
   {
       switch(click)
       {
-        case search:
+        case "search":
           console.log("ass");
           return <Profile/>;
-        case nots:
+        case "nots":
           console.log("ass");
           return <Post/>;
-        case login:
+        case "login":
           console.log("ass");
           return <Login/>;
         default:

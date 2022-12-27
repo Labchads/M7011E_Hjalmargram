@@ -26,7 +26,7 @@ class Login extends Component {
                 <div class="makepost">
                     <form method="POST">
                         <img src={logo} class="logo"/><br/>
-                        <h1>Mae Post</h1><br/>
+                        <h1>Make Post</h1><br/>
                         <p>Upload image:</p>
                         <input type="file" id="img" name="img" accept="image/*"></input>
                         <p>Caption:</p>

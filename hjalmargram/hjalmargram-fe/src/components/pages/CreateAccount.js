@@ -50,7 +50,7 @@ class CreateAccount extends Component {
                     <input type="text" displayname = "name" placeholder="Displayname" onChange={this.onChangeDisName}/><br/><br/>
                     <input type="text" email = "name" placeholder="E-mail" onChange={this.onChangeMail}/><br/><br/>
                     <input type="password" password = "name" placeholder="Password" onChange={this.onChangePass}/><br/><br/>
-                    <input type="file" onChange={this.onChangePic}/>
+                    <input type="file" accept="image/*" onChange={this.onChangePic}/>
                     <br/><br/>
                     <p>preview of your pic:</p>
                     <img src={this.state.previewImage} class = "preview"/>
