@@ -13,6 +13,7 @@ class CreateAccount extends Component {
         email: "",
         password: "",
         pfp: null,
+        previewImage: null,
     };
 
     onChangeUName = e => {
@@ -32,7 +33,11 @@ class CreateAccount extends Component {
     }
 
     onChangePic = e => {
-        this.setState({pfp: e.target.files[0] });
+        
+        this.setState({
+            pfp: e.target.files[0],
+            previewImage: URL.createObjectURL(e.target.files[0])
+        });
     }
 
     render(){
@@ -46,7 +51,11 @@ class CreateAccount extends Component {
                     <input type="text" email = "name" placeholder="E-mail" onChange={this.onChangeMail}/><br/><br/>
                     <input type="password" password = "name" placeholder="Password" onChange={this.onChangePass}/><br/><br/>
                     <input type="file" onChange={this.onChangePic}/>
-                    <br/>
+                    <br/><br/>
+                    <p>preview of your pic:</p>
+                    <img src={this.state.previewImage} class = "preview"/>
+                    <h1>{this.state.username}</h1>
+                    <h1>{this.state.displayname}</h1>
                     <button type="submit" form="form1" value="Submit">Submit</button><br/>
                 </div>
 		    </article>

@@ -21,7 +21,8 @@ function App() {
     <>
       <Header/>
       {/* <Link to="/about">About</Link> */}
-      <CreateAccount/>
+      {/* <CreateAccount/> */}
+      <Login/>
       
       {/* <Switch>
         <Route path="/login">
