@@ -3,11 +3,10 @@ import './pages/css/main.css';
 import Comment from "./Comment";
 import axios from 'axios';
 
-import Profile from "./pages/Profile";
-import Post  from "./Post";
-import Login from "./pages/Login";
+let s,n,l = false;
 
-class Header extends Component {
+class Header extends Component 
+{
   render() {
     return (
         <nav class ="Top">
@@ -22,23 +21,27 @@ class Header extends Component {
   {
     console.log(click);
     var a = React.createElement("div", {}, React.createElement("h1", {}, "Disco disco party party"));
+    s = false;
+    n = false;
+    l = false;
       switch(click)
       {
         case "search":
           console.log("ass - search");
-          return <div><h1>search</h1><Profile /></div>;
+          s = !s;
+          break;
         case "nots":
           console.log("ass - nots");
-          return <div><h1>nots</h1><Post /></div>;
+          n = !n;
+          break;
         case "login":
           console.log("ass - login");
-          return <div><h1>login</h1><Login /></div>;
+          l = !l;
+          break;
         default:
         break;
       }
   };
-
-
 }
 
 export default Header;
