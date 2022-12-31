@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import './pages/css/main.css';
-import Comment from "./Comment";
-import axios from 'axios';
 
-let s,n,l = false;
-
+export let s = false;
+export let n = false;
+export let l = false;
 class Header extends Component 
 {
   render() {
