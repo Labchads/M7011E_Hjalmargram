@@ -7,13 +7,13 @@ import {
 } from "react-router-dom";
 import './main.css';
 import Header from "./components/Header";
-import UserList from "./components/UserList";
-import Home from "./components/pages/Home";
-import Login from "./components/pages/Login";
-import Profile from "./components/pages/Profile";
-import Comment from "./components/Comment";
-import axios from 'axios';
-import Post  from "./components/Post";
+//import UserList from "./components/UserList";
+//import Home from "./components/pages/Home";
+//import Login from "./components/pages/Login";
+//import Profile from "./components/pages/Profile";
+//import Comment from "./components/Comment";
+//import axios from 'axios';
+//import Post  from "./components/Post";
 import CreateAccount from "./components/pages/CreateAccount";
 
 function App() {
@@ -21,8 +21,11 @@ function App() {
     <>
       <Header/>
       {/* <Link to="/about">About</Link> */}
-      <CreateAccount/>
-      <Login/>
+     <CreateAccount/>
+      {/* <Comment
+        comment_text = "lmao who did this?"
+        commentBy = "Limpowitch"
+      /> */}
       
       {/* <Switch>
         <Route path="/login">
