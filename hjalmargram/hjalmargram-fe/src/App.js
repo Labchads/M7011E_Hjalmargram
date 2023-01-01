@@ -18,12 +18,15 @@ import CreateAccount from "./components/pages/CreateAccount";
 
 function App() {
   return (
-    <>
+    <div>
       <Header/>
       {/* <Link to="/about">About</Link> */}
-      <CreateAccount/>
-      <Login/>
-      
+      {/* <Login/> */}
+      <Router>
+        <Route exact path='/' component = {Home}/>
+        <Route exact path='/login' component = {Login}/>
+        <Route exact path='/createacc' component = {CreateAccount}/>
+      </Router>
       {/* <Switch>
         <Route path="/login">
           <Login />
@@ -35,7 +38,7 @@ function App() {
           <Home />
         </Route>
       </Switch> */}
-	  </>
+	  </div>
   );
 }
 

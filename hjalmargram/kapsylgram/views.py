@@ -6,11 +6,16 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from django.utils.decorators import method_decorator
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework import status
+from rest_framework import status, permissions
 
 from .serializers import *
 from .models import *
@@ -85,9 +90,20 @@ def follow_user(request, pk):
         return Response(is_followed)
             
 
-@api_view(['GET', 'POST'])
+@method_decorator(csrf_protect, name='dispatch')
 def login_user(request):
-    if request.method == 'POST':
+    data = request.data
+    username = data['username']
+    password = data['password']
+    user = authenticate(username=username, password=password)
+
+    if user is not None:
+        login(request, user)
+        return Response({'success': 'User authenticated', 'username': username})
+    else:
+        return Response({'failure': 'Authentication failed'})
+
+    """ if request.method == 'POST':
         serializer = UserSerializer(data=request.data)
         name = serializer.get('username')
         password = serializer.get('password')
@@ -99,35 +115,63 @@ def login_user(request):
         else:
             return Response()
     return Response(request)
+ """
 
+def logout_user(request):
+    try:
+        logout(request)
+        return Response({'success': 'User logget out'})
+    except:
+        return Response({'failure': 'Something went wrong'})
+        
 @api_view(['POST'])
-def create_user(request, username, password, displayname, email):
-    if request.method == 'POST':
+def create_user(request):
+    """ if request.method == 'POST':
         if User.objects.filter(username = username, password = password, email = email).exists():
             return Response("that user exists bro")
         else:
             newuser = User.objects.create(username = username, password = password, displayname = displayname, email = email)
             newuser.save()
             serializer = UserSerializer(newuser)
-            return Response(serializer.data)
+            return Response(serializer.data) """
+    """ newuser = User.objects.create(username = request.username, password = request.password, displayname = request.displayname, email = request.email, pfp = request.pfp)
+    newuser.save() """
+    serializer = UserSerializer(data = request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'success': 'User was successfully created'})
+    return Response({'failure': serializer.errors})
+    
 
-@api_view(['POST', 'GET'])
+@api_view(['GET'])
 def getComments(request, pk):
     if request.method == 'GET':
-        post = Post.objects.get(id = pk)
+        post = Post.objects.get(pk = pk)
         comments = post.comments
         serializer = CommentSerializer(comments, context = {'request': request}, many=True)
         return Response(serializer.data)
 
 @api_view(['GET'])
 def getPost(request, pk):
-    post = Post.objects.get(id = pk)
+    post = Post.objects.get(pk = pk)
     serializer = PostSerializer(post, context = {'request': request}, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def getPosts(request, pk):
-    user = User.objects.get(id = pk)
+    user = User.objects.get(pk = pk)
     posts = Post.objects.get(postedBy = user)
     serializer = PostSerializer(posts, context = {'request': request}, many=True)
     return Response(serializer.data)
+
+
+def getCSRFToken(request):
+    pass
+
+@method_decorator(csrf_protect, name='dispatch')
+def checkAuthenticatedView(request):
+    isAuthenticated = User.is_authenticated
+    if isAuthenticated:
+        return Response({'isAuthenticated': 'success'})
+    else:
+        return Response({'isAuthenticated': 'failure'})

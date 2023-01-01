@@ -7,13 +7,16 @@ import "./css/login.css";
 console.log(logo)
 
 class CreateAccount extends Component {
+    previewImage = null;
+    pfp = null;
+    err = "";
     state = {
         username: "",
+        password: "",
         displayname: "",
         email: "",
-        password: "",
         pfp: null,
-        previewImage: null,
+        notifications: [],
     };
 
     onChangeUName = e => {
@@ -34,11 +37,39 @@ class CreateAccount extends Component {
 
     onChangePic = e => {
         
-        this.setState({
-            pfp: e.target.files[0],
-            previewImage: URL.createObjectURL(e.target.files[0])
-        });
+        this.setState({pfp: e.target.files[0]});
+        this.pfp = e.target.files[0];
+        this.previewImage = URL.createObjectURL(e.target.files[0])
     }
+
+    createAccount = e => {
+        e.preventDefault();
+        console.log(this.state);
+        let formData = new FormData();
+        // Update the formData object
+        /* formData.append(
+            "myFile",
+            this.pfp,
+            this.pfp.name
+        ); */
+        formData.append('pfp', this.state.pfp, this.state.pfp.name);
+        formData.append('username', this.state.username);
+        formData.append('password', this.state.password);
+        formData.append('displayname', this.state.displayname);
+        formData.append('email', this.state.email);
+        console.log(this.pfp);
+
+        const response = axios.post('http://localhost:8000/api/kapsylgram/createacc', formData, {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+        }).then(res => {
+            console.log(res.data);
+        })
+          .catch(err => )
+        };
+        
+    
 
     render(){
         return(
@@ -46,17 +77,22 @@ class CreateAccount extends Component {
                 <div class="login">
                     <img src={logo} class="logo"/><br/>
                     <h1>Welcome to Hjalmargram!</h1><br/>
-                    <input type="text" username = "name" placeholder="Username" onChange={this.onChangeUName}/><br/><br/>
-                    <input type="text" displayname = "name" placeholder="Displayname" onChange={this.onChangeDisName}/><br/><br/>
-                    <input type="text" email = "name" placeholder="E-mail" onChange={this.onChangeMail}/><br/><br/>
-                    <input type="password" password = "name" placeholder="Password" onChange={this.onChangePass}/><br/><br/>
-                    <input type="file" accept="image/*" onChange={this.onChangePic}/>
-                    <br/><br/>
-                    <p>preview of your pic:</p>
-                    <img src={this.state.previewImage} class = "preview"/>
-                    <h1>{this.state.username}</h1>
-                    <h1>{this.state.displayname}</h1>
-                    <button type="submit" form="form1" value="Submit">Submit</button><br/>
+                    <Form onSubmit={this.createAccount}>
+                        
+                        <input type="text" username = "name" placeholder="Username" onChange={this.onChangeUName} required/><br/><br/>
+                        <input type="text" displayname = "name" placeholder="Displayname" onChange={this.onChangeDisName} required/><br/><br/>
+                        <input type="text" email = "name" placeholder="E-mail" onChange={this.onChangeMail} required/><br/><br/>
+                        <input type="password" password = "name" placeholder="Password" onChange={this.onChangePass} required/><br/><br/>
+                        <input type="file" accept="image/jpeg,image/png,image/gif" onChange={this.onChangePic}/>
+                        
+                        <br/><br/>
+                        <p>preview of your pic:</p>
+                        <img src={this.previewImage} class = "preview"/>
+                        <h1>{this.state.username}</h1>
+                        <h1>{this.state.displayname}</h1>
+                        <h2>{this.err}</h2>
+                        <button>Submit</button><br/>
+                    </Form>
                 </div>
 		    </article>
         )

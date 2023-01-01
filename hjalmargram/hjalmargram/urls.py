@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/kapsylgram/', views.mainPage),
     path('api/kapsylgram/login', views.login_user),
+    path('api/kapsylgram/createacc', views.create_user),
     path('api/kapsylgram/follow/<int:pk>', views.follow_user),
     path('api/kapsylgram/profile/<int:pk>', views.profile),
     path('api/kapsylgram/profile/<int:pk>/posts', views.getPosts),

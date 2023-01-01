@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Notification(models.Model):
@@ -13,12 +14,12 @@ class Message(models.Model):
     msgDate = models.DateTimeField('date sent')
 
 class User(models.Model):
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=30)
+    username = models.CharField(max_length=30, unique=True)
+    password = models.CharField(max_length=30, unique=True)
     displayname = models.CharField(max_length=30)
-    email = models.CharField(max_length=50)
-    pfp = models.ImageField()
-    notifications = models.ManyToManyField(Notification)
+    email = models.CharField(max_length=50, unique=True)
+    pfp = models.ImageField(blank=True, upload_to='profile_pictures')
+    notifications = models.ManyToManyField(Notification, blank=True)
 
     def __str__(self):
         return self.username
@@ -50,7 +51,7 @@ class Post(models.Model):
     postedBy = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=200)
     postedWhen = models.DateTimeField('date published')
-    picture = models.ImageField()
+    picture = models.ImageField(upload_to='post_images')
     comments = models.ManyToManyField(Comment)
     likes = models.ManyToManyField(User, blank = True, related_name="likes")
 

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-0gk9+ku%w2ixqovx8@5zq$hhrkldw6&un0d=t--9p#x!)n@*qd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -55,7 +55,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+    'http://localhost:3000'
 ]
 
 ROOT_URLCONF = 'hjalmargram.urls'
