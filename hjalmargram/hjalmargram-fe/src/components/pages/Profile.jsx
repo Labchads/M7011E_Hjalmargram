@@ -1,6 +1,43 @@
 import React, { Component } from "react";
 import './css/profile.css'
 
+//TODO:
+//Get profile ID
+//Profilepic = profile.src_pfp
+//Fetch all images as images[], should contain ID, src, likecount, commentcount
+//Foreach img in images[] : 
+/*
+<div class="image">
+    <img src="img.src" / onClick = {(e) => imgPost(img.ID)}>
+    <span>Likes: img.like_c</span>
+    <span>Comments: img.com_c</span>
+</div>
+*/      //Or something
+//Om man klickar på textposts, fetcha alla textposts, samma sak, visa comment count och likes osv
+//Kanske typ: 
+/*
+<div class="textpost">
+<p>txt.content</p>
+<span>Likes: txt.likes</span> <span>Comments: txt.com</span>
+</div>
+*/
+
+//TODO: Gör också dessa till components:
+/*
+ <article class="imgposts">
+    ...
+</article>
+<article class="textposts">
+    ...
+</article>
+<article class="videoposts">
+    ...
+</article>
+<article class="noposts">
+    <img src="img/noposts.gif"/>
+    <p><b>_USERNAME</b> has not uploaded any posts yet. :/</p>
+</article>
+*/
 
 class Profile extends Component{
     state = {
@@ -11,12 +48,12 @@ class Profile extends Component{
         return(
                 <div>
                     <article class = "profilepic">
-                        <img src="pfp/LeifTeorin.png"/>
-                        <h2>Challe</h2>
-                        <b>@LeifTeorin</b>
+                        <img src="./pfp/LeifTeorin.png"/>
+                        <h2>{this.props.nick}</h2>
+                        <b>@{this.props.user}</b>
                         <br/>
                         <div class = "profileinfo">
-                            <b>Posts:<br/>23</b><a href="#"><b>Followers:</b><br/>69</a><a href="#"><b>Following:</b><br/>420</a>
+                            <b>Posts:<br/>23</b><a href="#"><b>Followers:</b><br/>{this.props.followers}</a><a href="#"><b>Following:</b><br/>{this.props.following}</a>
                         </div>
                         <br/>
                         <div class="followbuttons">
@@ -32,63 +69,10 @@ class Profile extends Component{
                         <button>Texts</button>
                     </article>
                     <article class="imgposts">
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/Jek9412.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
-                        <div class="image">
-                            <img src="pfp/LeifTeorin.png"/>
-                        </div>
+                        
                     </article>
                     <article class="textposts">
-                        <div class="textpost" onclick="location='textpost.html'">
-                            <p><a href="#">@LeifTeorin:</a> Min källa är att jag hittade fan på det.</p>
-                            <div class="textpostinfo">
-                                <b><a href="#">Likes: 46</a></b><b><a href="#">Comments: 8</a></b>
-                            </div>
-                        </div>
-                        <br/>
+                        
                     </article>
                     <article class="noposts">
                         <img src="img/noposts.gif"/>

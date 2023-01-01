@@ -8,10 +8,11 @@ import React, { Component, Fragment, useState } from "react";
 import './main.css';
 
 
-import Profile from "./components/pages/Profile";
 */
 
-import Post  from "./components/Post"
+import Home from "./components/pages/Home";
+import Post  from "./components/Post";
+import Profile from "./components/pages/Profile";
 import Login from "./components/pages/Login";
 import CreateAccount from "./components/pages/CreateAccount";
 
@@ -49,14 +50,15 @@ function App()
  return (
   <div>
     <nav class ="Top">
-        <h2>Hjalmargram</h2>
-        <button onClick={(e) => navbar("search")}>Profile</button>
-        <button onClick={(e) => navbar("nots")}>Post</button>
-        <button onClick={(e) => navbar("login")}>Login</button>
+        <h2 onClick = {(e) => navbar(null)}>Hjalmargram</h2>
+        <button onClick = {(e) => navbar("search")}>Profile</button>
+        <button onClick = {(e) => navbar("nots")}>Post</button>
+        <button onClick = {(e) => navbar("login")}>Login</button>
     </nav>
-    {s ? <CreateAccount /> : null}
-    {n ? <Login /> : null}
-    {l ? <Post /> : null}
+    {!s && !n && !l ? <Home /> : null}
+    {s ? <Profile user="LeifTeorin" nick="ChalleChad" followers="69" following="1337"/> : null}
+    {n ? <Home /> : null}
+    {l ? <Login /> : null}
     <h2>Made it here</h2>
   </div>
   );
