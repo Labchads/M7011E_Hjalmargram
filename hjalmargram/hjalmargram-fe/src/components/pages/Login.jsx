@@ -16,23 +16,22 @@ class Login extends Component {
 
     loginAccount = e =>{
         e.preventDefault();
-        axios.post('http://localhost:8000/api/kapsylgram/create-account', this.state)
+        //TODO
+        alert("Login details:" + "{this.state.username}");
     };
 
     render(){
         return(
             <article>
                 <div class="login">
-                    <form method="POST">
+                    <form onSubmit={this.login}>
                         <img src={logo} class="logo"/><br/>
                         <h1>Welcome to Hjalmargram!</h1><br/>
-                        <input type="text" name="user" placeholder="Username"/><br/><br/>
-                        <input type="password" name="pass" placeholder="Password"/>
+                        <input type="text" name="user" placeholder="Username" required/><br/><br/>
+                        <input type="password" name="pass" placeholder="Password" required/>
                     </form><br/>
-                    <button type="submit" form="form1" value="Submit">Submit</button><br/>
-                    <button type="submit" form="form1" value="Submit">Create account</button><br/>
-                    <h2>OR</h2><br/>
-                    <b>Login with google</b>
+                    <button type="submit" form="form1" value="Submit">Login</button><br/>
+                    <button onClick ={this.props.n}>Create Account</button><br/>
                 </div>
 		    </article>
         )
