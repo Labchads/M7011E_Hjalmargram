@@ -31,8 +31,13 @@
 }
 
 .logo{
-    height: 30%; 
+    height: auto; 
     width: 30%;
+}
+
+.login img
+{
+    margin: 0 auto;
 }
 
 .preview{
