@@ -164,9 +164,9 @@ def getPosts(request, pk):
     serializer = PostSerializer(posts, context = {'request': request}, many=True)
     return Response(serializer.data)
 
-
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 def getCSRFToken(request):
-    pass
+    return Response({'success': 'CSRF cookie set'})
 
 @method_decorator(csrf_protect, name='dispatch')
 def checkAuthenticatedView(request):
