@@ -146,21 +146,21 @@ def create_user(request):
 @api_view(['GET'])
 def getComments(request, pk):
     if request.method == 'GET':
-        post = Post.objects.get(pk = pk)
+        post = Post.objects.filter(pk = pk)
         comments = post.comments
         serializer = CommentSerializer(comments, context = {'request': request}, many=True)
         return Response(serializer.data)
 
 @api_view(['GET'])
 def getPost(request, pk):
-    post = Post.objects.get(pk = pk)
+    post = Post.objects.filter(pk = pk)
     serializer = PostSerializer(post, context = {'request': request}, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def getPosts(request, pk):
-    user = User.objects.get(pk = pk)
-    posts = Post.objects.get(postedBy = user)
+    user = User.objects.filter(pk = pk)
+    posts = Post.objects.filter(postedBy = user)
     serializer = PostSerializer(posts, context = {'request': request}, many=True)
     return Response(serializer.data)
 
