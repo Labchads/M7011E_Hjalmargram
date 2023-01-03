@@ -13,8 +13,11 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 from rest_framework import viewsets
+#from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework_jwt.utils import jwt_encode_handler, jwt_payload_handler
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework import status, permissions
 
 from .serializers import *
@@ -26,57 +29,40 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return HttpResponse(self.greeting)
 
+""" class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer """
+
 @api_view(['GET', 'POST'])
 def mainPage(request):
     if request.method == 'POST':
         print(request)
-        u = User(username = request.username, password = request.password, displayname= request.displayname, email = request.email)
+        u = UserProfile(username = request.username, password = request.password, displayname= request.displayname, email = request.email)
     else:
         print(request.session)
-        posts = User.objects.all()
+        posts = UserProfile.objects.all()
         serializer = UserSerializer(posts, context={'request': request}, many=True)
         return Response(serializer.data)
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def profile(request, pk):
-    if request.method == 'GET':
-        try:
-            user_obj = User.objects.get(pk = pk)
-        except User.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        posts = Post.objects.get(postedBy=user_obj)
-        session_user = User.objects.get(name=request.session['user'])
-        session_following = Followers.objects.get_or_create(user=session_user)
-        following = Followers.objects.get_or_create(user=session_user)
-        check_user_followers = Followers.objects.filter(another_user=user_obj)
-
-        is_followed = False
-        if session_following.another_user.filter(pk=pk).exists() or following.another_user.filter(pk=pk).exists():
-            is_followed=True
-        else:
-            is_followed=False
-        param = {'user_obj': user_obj,'followers':check_user_followers, 'following': following,'is_followed':is_followed}
-        serializer = UserSerializer(user_obj, context={'request': request}, many=True)
-        serializer2 = PostSerializer(posts, context={'request': request}, many=True)
-
-        return Response(serializer.user_obj, serializer2.posts)
-    elif request.method == 'POST':
-        return Response(True)
+    user = UserProfile.objects.filter(pk = pk)
+    serializer = UserSerializer(user, context = {'request': request}, many=True)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def follow_user(request, pk):
     try:
-        other_user = User.objects.get(id = pk)
+        other_user = UserProfile.objects.filter(id = pk)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
         
     session_user = request.user
-    get_user = User.objects.get(name=session_user)
-    check_follower = Followers.objects.get(user=get_user.id)
+    get_user = UserProfile.objects.filter(name=session_user)
+    check_follower = Followers.objects.filter(user=get_user.id)
     is_followed = False
     if other_user.username != session_user:
         if check_follower.another_user.filter(name=other_user).exists():
-            add_usr = Followers.objects.get(user=get_user)
+            add_usr = Followers.objects.filter(user=get_user)
             add_usr.another_user.remove(other_user)
             is_followed = False
             return Response(is_followed)
@@ -90,18 +76,33 @@ def follow_user(request, pk):
         return Response(is_followed)
             
 
-@method_decorator(csrf_protect, name='dispatch')
-def login_user(request):
-    data = request.data
-    username = data['username']
-    password = data['password']
-    user = authenticate(username=username, password=password)
 
+@api_view(['POST'])
+def loginuser(request):
+    #data = request.data
+    username = request.data['username']
+    password = request.data['password']
+    print(username)
+    print(password)
+    """ user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        return Response({'success': 'User authenticated', 'username': username})
+        payload = jwt_payload_handler(user)
+        token = jwt_encode_handler(payload)
+        return JsonResponse({'token': token}, status=200)
     else:
-        return Response({'failure': 'Authentication failed'})
+        return JsonResponse({'failure': 'Invalid password'}, status=401) """
+    try:
+        user = UserProfile.objects.get(username=username)
+    except UserProfile.DoesNotExist:
+        return JsonResponse({'failure': 'Invalid username'}, status=401)
+    #if user.check_password(password):
+    login(request, user)
+    payload = jwt_payload_handler(user)
+    token = jwt_encode_handler(payload)
+    return JsonResponse({'token': token}, status=200)
+    """ else:
+        return JsonResponse({'failure': 'Invalid password'}, status=401) """
 
     """ if request.method == 'POST':
         serializer = UserSerializer(data=request.data)
@@ -146,31 +147,37 @@ def create_user(request):
 @api_view(['GET'])
 def getComments(request, pk):
     if request.method == 'GET':
-        post = Post.objects.get(pk = pk)
+        post = Post.objects.filter(pk = pk)
         comments = post.comments
         serializer = CommentSerializer(comments, context = {'request': request}, many=True)
         return Response(serializer.data)
 
 @api_view(['GET'])
 def getPost(request, pk):
-    post = Post.objects.get(pk = pk)
+    post = Post.objects.filter(pk = pk)
     serializer = PostSerializer(post, context = {'request': request}, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def getPosts(request, pk):
-    user = User.objects.get(pk = pk)
-    posts = Post.objects.get(postedBy = user)
-    serializer = PostSerializer(posts, context = {'request': request}, many=True)
-    return Response(serializer.data)
+    user = UserProfile.objects.filter(pk = pk)
+    posts = Post.objects.filter(postedBy = user)
+    if posts is not None:
+        serializer = PostSerializer(posts, context = {'request': request}, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({'noPosts': 'no posts here sorry'})
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
-def getCSRFToken(request):
-    return Response({'success': 'CSRF cookie set'})
+class GetCSRFToken(APIView):
+    permission_classes = (permissions.AllowAny, )
+
+    def get(self, request):
+        return Response({ 'success': 'CSRF cookie set' })
 
 @method_decorator(csrf_protect, name='dispatch')
 def checkAuthenticatedView(request):
-    isAuthenticated = User.is_authenticated
+    isAuthenticated = UserProfile.is_authenticated
     if isAuthenticated:
         return Response({'isAuthenticated': 'success'})
     else:

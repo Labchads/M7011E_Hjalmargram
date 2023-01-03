@@ -14,8 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth.views import LoginView
 from django.urls import include, path, re_path
 from kapsylgram import views
+from django.conf import settings
+from django.conf.urls.static import static
+
+""" from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+) """
 
 app_name = 'Hjalmargram'
 
@@ -23,11 +30,14 @@ urlpatterns = [
     path('hjalmargram/', include('kapsylgram.urls')),
     path('admin/', admin.site.urls),
     path('api/kapsylgram/', views.mainPage),
-    path('api/kapsylgram/login', views.login_user),
+    path('api/kapsylgram/login', views.loginuser, name='login'),
+    path('api/kapsylgram/logout', views.logout_user),
     path('api/kapsylgram/createacc', views.create_user),
     path('api/kapsylgram/follow/<int:pk>', views.follow_user),
     path('api/kapsylgram/profile/<int:pk>', views.profile),
     path('api/kapsylgram/profile/<int:pk>/posts', views.getPosts),
     path('api/kapsylgram/post/<int:pk>', views.getPost),
     path('api/kapsylgram/post/<int:pk>/comments', views.getComments),
-]
+    path('api/kapsylgram/user/isauthenticated', views.checkAuthenticatedView),
+    path('api/kapsylgram/csrf_token', views.GetCSRFToken.as_view())
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

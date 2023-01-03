@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import './css/profile.css'
+import { getUserProfile } from "../../actions/auth";
+import axios from 'axios';
 
 //TODO:
 //Get profile ID
@@ -40,20 +42,52 @@ import './css/profile.css'
 */
 
 class Profile extends Component{
+    //userdetails = null;
     state = {
-        user: [],
+        user: getUserProfile(),
+        userdetails: [],
         posts: []
     }
+    res = axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user.user_id}`).then(res => {
+        //this.userdetails = res.data[0];
+        this.setState({ userdetails: res.data[0] });
+        //console.log(this.state.userdetails);
+    });
+    res = axios.get(`api/kapsylgram/profile/${this.state.user.user_id}/posts`).then(res => {
+        this.setState({ posts: res.data });
+        console.log(res.data);
+
+    }).catch(err => console.log('re'))
+
+    componentDidMount() {
+        this.resetState();
+    }
+
+    getUser = async () => {
+        await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user.user_id}`).then(res => {
+            //this.userdetails = res.data[0];
+            this.setState({ userdetails: res.data[0] });
+            //console.log(this.state.userdetails);
+        });
+    };
+    resetState = () => {
+        this.getUser();
+    };
+
     render(){
+        //this.getUser();
+        const userdetails = this.state.userdetails;
+        const posts = this.state.posts;
+        console.log(userdetails.pfp);
         return(
                 <div>
                     <article class = "profilepic">
-                        <img src="./pfp/LeifTeorin.png"/>
-                        <h2>{this.props.nick}</h2>
-                        <b>@{this.props.user}</b>
+                        <img src={userdetails.pfp}/>
+                        <h2>{userdetails.displayname}</h2>
+                        <b>@{userdetails.username}</b>
                         <br/>
                         <div class = "profileinfo">
-                            <b>Posts:<br/>23</b><a href="#"><b>Followers:</b><br/>{this.props.followers}</a><a href="#"><b>Following:</b><br/>{this.props.following}</a>
+                            <b>Posts:<br/>{posts.length}</b><a href="#"><b>Followers:</b><br/>{this.props.followers}</a><a href="#"><b>Following:</b><br/>{this.props.following}</a>
                         </div>
                         <br/>
                         <div class="followbuttons">
@@ -76,7 +110,7 @@ class Profile extends Component{
                     </article>
                     <article class="noposts">
                         <img src="img/noposts.gif"/>
-                        <p><b>@LeifTeorin</b> has not uploaded any posts yet. :/</p>
+                        <p><b>@{userdetails.username}</b> has not uploaded any posts yet. :/</p>
                     </article>
                 </div>
         )

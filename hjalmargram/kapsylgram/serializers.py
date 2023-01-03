@@ -1,25 +1,40 @@
 from rest_framework import serializers
+#from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User 
+        model = UserProfile 
         fields = ('pk', 'username', 'password', 'displayname', 'email', 'pfp', 'notifications')
     
-class PostSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Post 
-        fields = ('pk', 'postedBy', 'content', 'postedWhen', 'picture', 'comments', 'likes')
 
 class CommentSerializer(serializers.ModelSerializer):
-
+    sender = UserSerializer(read_only=True)
     class Meta:
         model = Comment 
         fields = ('pk', 'sender', 'text', 'commentWhen')
 
-class FollowerSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
+    postedBy = UserSerializer(read_only=True)
+    class Meta:
+        model = Post 
+        fields = ('pk', 'postedBy', 'content', 'postedWhen', 'picture', 'comments', 'likes')
 
+class FollowerSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    another_user = UserSerializer(read_only = True, many=True)
     class Meta:
         model = Followers
         fields = ('pk', 'user', 'another_user')
+
+""" class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        # Add custom claims
+        token['pk'] = user.pk
+        token['username'] = user.username
+        token['email'] = user.email
+        # ...
+        return token """

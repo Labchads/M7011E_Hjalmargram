@@ -1,4 +1,5 @@
 import React, { Component, Fragment, useState } from "react";
+import { checkLoggedIn, useUser } from "./actions/auth";
 /*import {
   BrowserRouter as Router,
   Switch,
@@ -9,19 +10,23 @@ import './main.css';
 
 
 */
-
+import { checkAuthenticated } from "./actions/auth";
+import { logout } from "./actions/auth";
+import {connect} from 'react-redux';
 import Home from "./components/pages/Home";
 import Post  from "./components/Post";
 import Profile from "./components/pages/Profile";
 import Login from "./components/pages/Login";
 import CreateAccount from "./components/pages/CreateAccount";
-
+import { AuthProvider } from "./context/AuthContext";
 
 function App() 
 {
   const [s, setS] = useState(false);
   const [n, setN] = useState(false);
   const [l, setL] = useState(false);
+//  console.log(isAuthenticated)
+
   function navbar(click)
   {
     console.log(click);
@@ -47,14 +52,17 @@ function App()
         break;
       }
     };
+    
  return (
   <div>
-    <nav class ="Top">
+    <nav className ="Top">
         <h2 onClick = {(e) => navbar(null)}>Hjalmargram</h2>
         <button onClick = {(e) => navbar("search")}>Profile</button>
         <button onClick = {(e) => navbar("nots")}>Post</button>
         <button onClick = {(e) => navbar("login")}>Login</button>
+        
     </nav>
+    
     {!s && !n && !l ? <Home /> : null}
     {s ? <Profile user="LeifTeorin" nick="ChalleChad" followers="69" following="1337"/> : null}
     {n ? <Home /> : null}
