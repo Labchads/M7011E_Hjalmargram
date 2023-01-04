@@ -9,6 +9,7 @@ import leifteorin from "./pfp/LeifTeorin.png";
 import noposts from './img/noposts.gif';
 import Comment from "./../Comment";
 import MakePost from "./MakePost";
+import './css/main.css';
 
 console.log(limpowitch);
 console.log(skor);
@@ -21,11 +22,21 @@ class Home extends Component {
     state = {
         user: getUserProfile(),
         posts: [],
-        m: false
+        m: false,
+        time: Date.now()
     }
     
     makepostpage = e => {
         this.setState({m: !this.state.m})
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => this.setState({ time: Date.now() }), 5);
+        console.log('now');
+    }
+    
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     res = axios.get(`http://localhost:8000/api/kapsylgram/`).then(res => {
@@ -34,7 +45,6 @@ class Home extends Component {
 
     render(){
         const posts = this.state.posts;
-
         return(
             <div>
                 <article class ="makePostButton">
@@ -53,12 +63,15 @@ class Home extends Component {
                             <article class="imgposts">
                                 <div class="topOfPost">
                                     <div>
-                                        <img src={post.postedBy.pfp} class="pfp2"/>
+                                        {post.postedBy.pfp != null ?
+                                            <img src={post.postedBy.pfp} class="pfp2"/>
+                                        :   <img src={leifteorin} class="pfp2"/>
+                                        }
                                         <b>{post.postedBy.username}</b>
                                     </div>
-                                    {console.log(post)}
+
                                     <div>
-                                        <span>3h ago</span>
+                                        <span>{post.postedWhen}</span>
                                     </div>
                                 </div>
                                 <hr/>
@@ -79,6 +92,18 @@ class Home extends Component {
                                         commentBy = {post.postedBy.username}
                                         pic = {post.postedBy.pfp!=null ? post.postedBy.pfp: leifteorin}
                                     />
+                                    {post.comments.length > 0 ? (
+                                        <>
+                                            {post.comments.map(comment => (
+                                                <Comment 
+                                                comment_text = {comment.text}
+                                                commentBy = {comment.sender.username}
+                                                pic = {comment.sender.pfp!=null ? comment.sender.pfp: leifteorin}
+                                                />
+                                            )
+                                            )}
+                                        </>
+                                    ) : null}
                                 </div>
                             </article>
                             
