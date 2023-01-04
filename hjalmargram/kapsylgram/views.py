@@ -34,7 +34,7 @@ class IndexView(generic.ListView):
 
 @api_view(['GET', 'POST'])
 def mainPage(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(postedWhen__lte=timezone.now()).order_by('-postedWhen')[:5]
     serializer = PostSerializer(posts, context={'request': request}, many=True)
     return Response(serializer.data)
 
@@ -177,7 +177,7 @@ def getPost(request, pk):
 
 @api_view(['GET'])
 def getPosts(request, pk):
-    user = UserProfile.objects.filter(pk = pk)
+    user = UserProfile.objects.get(pk = pk)
     posts = Post.objects.filter(postedBy = user)
     if posts is not None:
         serializer = PostSerializer(posts, context = {'request': request}, many=True)

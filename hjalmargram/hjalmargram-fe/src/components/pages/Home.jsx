@@ -8,6 +8,7 @@ import kapsyloffer from "./pfp/Kapsyloffer.png";
 import leifteorin from "./pfp/LeifTeorin.png";
 import noposts from './img/noposts.gif';
 import Comment from "./../Comment";
+import MakePost from "./MakePost";
 
 console.log(limpowitch);
 console.log(skor);
@@ -20,6 +21,11 @@ class Home extends Component {
     state = {
         user: getUserProfile(),
         posts: [],
+        m: false
+    }
+    
+    makepostpage = e => {
+        this.setState({m: !this.state.m})
     }
 
     res = axios.get(`http://localhost:8000/api/kapsylgram/`).then(res => {
@@ -32,8 +38,9 @@ class Home extends Component {
         return(
             <div>
                 <article class ="makePostButton">
-                    <button>Make post</button>
+                    <button onClick={this.makepostpage}>Make post</button>
                 </article>
+                {this.state.m ? <MakePost/> : null}
                 {!posts || posts.length <= 0 ? ( 
                     <article class="noposts">
                         <img src={noposts}/>
@@ -60,6 +67,7 @@ class Home extends Component {
                                     <img src={post.picture}/>
                                 </div> 
                                 : null}
+                                <hr/>
                                 <div class="controls">
                                     <button>{post.likes.length}</button>
                                     <b> {post.likes.length} like this.</b>
@@ -70,16 +78,6 @@ class Home extends Component {
                                         comment_text = {post.content}
                                         commentBy = {post.postedBy.username}
                                         pic = {post.postedBy.pfp!=null ? post.postedBy.pfp: leifteorin}
-                                    />
-                                    <Comment
-                                        comment_text = "Not me bro. It's Kapsyloffer"
-                                        commentBy = "Jek9412"
-                                        pic = {jek}
-                                    />
-                                    <Comment
-                                        comment_text = "Nah bro I went home early frfr"
-                                        commentBy = "Kapsyloffer"
-                                        pic = {kapsyloffer}
                                     />
                                 </div>
                             </article>

@@ -52,6 +52,7 @@ class Profile extends Component{
         followercount: 0,
         followingcount: 0,
     }
+
     res = axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user.user_id}`).then(res => {
         //this.userdetails = res.data[0];
         this.setState({ userdetails: res.data[0] });
@@ -92,6 +93,8 @@ class Profile extends Component{
         //this.getUser();
         const userdetails = this.state.userdetails;
         const posts = this.state.posts;
+        const followercount = this.state.followercount;
+        const followingcount = this.state.followingcount;
         console.log(userdetails.pfp);
         return(
                 <div>
@@ -101,7 +104,7 @@ class Profile extends Component{
                         <b>@{userdetails.username}</b>
                         <br/>
                         <div class = "profileinfo">
-                            <b>Posts:<br/>{posts.length}</b><a href="#"><b>Followers:</b><br/>{this.props.followers}</a><a href="#"><b>Following:</b><br/>{this.props.following}</a>
+                            <b>Posts:<br/>{posts.length}</b><a href="#"><b>Followers:</b><br/>{followercount}</a><a href="#"><b>Following:</b><br/>{followingcount}</a>
                         </div>
                         <br/>
                         <div class="followbuttons">
@@ -124,7 +127,9 @@ class Profile extends Component{
                     ) : (
                         <article class="imgposts">
                             {posts.map(post => (
-                                <img src={post.img}/>
+                                <div class="image">
+                                    <img src={post.picture}/>
+                                </div>
                             ))}
                         </article>
                     )}

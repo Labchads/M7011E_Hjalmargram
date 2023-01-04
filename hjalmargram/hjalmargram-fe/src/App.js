@@ -63,7 +63,7 @@ function App()
         <button onClick = {(e) => navbar("login")}>Login</button>
         
     </nav>
-    {/* <MakePost/> */}
+    
     {!s && !n && !l ? <Home /> : null}
     {s ? <Profile user="LeifTeorin" nick="ChalleChad" followers="69" following="1337"/> : null}
     {n ? <Home /> : null}
