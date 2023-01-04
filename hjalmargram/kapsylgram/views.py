@@ -34,14 +34,9 @@ class IndexView(generic.ListView):
 
 @api_view(['GET', 'POST'])
 def mainPage(request):
-    if request.method == 'POST':
-        print(request)
-        u = UserProfile(username = request.username, password = request.password, displayname= request.displayname, email = request.email)
-    else:
-        print(request.session)
-        posts = UserProfile.objects.all()
-        serializer = UserSerializer(posts, context={'request': request}, many=True)
-        return Response(serializer.data)
+    posts = Post.objects.all()
+    serializer = PostSerializer(posts, context={'request': request}, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def profile(request, pk):
@@ -75,7 +70,6 @@ def follow_user(request, pk):
     else:
         return Response(is_followed)
             
-
 
 @api_view(['POST'])
 def loginuser(request):
@@ -151,6 +145,29 @@ def getComments(request, pk):
         comments = post.comments
         serializer = CommentSerializer(comments, context = {'request': request}, many=True)
         return Response(serializer.data)
+
+@api_view(['POST'])
+def createPost(request):
+    data = request.data
+    postedBymodel = UserProfile.objects.get(pk = data['postedBy'])
+    postedBy = UserSerializer(postedBymodel, context = {'request': request})
+    data['postedBy'] = postedBy
+    try:
+        newpost = Post(
+            postedBy = postedBymodel,
+            content = data['content'],
+            picture = data['picture'],
+        )
+        newpost.save()
+        return Response({'success': 'Post was successfully created'})
+    except:
+        return Response({'error': 'Something went wrong'})
+
+    """ serializer = PostSerializer(data = data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'success': 'Post was successfully created'})
+    return Response({'failure': serializer.errors}) """
 
 @api_view(['GET'])
 def getPost(request, pk):

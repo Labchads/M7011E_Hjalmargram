@@ -39,5 +39,6 @@ urlpatterns = [
     path('api/kapsylgram/post/<int:pk>', views.getPost),
     path('api/kapsylgram/post/<int:pk>/comments', views.getComments),
     path('api/kapsylgram/user/isauthenticated', views.checkAuthenticatedView),
-    path('api/kapsylgram/csrf_token', views.GetCSRFToken.as_view())
+    path('api/kapsylgram/csrf_token', views.GetCSRFToken.as_view()),
+    path('api/kapsylgram/makepost', views.createPost),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

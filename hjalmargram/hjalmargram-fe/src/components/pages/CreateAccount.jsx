@@ -67,7 +67,7 @@ class CreateAccount extends Component {
             console.log(res.data);
         })
           .catch(err => console.log(err))
-        };
+    };
         
     
 

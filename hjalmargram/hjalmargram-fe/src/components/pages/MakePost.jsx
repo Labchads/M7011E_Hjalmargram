@@ -3,36 +3,78 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from 'axios';
 import logo from "./img/logo.png";
 import "./css/login.css";
+import './css/main.css';
+import { getUserProfile } from "../../actions/auth";
 
 console.log(logo)
 
 class MakePost extends Component {
-
+    previewImage = null;
+    user = null;
     state = {
-        username: "",
-        email: "",
-        password: ""
+        content: "",
+        picture: null,
+        postedBy: getUserProfile().user_id,
+        comments: [],
+        likes: getUserProfile().user_id,
     };
 
-    loginAccount = e =>{
-        e.preventDefault();
-        axios.post('http://localhost:8000/api/kapsylgram/create-account', this.state)
+    onChangeContent = e => {
+        this.setState({content: e.target.value });
     }
+
+    onChangePicture = e => {
+        this.setState({picture: e.target.files[0] });
+        this.previewImage = URL.createObjectURL(e.target.files[0])
+    }
+
+    makePost = async e =>{
+        e.preventDefault();
+        let formData = new FormData();
+        await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.postedBy}`).then(res => {
+            //this.userdetails = res.data[0];
+            this.user = res.data[0];
+            console.log(this.user);
+        });
+        formData.append('picture', this.state.picture, this.state.picture.name);
+        formData.append('content', this.state.content);
+        formData.append('postedBy', this.state.postedBy);
+        formData.append('comments', this.state.comments);
+        formData.append('likes', this.state.likes);
+        //console.log(this.state.postedBy);
+        //console.log(this.state.likes);
+        console.log(formData);
+        await axios.post('http://localhost:8000/api/kapsylgram/makepost', formData, {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+        }).then(res => {
+            return <h1>{res.data['success']}</h1>
+        })
+        .catch(err => console.log(err));
+    };
 
     render(){
         return(
             //Todo: Kolla om man är logged in annars redirect to login screen.
             <article>
                 <div class="makepost">
-                    <Form onSubmit={this.createAccount}>
+                    <Form onSubmit={this.makePost}>
                         <img src={logo} class="logo"/><br/>
                         <h1>Make Post</h1><br/>
                         <p>Upload image:</p>
-                        <input type="file" accept="image/jpeg,image/png,image/gif" onChange={this.onChangePic}></input>
+                        <input type="file" accept="image/jpeg,image/png,image/gif" onChange={this.onChangePicture}></input>
+                        {this.previewImage ? 
+                        <div class="image">
+                            <p>preview of your pic:</p>
+                            <img src={this.previewImage}/>
+                        </div>
+                        : null}
                         <p>Caption:</p>
-                        <textarea></textarea>
+                        <input type="text" onChange={this.onChangeContent}></input>
+                        <button>Submit</button><br/>
                     </Form><br/>
-                    <button type="submit" form="form1" value="Submit">Submit</button><br/>
+                    
                 </div>
 		    </article>
         )

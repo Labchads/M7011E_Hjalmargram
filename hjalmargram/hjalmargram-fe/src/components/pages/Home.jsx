@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import { getUserProfile } from "../../actions/auth";
+import axios from 'axios';
 import limpowitch from "./pfp/Limpowitch.png";
 import skor from "./img/Skor.png";
 import jek from "./pfp/Jek9412.png";
 import kapsyloffer from "./pfp/Kapsyloffer.png";
 import leifteorin from "./pfp/LeifTeorin.png";
+import noposts from './img/noposts.gif';
 import Comment from "./../Comment";
 
 console.log(limpowitch);
@@ -14,13 +17,78 @@ console.log(leifteorin);
 
 class Home extends Component {
 
+    state = {
+        user: getUserProfile(),
+        posts: [],
+    }
+
+    res = axios.get(`http://localhost:8000/api/kapsylgram/`).then(res => {
+        this.setState({ posts: res.data });
+    });
+
     render(){
+        const posts = this.state.posts;
+
         return(
             <div>
                 <article class ="makePostButton">
                     <button>Make post</button>
                 </article>
-                <article class="Imgpost">
+                {!posts || posts.length <= 0 ? ( 
+                    <article class="noposts">
+                        <img src={noposts}/>
+                        <p>Noone has uploaded any posts yet. :/</p>
+                    </article>
+                ) : (
+                <div>
+                    {posts.map(
+                        post => (
+                            <article class="imgposts">
+                                <div class="topOfPost">
+                                    <div>
+                                        <img src={post.postedBy.pfp} class="pfp2"/>
+                                        <b>{post.postedBy.username}</b>
+                                    </div>
+                                    {console.log(post)}
+                                    <div>
+                                        <span>3h ago</span>
+                                    </div>
+                                </div>
+                                <hr/>
+                                {post.picture != null ?
+                                <div class="image">
+                                    <img src={post.picture}/>
+                                </div> 
+                                : null}
+                                <div class="controls">
+                                    <button>{post.likes.length}</button>
+                                    <b> {post.likes.length} like this.</b>
+                                </div>
+                                <hr/>
+                                <div class="commentfield">
+                                    <Comment
+                                        comment_text = {post.content}
+                                        commentBy = {post.postedBy.username}
+                                        pic = {post.postedBy.pfp!=null ? post.postedBy.pfp: leifteorin}
+                                    />
+                                    <Comment
+                                        comment_text = "Not me bro. It's Kapsyloffer"
+                                        commentBy = "Jek9412"
+                                        pic = {jek}
+                                    />
+                                    <Comment
+                                        comment_text = "Nah bro I went home early frfr"
+                                        commentBy = "Kapsyloffer"
+                                        pic = {kapsyloffer}
+                                    />
+                                </div>
+                            </article>
+                            
+                        )
+                    )}
+                </div>
+                )}
+                {/* <article class="Imgpost">
                     <div class="topOfPost">
                         <div>
                             <img src={limpowitch} class="pfp2"/>
@@ -55,8 +123,8 @@ class Home extends Component {
                             pic = {kapsyloffer}
                         />
                     </div>
-                </article>
-                <article class="Textpost">
+                </article> */}
+                {/* <article class="Textpost">
                     <div class="topOfPost">
                         <div class="topLeft">
                             <img src={kapsyloffer} class="pfp2"/>
@@ -83,7 +151,7 @@ class Home extends Component {
                             pic = {jek}
                         />
                     </div>
-                </article>
+                </article> */}
             </div>
         )
     }

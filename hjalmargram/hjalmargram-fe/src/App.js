@@ -18,6 +18,7 @@ import Post  from "./components/Post";
 import Profile from "./components/pages/Profile";
 import Login from "./components/pages/Login";
 import CreateAccount from "./components/pages/CreateAccount";
+import MakePost from './components/pages/MakePost';
 import { AuthProvider } from "./context/AuthContext";
 
 function App() 
@@ -62,7 +63,7 @@ function App()
         <button onClick = {(e) => navbar("login")}>Login</button>
         
     </nav>
-    
+    {/* <MakePost/> */}
     {!s && !n && !l ? <Home /> : null}
     {s ? <Profile user="LeifTeorin" nick="ChalleChad" followers="69" following="1337"/> : null}
     {n ? <Home /> : null}

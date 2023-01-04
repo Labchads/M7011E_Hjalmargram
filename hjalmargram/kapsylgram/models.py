@@ -48,16 +48,16 @@ class Like(models.Model):
 class Comment(models.Model):
     sender = models.ForeignKey(UserProfile, on_delete = models.CASCADE, verbose_name='the user who left the comment')
     text = models.CharField(max_length=200)
-    commentWhen = models.DateTimeField('date published')
+    commentWhen = models.DateTimeField(auto_now_add=True)
 
     
 class Post(models.Model):
     postedBy = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     content = models.CharField(max_length=200)
-    postedWhen = models.DateTimeField('date published')
+    postedWhen = models.DateTimeField(auto_now_add=True)
     picture = models.ImageField(upload_to='post_images')
-    comments = models.ManyToManyField(Comment)
-    likes = models.ManyToManyField(UserProfile, blank = True, related_name="likes")
+    comments = models.ManyToManyField(Comment, blank=True)
+    likes = models.ManyToManyField(UserProfile, blank = True, related_name='likes')
 
 class Report(models.Model):
     sender = models.ForeignKey(UserProfile, on_delete=models.CASCADE)

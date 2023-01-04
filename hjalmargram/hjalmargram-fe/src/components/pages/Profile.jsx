@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import './css/profile.css'
 import { getUserProfile } from "../../actions/auth";
 import axios from 'axios';
+import noposts from './img/noposts.gif';
+import challe from './pfp/LeifTeorin.png';
 
 //TODO:
 //Get profile ID
@@ -46,7 +48,9 @@ class Profile extends Component{
     state = {
         user: getUserProfile(),
         userdetails: [],
-        posts: []
+        posts: [],
+        followercount: 0,
+        followingcount: 0,
     }
     res = axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user.user_id}`).then(res => {
         //this.userdetails = res.data[0];
@@ -70,8 +74,18 @@ class Profile extends Component{
             //console.log(this.state.userdetails);
         });
     };
+
+    getPosts = async () => {
+        await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user.user_id}/posts`).then(res => {
+            //this.userdetails = res.data[0];
+            this.setState({ posts: res.data});
+            //console.log(this.state.userdetails);
+        });
+    };
+
     resetState = () => {
         this.getUser();
+        this.getPosts();
     };
 
     render(){
@@ -82,7 +96,7 @@ class Profile extends Component{
         return(
                 <div>
                     <article class = "profilepic">
-                        <img src={userdetails.pfp}/>
+                        {userdetails.pfp != null ? <img src={userdetails.pfp}/> : <img src={challe}/>}
                         <h2>{userdetails.displayname}</h2>
                         <b>@{userdetails.username}</b>
                         <br/>
@@ -102,16 +116,24 @@ class Profile extends Component{
                         <button>Videos</button>
                         <button>Texts</button>
                     </article>
-                    <article class="imgposts">
+                    {!posts || posts.length <= 0 ? (
+                        <article class="noposts">
+                            <img src={noposts}/>
+                            <p><b>@{userdetails.username}</b> has not uploaded any posts yet. :/</p>
+                        </article>
+                    ) : (
+                        <article class="imgposts">
+                            {posts.map(post => (
+                                <img src={post.img}/>
+                            ))}
+                        </article>
+                    )}
+                    
                         
-                    </article>
-                    <article class="textposts">
+                    
+                    {/* <article class="textposts">
                         
-                    </article>
-                    <article class="noposts">
-                        <img src="img/noposts.gif"/>
-                        <p><b>@{userdetails.username}</b> has not uploaded any posts yet. :/</p>
-                    </article>
+                    </article> */}
                 </div>
         )
     }
