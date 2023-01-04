@@ -48,9 +48,11 @@ nav
 
 .topOfPost
 {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 7fr;
 	font-size: 2em;
+	width: 100%;
 }
 
 .topRight
@@ -74,8 +76,12 @@ article
 
 .image img
 {
+	aspect-ratio: 1 / 1;
 	width: 100%;
-	height: auto;
+	border: 15px solid transparent;
+  	border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+  	border-image-slice: 1;
+	object-fit: cover;
 }
 
 .controls
@@ -105,17 +111,16 @@ article
 
 .pfp
 {
-	height: 4em;
-	width: 4em;
-	border-radius:50%;
-	border: 2px #000 solid;
-}
-
-.pfp2{
 	height: 2em; 
 	width: 2em;
 	border-radius:50%;
 	border: 2px #000 solid;
+}
+
+.comment b
+{
+	line-height: 1em;
+	text-align: center;
 }
 
 .tag, .tag:visited
@@ -132,4 +137,10 @@ article
 .tag:hover
 {
 	color: gray;
+}
+
+.imgposts
+{
+	display: grid;
+	grid-template-columns: 1fr;
 }

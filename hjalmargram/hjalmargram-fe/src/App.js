@@ -1,15 +1,14 @@
 import React, { Component, Fragment, useState } from "react";
 import { checkLoggedIn, useUser } from "./actions/auth";
-/*import {
+import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import './main.css';
 
 
-*/
+
 import { checkAuthenticated } from "./actions/auth";
 import { logout } from "./actions/auth";
 import {connect} from 'react-redux';
@@ -26,7 +25,6 @@ function App()
   const [s, setS] = useState(false);
   const [n, setN] = useState(false);
   const [l, setL] = useState(false);
-//  console.log(isAuthenticated)
 
   function navbar(click)
   {
@@ -65,10 +63,9 @@ function App()
     </nav>
     
     {!s && !n && !l ? <Home /> : null}
-    {s ? <Profile user="LeifTeorin" nick="ChalleChad" followers="69" following="1337"/> : null}
-    {n ? <Home /> : null}
+    {s ? <Profile/> : null}
+    {n ? <CreateAccount /> : null}
     {l ? <Login /> : null}
-    <h2>Made it here</h2>
   </div>
   );
 }

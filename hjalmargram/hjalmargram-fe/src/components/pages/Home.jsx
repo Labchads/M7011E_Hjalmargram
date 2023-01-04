@@ -60,32 +60,32 @@ class Home extends Component {
                 <div>
                     {posts.map(
                         post => (
-                            <article class="imgposts">
+                            <article class="ImgPost">
                                 <div class="topOfPost">
-                                    <div>
+                                    <div class="poster">
                                         {post.postedBy.pfp != null ?
-                                            <img src={post.postedBy.pfp} class="pfp2"/>
-                                        :   <img src={leifteorin} class="pfp2"/>
+                                            <img src={post.postedBy.pfp} class="pfp"/>
+                                        :   <img src={leifteorin} class="pfp"/>
                                         }
-                                        <b>{post.postedBy.username}</b>
+                                        <b>&nbsp;<a href={post.postedBy.username}>@{post.postedBy.username}</a></b>
                                     </div>
 
                                     <div>
                                         <span>{post.postedWhen}</span>
                                     </div>
                                 </div>
-                                <hr/>
+                                <br/>
                                 {post.picture != null ?
                                 <div class="image">
                                     <img src={post.picture}/>
                                 </div> 
                                 : null}
-                                <hr/>
+                                <br/>
                                 <div class="controls">
                                     <button>{post.likes.length}</button>
                                     <b> {post.likes.length} like this.</b>
                                 </div>
-                                <hr/>
+                                <br/>
                                 <div class="commentfield">
                                     <Comment
                                         comment_text = {post.content}
