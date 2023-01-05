@@ -7,20 +7,15 @@
 .Error
 {
 	Display: grid;
+	width: 90%;
 	grid-template-columns: 1fr;
 }
 
 .Error img
 {
-	width: 60vh;
+	width: 70%;
 	height: auto;
     margin: 0 auto;
-}
-
-.Error Link
-{
-	display: block;
-	text-align: center;
 }
 
 iframe

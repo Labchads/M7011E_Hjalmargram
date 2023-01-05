@@ -65,9 +65,11 @@ class CreateAccount extends Component {
             }
         }).then(res => {
             console.log(res.data);
+            //idk hur jag gör denna automated, we'll figure it out.
+            window.location.href = "/login";
         })
-          .catch(err => console.log(err))
-    };
+          .catch(err => "")
+        };
         
     
 
@@ -77,7 +79,7 @@ class CreateAccount extends Component {
                 <div class="login">
                     <img src={logo} class="logo"/><br/>
                     <h1>Welcome to Hjalmargram!</h1><br/>
-                    <Form onSubmit={this.createAccount}>
+                    <Form >
                         
                         <input type="text" username = "name" placeholder="Username" onChange={this.onChangeUName} required/><br/><br/>
                         <input type="text" displayname = "name" placeholder="Displayname" onChange={this.onChangeDisName} required/><br/><br/>

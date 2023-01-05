@@ -5,6 +5,8 @@ import axios from 'axios';
 import noposts from './img/noposts.gif';
 import challe from './pfp/LeifTeorin.png';
 
+import {useParams} from "react-router-dom";
+
 //TODO:
 //Get profile ID
 //Profilepic = profile.src_pfp
@@ -44,6 +46,7 @@ import challe from './pfp/LeifTeorin.png';
 */
 
 class Profile extends Component{
+
     //userdetails = null;
     state = {
         user: getUserProfile(),

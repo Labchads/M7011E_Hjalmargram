@@ -67,7 +67,7 @@ class Home extends Component {
                                             <img src={post.postedBy.pfp} class="pfp"/>
                                         :   <img src={leifteorin} class="pfp"/>
                                         }
-                                        <b>&nbsp;<a href={post.postedBy.username}>@{post.postedBy.username}</a></b>
+                                        <b>&nbsp;<Link to={`/profile/${post.postedBy.username}`}>@{post.postedBy.username}</Link></b>
                                     </div>
 
                                     <div>
@@ -108,6 +108,8 @@ class Home extends Component {
                                             )}
                                         </>
                                     ) : null}
+                                    {//TODO: FIX
+                                    }
                                     <span>Plese view <Link to={`/post/${post.id}`}>THIS POST </Link> to comment</span>
                                 </div>
                             </article>

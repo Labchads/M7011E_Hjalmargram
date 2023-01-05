@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { useState, useEffect } from 'react';
@@ -48,7 +48,7 @@ export const logout = () => async dispatch => {
 };
 
 export function getUserProfile() {
-    const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, "$1");
     if (!jwt) {
       // No JWT is stored in the cookie, so the user is not logged in
       return null;
@@ -61,7 +61,7 @@ export function getUserProfile() {
 export function useUser() {
     const [user, setUser] = useState(null);
     useEffect(() => {
-      const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+      const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, "$1");
       if (jwt) {
         const decodedJwt = jwtDecode(jwt);
         setUser(decodedJwt);
@@ -71,7 +71,7 @@ export function useUser() {
 }
 
 export function checkLoggedIn() {
-    const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, "$1");
     if (!jwt) {
       // No JWT is stored in the cookie, so the user is not logged in
       console.log(false);

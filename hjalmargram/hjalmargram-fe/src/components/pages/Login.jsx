@@ -7,7 +7,7 @@ import logo from "./img/logo.png";
 import "./css/login.css";
 import { Connect , connect} from "react-redux";
 import CSRFToken from "../CSRFToken";
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link, redirect } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 
 console.log(logo)
@@ -56,6 +56,7 @@ class Login extends Component {
             const decodedJwt = jwtDecode(jwt);
             // The decoded JWT contains the user's information
             console.log(decodedJwt);
+            window.location.href = "/";
         })
         //const token = res.data['token'];
         //console.log(res.data);
@@ -74,7 +75,7 @@ class Login extends Component {
                         <h1>Welcome to Hjalmargram!</h1><br/>
                         <input type="text" name="user" placeholder="Username" onChange={this.onChangeUName} required/><br/><br/>
                         <input type="password" name="pass" placeholder="Password" onChange={this.onChangePassword} required/><br/><br/>
-                        <button>Submit</button><br/>
+                        <button>Log in</button><br/>
                     </Form>
                     <br/>
                     <Link to="/createaccount">Create account</Link><br/>
