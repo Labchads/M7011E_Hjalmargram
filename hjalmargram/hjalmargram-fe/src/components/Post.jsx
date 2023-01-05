@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
 import "./pages/css/main.css";
-import Comment from "./Comment";
-import { useParams } from "react-router-dom";
 
-class Post extends React.Component {
+class Post extends Component {
   
     render() {
-    postid = useParams();
-    console.log(postid);
       return (
         <div>
           <h1>Post {this.postid}</h1>

@@ -8,9 +8,8 @@ import kapsyloffer from "./pfp/Kapsyloffer.png";
 import leifteorin from "./pfp/LeifTeorin.png";
 import noposts from './img/noposts.gif';
 import Comment from "./../Comment";
-import MakePost from "./MakePost";
 import './css/main.css';
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 console.log(limpowitch);
 console.log(skor);
@@ -53,7 +52,7 @@ class Home extends Component {
                 </article>
                 {!posts || posts.length <= 0 ? ( 
                     <article class="noposts">
-                        <img src={noposts}/>
+                        <img src={noposts} alt="noposts"/>
                         <p>Noone has uploaded any posts yet. :/</p>
                     </article>
                 ) : (
@@ -64,8 +63,8 @@ class Home extends Component {
                                 <div class="topOfPost">
                                     <div class="poster">
                                         {post.postedBy.pfp != null ?
-                                            <img src={post.postedBy.pfp} class="pfp"/>
-                                        :   <img src={leifteorin} class="pfp"/>
+                                            <img src={post.postedBy.pfp} class="pfp" alt="poser"/>
+                                        :   <img src={leifteorin} class="pfp" alt="Hjalle idk"/>
                                         }
                                         <b>&nbsp;<Link to={`/profile/${post.postedBy.username}`}>@{post.postedBy.username}</Link></b>
                                     </div>
@@ -77,7 +76,7 @@ class Home extends Component {
                                 <br/>
                                 {post.picture != null ?
                                 <div class="image">
-                                    <img src={post.picture}/>
+                                    <img src={post.picture} alt="imgpost"/>
                                 </div> 
                                 : null}
                                 <br/>

@@ -5,7 +5,7 @@ import axios from 'axios';
 import noposts from './img/noposts.gif';
 import challe from './pfp/LeifTeorin.png';
 
-import {useParams} from "react-router-dom";
+//import {useParams} from "react-router-dom";
 
 //TODO:
 //Get profile ID
@@ -102,12 +102,12 @@ class Profile extends Component{
         return(
                 <div>
                     <article class = "profilepic">
-                        {userdetails.pfp != null ? <img src={userdetails.pfp}/> : <img src={challe}/>}
+                        {userdetails.pfp != null ? <img src={userdetails.pfp} alt="#"/> : <img src={challe} alt="#"/>}
                         <h2>{userdetails.displayname}</h2>
                         <b>@{userdetails.username}</b>
                         <br/>
                         <div class = "profileinfo">
-                            <b>Posts:<br/>{posts.length}</b><a href="#"><b>Followers:</b><br/>{followercount}</a><a href="#"><b>Following:</b><br/>{followingcount}</a>
+                            <b>Posts:<br/>{posts.length}</b><a href="/Followers"><b>Followers:</b><br/>{followercount}</a><a href="/Following"><b>Following:</b><br/>{followingcount}</a>
                         </div>
                         <br/>
                         <div class="followbuttons">
@@ -124,14 +124,14 @@ class Profile extends Component{
                     </article>
                     {!posts || posts.length <= 0 ? (
                         <article class="noposts">
-                            <img src={noposts}/>
+                            <img src={noposts} alt="#"/>
                             <p><b>@{userdetails.username}</b> has not uploaded any posts yet. :/</p>
                         </article>
                     ) : (
                         <article class="imgposts">
                             {posts.map(post => (
                                 <div class="image">
-                                    <img src={post.picture}/>
+                                    <img src={post.picture} alt="#"/>
                                 </div>
                             ))}
                         </article>

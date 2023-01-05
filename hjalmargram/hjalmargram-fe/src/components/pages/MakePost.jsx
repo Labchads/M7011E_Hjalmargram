@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Form } from "reactstrap";
 import axios from 'axios';
 import logo from "./img/logo.png";
 import "./css/login.css";
@@ -60,14 +60,14 @@ class MakePost extends Component {
             <article>
                 <div class="makepost">
                     <Form onSubmit={this.makePost}>
-                        <img src={logo} class="logo"/><br/>
+                        <img src={logo} class="logo" alt="logo"/><br/>
                         <h1>Make Post</h1><br/>
                         <p>Upload image:</p>
                         <input type="file" accept="image/jpeg,image/png,image/gif" onChange={this.onChangePicture}></input>
                         {this.previewImage ? 
                         <div class="image">
                             <p>preview of your pic:</p>
-                            <img src={this.previewImage}/>
+                            <img src={this.previewImage} alt="preview"/>
                         </div>
                         : null}
                         <p>Caption:</p>

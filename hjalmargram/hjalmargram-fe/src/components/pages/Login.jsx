@@ -1,13 +1,13 @@
-import React, { Component, useContext } from "react";
-import AuthContext from "../../context/AuthContext";
+import React, { Component } from "react";
+//import AuthContext from "../../context/AuthContext";
 import Cookies from 'js-cookie';
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Form } from "reactstrap";
 import axios from 'axios';
 import logo from "./img/logo.png";
 import "./css/login.css";
-import { Connect , connect} from "react-redux";
-import CSRFToken from "../CSRFToken";
-import { Redirect, Link, redirect } from 'react-router-dom';
+//import { Connect , connect} from "react-redux";
+//import CSRFToken from "../CSRFToken";
+import { Link } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 
 console.log(logo)
@@ -48,7 +48,7 @@ class Login extends Component {
             document.cookie = `jwt=${token}`;
         // Set the JWT as a default header for all axios requests
             axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
-            const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, "$1");
             if (!jwt) {
             // No JWT is stored in the cookie, so the user is not logged in
             return null;
@@ -71,7 +71,7 @@ class Login extends Component {
             <article>   
                 <div class="login">
                     <Form onSubmit={this.loginAccount}>
-                        <img src={logo} class="logo"/><br/>
+                        <img src={logo} class="logo" alt="logo"/><br/>
                         <h1>Welcome to Hjalmargram!</h1><br/>
                         <input type="text" name="user" placeholder="Username" onChange={this.onChangeUName} required/><br/><br/>
                         <input type="password" name="pass" placeholder="Password" onChange={this.onChangePassword} required/><br/><br/>

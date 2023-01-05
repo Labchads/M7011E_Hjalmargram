@@ -13,7 +13,7 @@ import NotFound from "./components/NotFound";
 function App() 
 {
   let isLogged = false;
-  const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+  const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, "$1");
     if (jwt.length > 4) 
     {
       isLogged = true;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Form } from "reactstrap";
 import axios from 'axios';
 import logo from "./img/logo.png";
 import "./css/login.css";
@@ -77,7 +77,7 @@ class CreateAccount extends Component {
         return(
             <article>
                 <div class="login">
-                    <img src={logo} class="logo"/><br/>
+                    <img src={logo} class="logo" alt="logo"/><br/>
                     <h1>Welcome to Hjalmargram!</h1><br/>
                     <Form >
                         
@@ -89,7 +89,7 @@ class CreateAccount extends Component {
                         
                         <br/><br/>
                         <p>preview of your pic:</p>
-                        <img src={this.previewImage} class = "preview"/>
+                        <img src={this.previewImage} class = "preview" alt="preview"/>
                         <h1>{this.state.username}</h1>
                         <h1>{this.state.displayname}</h1>
                         <h2>{this.err}</h2>

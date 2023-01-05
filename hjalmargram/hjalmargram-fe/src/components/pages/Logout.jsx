@@ -1,7 +1,5 @@
-import React, { Component, useContext } from "react";
+import React, { Component } from "react";
 import Cookies from 'js-cookie';
-import axios from 'axios';
-import logo from "./img/logo.png";
 
 class Logout extends Component 
 { 
