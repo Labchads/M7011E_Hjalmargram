@@ -65,10 +65,9 @@ class CreateAccount extends Component {
             }
         }).then(res => {
             console.log(res.data);
-            //idk hur jag gör denna automated, we'll figure it out.
-            window.location.href = "/login";
+            //idk hur jag gör denna automated, we'll figure it out
         })
-          .catch(err => "")
+          .catch(err => "error")
         };
         
     

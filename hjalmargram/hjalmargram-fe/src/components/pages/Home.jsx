@@ -17,6 +17,13 @@ console.log(jek);
 console.log(kapsyloffer);
 console.log(leifteorin);
 
+    let isLogged = false;
+  const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, "$1");
+    if (jwt.length > 4) 
+    {
+      isLogged = true;
+    }
+
 class Home extends Component {
 
     state = {
@@ -48,7 +55,7 @@ class Home extends Component {
         return(
             <div>
                 <article>
-                <Link to="/makepost"> Make post </Link>
+                {isLogged ? <Link to="/makepost"> Make post </Link> : <p>Plz login to post</p>}
                 </article>
                 {!posts || posts.length <= 0 ? ( 
                     <article class="noposts">

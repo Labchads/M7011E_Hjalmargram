@@ -49,6 +49,7 @@ class MakePost extends Component {
               'content-type': 'multipart/form-data'
             }
         }).then(res => {
+            window.location.href ="/";
             return <h1>{res.data['success']}</h1>
         })
         .catch(err => console.log(err));

@@ -1,16 +1,17 @@
-import React, { Component } from "react";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+
 import "./pages/css/main.css";
 
-class Post extends Component {
-  
-    render() {
-      return (
-        <div>
-          <h1>Post {this.postid}</h1>
-          {/* Render the post with the given postid */}
-        </div>
-      );
-    }
-  }  
+const Post = (props) => 
+{
+  var params = useLocation().pathname.split("/");
+  let postID = params[2];
+  //TODO: 
+  //Use axios och fetcha post
+  //Om den finns, render, om inte, 404
+  //???
+  //Prodit
+}  
 
 export default Post;

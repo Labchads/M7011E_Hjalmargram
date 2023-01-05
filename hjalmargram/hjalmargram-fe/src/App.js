@@ -23,9 +23,11 @@ function App()
       <div>
         <nav className="Top">
           <h2><Link to="/">Hjalmargram</Link></h2>
-          <Link to="/profile">Profile</Link>
+          <Link to="/profile/me">Profile</Link>
           <Link to="/post">Post</Link>
+          <div>
           {isLogged ? <Link to="/logout">Log out</Link> : <Link to="/login">Login</Link>}
+          </div>
         </nav>
       <Routes>
         <Route exact path="/" element={<Home/>} />

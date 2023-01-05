@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useLocation} from "react-router-dom";
 import './css/profile.css'
 import { getUserProfile } from "../../actions/auth";
 import axios from 'axios';
@@ -45,9 +46,10 @@ import challe from './pfp/LeifTeorin.png';
 </article>
 */
 
-class Profile extends Component{
 
-    //userdetails = null;
+
+class Profile extends Component{
+        //userdetails = null;
     state = {
         user: getUserProfile(),
         userdetails: [],
