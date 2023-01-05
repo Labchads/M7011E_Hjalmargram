@@ -9,8 +9,8 @@ class Comment extends Component{
     render(){
         return(
             <div class ="comment">
-                <p><img src={this.props.pic} class="pfp"/>
-                <b><a class="commenter">@{this.props.commentBy}</a>:  </b>{this.props.comment_text}</p>
+                <p><img src={this.props.pic} class="pfp"/> 
+                <b>     <a href={this.props.commentBy} class="commenter">@{this.props.commentBy}</a>:  </b>{this.props.comment_text}</p>
             </div>
         )
     }

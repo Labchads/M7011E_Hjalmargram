@@ -4,6 +4,11 @@
 	margin: 0;
 }
 
+iframe
+{
+	display: none;
+}
+
 html, body
 {
 	background-image: linear-gradient(to bottom, purple, black);
@@ -17,10 +22,6 @@ span
 	font-size: 0.75em;
 }
 
-.top h2
-{
-	font-family: ;
-}
 
 nav
 {
@@ -55,6 +56,16 @@ nav
 	width: 100%;
 }
 
+.Top
+{
+	justify-content: space-between;
+}
+
+.Top button
+{
+	width: 20%;
+}
+
 .topRight
 {
 	padding: auto, 0;
@@ -86,9 +97,20 @@ article
 
 .controls
 {
-	font-size: 1em;
-	display:flex;
-	padding: 2em;
+	font-size: 2em;
+	display:grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.controls button
+{
+	font-size: 2em;
+	color: black;
+}
+
+.controls button:focus
+{
+	background-color: red;
 }
 
 article
@@ -98,13 +120,21 @@ article
 
 .commentfield
 {
+	width: 100%;
+}
+
+.commentfield span
+{
+	text-align: center;
+	width: 100%;
+	font-size: 1em;
 }
 
 .comment
 {
-	width: 90%;
+	width: 95%;
 	border: 1px #000 solid;
-	padding: 1em;
+	padding: 1em 1em 0em 1em;
 	margin: 1em auto;
 	font-size: 1.5em;
 }

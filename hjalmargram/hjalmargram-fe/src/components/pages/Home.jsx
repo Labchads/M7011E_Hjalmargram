@@ -10,6 +10,7 @@ import noposts from './img/noposts.gif';
 import Comment from "./../Comment";
 import MakePost from "./MakePost";
 import './css/main.css';
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 console.log(limpowitch);
 console.log(skor);
@@ -47,10 +48,9 @@ class Home extends Component {
         const posts = this.state.posts;
         return(
             <div>
-                <article class ="makePostButton">
-                    <button onClick={this.makepostpage}>Make post</button>
+                <article>
+                <Link to="/makepost"> Make post </Link>
                 </article>
-                {this.state.m ? <MakePost/> : null}
                 {!posts || posts.length <= 0 ? ( 
                     <article class="noposts">
                         <img src={noposts}/>
@@ -82,11 +82,15 @@ class Home extends Component {
                                 : null}
                                 <br/>
                                 <div class="controls">
-                                    <button>{post.likes.length}</button>
-                                    <b> {post.likes.length} like this.</b>
+                                    {/*Todo: toggla like, 
+                                    om du laddar om sidan och 
+                                    redan har likeat ska det synas.*/}
+                                    <button>❤</button>
+                                    <b>&nbsp;&nbsp; {post.likes.length} users like this.</b>
                                 </div>
                                 <br/>
                                 <div class="commentfield">
+                                    <h2>Comments:</h2>
                                     <Comment
                                         comment_text = {post.content}
                                         commentBy = {post.postedBy.username}
@@ -104,6 +108,7 @@ class Home extends Component {
                                             )}
                                         </>
                                     ) : null}
+                                    <span>Plese view <a href="{post.id}">this post</a> to comment</span>
                                 </div>
                             </article>
                             

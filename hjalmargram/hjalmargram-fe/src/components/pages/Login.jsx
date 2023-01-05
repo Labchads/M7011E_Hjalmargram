@@ -77,7 +77,7 @@ class Login extends Component {
                         <button>Submit</button><br/>
                     </Form>
                     <br/>
-                    <button>Create account</button><br/>
+                    <Link to="/createaccount">Create account</Link><br/>
                     <h2>OR</h2><br/>
                     <b>Login with google</b>
                 </div>
