@@ -108,7 +108,7 @@ class Home extends Component {
                                             )}
                                         </>
                                     ) : null}
-                                    <span>Plese view <a href="{post.id}">this post</a> to comment</span>
+                                    <span>Plese view <Link to={`/post/${post.id}`}>THIS POST </Link> to comment</span>
                                 </div>
                             </article>
                             

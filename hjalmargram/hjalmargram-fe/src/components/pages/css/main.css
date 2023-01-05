@@ -4,6 +4,25 @@
 	margin: 0;
 }
 
+.Error
+{
+	Display: grid;
+	grid-template-columns: 1fr;
+}
+
+.Error img
+{
+	width: 60vh;
+	height: auto;
+    margin: 0 auto;
+}
+
+.Error Link
+{
+	display: block;
+	text-align: center;
+}
+
 iframe
 {
 	display: none;

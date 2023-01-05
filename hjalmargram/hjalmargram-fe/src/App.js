@@ -7,6 +7,7 @@ import Login from "./components/pages/Login";
 import CreateAccount from "./components/pages/CreateAccount";
 import MakePost from "./components/pages/MakePost";
 import Post from "./components/Post";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -20,11 +21,12 @@ function App() {
         </nav>
       <Routes>
         <Route path="/profile" element={<Profile/>} />
-        <Route path="/post" element={<Post />} />
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/makepost" element={<MakePost />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/post/:postid" element={<Post />} />
         <Route exact path="/" element={<Home/>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       </div>
     </BrowserRouter>
