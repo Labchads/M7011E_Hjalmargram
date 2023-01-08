@@ -324,7 +324,7 @@ article
 	{
 		grid-area: 1 / 1 / 2 / 3;
 	}
-	.image
+	.imgPost .image
 	{
 		grid-area: 2 / 1 / auto / 2;
 	}
@@ -389,11 +389,4 @@ span
 	border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
 	border-image-slice: 1;
 	object-fit: cover;
-}
-
-/*profile universal*/
-.imgposts
-{
-	display: grid;
-	grid-template-columns: 1fr;
 }
