@@ -305,7 +305,7 @@
 article
 	{
 		margin: 1em auto;
-		width: 90%;
+		width: 80%;
 		padding: 2em;
 		background-color: white;
 		border-radius: 20px;
@@ -324,13 +324,15 @@ article
 	{
 		grid-area: 1 / 1 / 2 / 3;
 	}
-	.imgPost .image
+	.ImgPost .image
 	{
 		grid-area: 2 / 1 / auto / 2;
 	}
 	.commentfield
 	{
 		grid-area: 2 / 2 / auto / 3;
+		aspect-ratio: 1/1;
+		overflow-y:auto;
 	}
 	.controls
 	{
