@@ -3,168 +3,353 @@
 	font-family: 'Helvetica', 'Arial', sans-serif;
 	margin: 0;
 }
-
-.Error
+/*Mobile css*/
+@media all and (orientation:portrait) 
 {
-	Display: grid;
-	width: 90%;
-	grid-template-columns: 1fr;
+
+/*Mobile css*/
+	.Error
+	{
+		Display: grid;
+		width: 90%;
+		grid-template-columns: 1fr;
+	}
+
+	.Error img
+	{
+		width: 70%;
+		height: auto;
+		margin: 0 auto;
+	}
+
+/*Mobile css*/
+	iframe
+	{
+		display: none;
+	}
+
+/*Mobile css*/
+	html, body
+	{
+		background-image: linear-gradient(to bottom, purple, black);
+		margin: 0;
+		padding: 0;
+		min-height: 100vh;
+	}
+
+/*Mobile css*/
+	.spanTime
+	{
+		align-content: right;
+		justify-content: right;
+		font-size: 0.75em;
+	}
+/*Mobile css*/
+	nav
+	{
+		padding-left: 0px;
+		padding-right: 0px;
+		margin-right: 0px;
+		margin-left: 0px;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		background-color: white;
+	}
+
+/*Mobile css*/
+	.makePostButton
+	{
+		display: flex;
+		justify-content: space-around;
+	}
+
+/*Mobile css*/
+	.makePostButton button
+	{
+		width: 50%;
+		height: 4em;
+	}
+
+/*Mobile css*/
+	.topOfPost
+	{
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: 7fr;
+		width: 100%;
+		font-size: 2em;
+		height: 50%;
+	}
+
+/*Mobile css*/
+	.Top
+	{
+		justify-content: space-between;
+	}
+
+	.Top button
+	{
+		width: 20%;
+	}
+
+/*Mobile css*/
+	.topRight
+	{
+		padding: auto, 0;
+	}
+
+	.topOfPost b, span
+	{
+		line-height: 1em;
+		text-align: center;
+	}
+
+/*Mobile css*/
+	article
+	{
+		margin: 1em auto;
+		width: 100%;
+		padding: 2em;
+		background-color: white;
+	}
+
+/*Mobile css*/
+
+
+	.controls
+	{
+		font-size: 0.5em;
+		display:grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+/*Mobile css*/
+	article
+	{
+		border-radius: 20px;
+	}
+
+	.commentfield
+	{
+		width: 100%;
+	}
+
+/*Mobile css*/
+	.commentfield span
+	{
+		text-align: center;
+		width: 100%;
+		font-size: 1em;
+	}
+
+	.comment
+	{
+		width: 95%;
+		border: 1px #000 solid;
+		padding: 1em 1em 0em 1em;
+		margin: 1em auto;
+		font-size: 1.5em;
+	}
+
+/*Mobile css*/
+	.pfp
+	{
+		height: 2em; 
+		width: 2em;
+		border-radius:50%;
+		border: 2px #000 solid;
+	}
+
+	.comment b
+	{
+		line-height: 1em;
+		text-align: center;
+	}
 }
 
-.Error img
+/*Desktop css*/
+@media all and (orientation:landscape) 
 {
-	width: 70%;
-	height: auto;
-    margin: 0 auto;
+
+/*Desktop css*/
+	.Error
+	{
+		Display: grid;
+		width: 90%;
+		grid-template-columns: 1fr;
+	}
+
+	.Error img
+	{
+		width: 70%;
+		height: auto;
+		margin: 0 auto;
+	}
+
+/*Desktop css*/
+	iframe
+	{
+		display: none;
+	}
+
+	html, body
+	{
+		background-image: linear-gradient(to bottom, black, blue);
+		margin: 0;
+		padding: 0;
+		min-height: 100vh;
+	}
+
+/*Desktop css*/
+	span
+	{
+		font-size: 0.75em;
+	}
+
+
+	nav
+	{
+		padding-left: 0px;
+		padding-right: 0px;
+		margin-right: 0px;
+		margin-left: 0px;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		background-color: white;
+	}
+
+/*Desktop css*/
+	.makePostButton
+	{
+		display: flex;
+		justify-content: space-around;
+	}
+
+	.makePostButton button
+	{
+		width: 50%;
+		height: 4em;
+	}
+
+/*Desktop css*/
+	.topOfPost
+	{
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: 7fr;
+		font-size: 2em;
+		width: 100%;
+	}
+
+/*Desktop css*/
+	.Top
+	{
+		justify-content: space-between;
+	}
+
+/*Desktop css*/
+	.Top button
+	{
+		width: 20%;
+	}
+
+	.topRight
+	{
+		padding: auto, 0;
+	}
+
+/*Desktop css*/
+	.topOfPost b
+	{
+		line-height: 1em;
+		text-align: center;
+	}
+
+/*Desktop css*/
+	.commentfield span
+	{
+		text-align: center;
+		width: 100%;
+		font-size: 1em;
+	}
+
+	.comment
+	{
+		width: 95%;
+		border: 1px #000 solid;
+		padding: 1em 1em 0em 1em;
+		margin: 1em auto;
+		font-size: 1.5em;
+	}
+
+/*Desktop css*/
+	.pfp
+	{
+		height: 2em; 
+		width: 2em;
+		border-radius:50%;
+		border: 2px #000 solid;
+	}
+
+/*Desktop css*/
+	.comment b
+	{
+		line-height: 1em;
+		text-align: center;
+	}
+
+	/*IMGPOSTS*/
+/*Desktop css*/
+article
+	{
+		margin: 1em auto;
+		width: 70%;
+		padding: 2em;
+		background-color: white;
+		border-radius: 20px;
+	}
+
+	.ImgPost
+	{
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(auto, 1fr);
+		grid-column-gap: 0px;
+		grid-row-gap: 0px;
+	}
+
+	.topOfPost
+	{
+		grid-area: 1 / 1 / 2 / 3;
+	}
+	.image
+	{
+		grid-area: 2 / 1 / auto / 2;
+	}
+	.commentfield
+	{
+		grid-area: 2 / 2 / auto / 3;
+	}
+	.controls
+	{
+		grid-area: 10 / 1 / auto / 3;
+	}
+
+	.controls
+	{
+		font-size: 2em;
+		display:grid;
+		grid-template-columns: 1fr 1fr;
+	}
 }
 
-iframe
-{
-	display: none;
-}
-
-html, body
-{
-	background-image: linear-gradient(to bottom, purple, black);
-	margin: 0;
-	padding: 0;
-	min-height: 100vh;
-}
+/*UNIVERSAL CSS*/
 
 span
 {
-	font-size: 0.75em;
-}
-
-
-nav
-{
-	padding-left: 0px;
-    padding-right: 0px;
-    margin-right: 0px;
-    margin-left: 0px;
-    width: 100%;
-	display: flex;
-	justify-content: space-between;
-	background-color: white;
-}
-
-.makePostButton
-{
-	display: flex;
-	justify-content: space-around;
-}
-
-.makePostButton button
-{
-	width: 50%;
-	height: 4em;
-}
-
-.topOfPost
-{
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	column-gap: 7fr;
-	font-size: 2em;
-	width: 100%;
-}
-
-.Top
-{
-	justify-content: space-between;
-}
-
-.Top button
-{
-	width: 20%;
-}
-
-.topRight
-{
-	padding: auto, 0;
-}
-
-.topOfPost b
-{
-  	line-height: 1em;
-  	text-align: center;
-}
-
-article
-{
-	margin: 1em auto;
-  	width: 50em;
-  	padding: 2em;
-	background-color: white;
-}
-
-.image img
-{
-	aspect-ratio: 1 / 1;
-	width: 100%;
-	border: 15px solid transparent;
-  	border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
-  	border-image-slice: 1;
-	object-fit: cover;
-}
-
-.controls
-{
-	font-size: 2em;
-	display:grid;
-	grid-template-columns: 1fr 1fr;
-}
-
-.controls button
-{
-	font-size: 2em;
-	color: black;
-}
-
-.controls button:focus
-{
-	background-color: red;
-}
-
-article
-{
-	border-radius: 20px;
-}
-
-.commentfield
-{
-	width: 100%;
-}
-
-.commentfield span
-{
-	text-align: center;
-	width: 100%;
-	font-size: 1em;
-}
-
-.comment
-{
-	width: 95%;
-	border: 1px #000 solid;
-	padding: 1em 1em 0em 1em;
-	margin: 1em auto;
-	font-size: 1.5em;
-}
-
-.pfp
-{
-	height: 2em; 
-	width: 2em;
-	border-radius:50%;
-	border: 2px #000 solid;
-}
-
-.comment b
-{
-	line-height: 1em;
-	text-align: center;
+	float: right;
 }
 
 .tag, .tag:visited
@@ -183,6 +368,30 @@ article
 	color: gray;
 }
 
+.controls button
+{
+	font-size: 2em;
+	color: black;
+}
+
+.controls button:focus
+{
+	color: red;
+}
+
+/*Image: Universal*/
+
+.image img
+{
+	aspect-ratio: 1 / 1;
+	width: 100%;
+	border: 15px solid transparent;
+	border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+	border-image-slice: 1;
+	object-fit: cover;
+}
+
+/*profile universal*/
 .imgposts
 {
 	display: grid;

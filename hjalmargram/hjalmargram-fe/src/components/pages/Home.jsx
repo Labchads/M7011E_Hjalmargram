@@ -76,8 +76,8 @@ class Home extends Component {
                                         <b>&nbsp;<Link to={`/profile/${post.postedBy.username}`}>@{post.postedBy.username}</Link></b>
                                     </div>
 
-                                    <div>
-                                        <span>{post.postedWhen}</span>
+                                    <div class="spanTime">
+                                        <span>{/*post.postedWhen*/} 2h ago</span>
                                     </div>
                                 </div>
                                 <br/>
@@ -122,6 +122,9 @@ class Home extends Component {
                             
                         )
                     )}
+                    <article>
+                        <a href="#">LOAD MORE</a> {/*Fixa den här sen*/}
+                    </article>
                 </div>
                 )}
                 {/* <article class="Imgpost">
