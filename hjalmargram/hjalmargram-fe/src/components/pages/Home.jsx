@@ -85,7 +85,7 @@ class Home extends Component {
                                     </div>
 
                                     <div class="spanTime">
-                                        <span>{/*post.postedWhen*/} 2h ago</span>
+                                        <span>{post.postedWhen}{/* 2h ago */}</span>
                                     </div>
                                 </div>
                                 <br/>

@@ -31,11 +31,11 @@ class MakePost extends Component {
     makePost = async e =>{
         e.preventDefault();
         let formData = new FormData();
-        await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.postedBy}`).then(res => {
+        /* await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.postedBy}`).then(res => {
             //this.userdetails = res.data[0];
             this.user = res.data[0];
             console.log(this.user);
-        });
+        }); */
         formData.append('picture', this.state.picture, this.state.picture.name);
         formData.append('content', this.state.content);
         formData.append('postedBy', this.state.postedBy);
