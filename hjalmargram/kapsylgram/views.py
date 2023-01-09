@@ -44,6 +44,12 @@ def profile(request, pk):
     serializer = UserSerializer(user, context = {'request': request}, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def profile_with_name(request, username):
+    user = UserProfile.objects.filter(username = username)
+    serializer = UserSerializer(user, context = {'request': request}, many=True)
+    return Response(serializer.data)
+
 @api_view(['POST'])
 def follow_user(request, pk):
     try:

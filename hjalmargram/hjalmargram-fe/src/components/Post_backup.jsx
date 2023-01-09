@@ -17,14 +17,16 @@ class Post extends Component {
         post: [],
         comments: []
     };
+    res = axios.get(`http://localhost:8000/api/kapsylgram/post/${this.props.match.params.postId}/comments`).then(res => this.setState({ comments: res.data }));
+    res2 = axios.get(`http://localhost:8000/api/kapsylgram/post/${this.props.match.params.postId}`).then(res => this.setState({ post: res.data }));
     componentDidMount() {
         this.resetState();
     }
     getComments = () => {
-        axios.get(`http://localhost:8000/api/kapsylgram/post/${this.props.postid}/comments`).then(res => this.setState({ comments: res.data }));
+        axios.get(`http://localhost:8000/api/kapsylgram/post/${this.props.match.params.postId}/comments`).then(res => this.setState({ comments: res.data }));
     };
     getPost = () => {
-        axios.get(`http://localhost:8000/api/kapsylgram/post/${this.props.postid}`).then(res => this.setState({ post: res.data }));
+        axios.get(`http://localhost:8000/api/kapsylgram/post/${this.props.match.params.postId}`).then(res => this.setState({ post: res.data }));
     };
     resetState = () => {
         this.getComments();
@@ -32,8 +34,6 @@ class Post extends Component {
     };
 
     render(){
-        this.getPost();
-        this.getComments();
         const post = this.state.post[0];
         const comments = this.state.comments;
         const postedBy = post.postedBy;
