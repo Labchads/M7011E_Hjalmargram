@@ -124,7 +124,7 @@ class Home extends Component {
                                     ) : null}
                                     {//TODO: FIX
                                     }
-                                    <span>Plese view <Link to={`/post/${post.id}`}>THIS POST </Link> to comment</span>
+                                    <span>Plese view <Link to={`/post/${post.pk}`}>THIS POST </Link> to comment</span>
                                 </div>
                             </article>
                             
