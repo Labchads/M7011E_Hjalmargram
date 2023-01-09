@@ -37,6 +37,14 @@ class Home extends Component {
         this.setState({m: !this.state.m})
     }
 
+    loadMore = async e => {
+        let currposts = this.state.posts;
+        let res = axios.post(`http://localhost:8000/api/kapsylgram/`, {'last_post': currposts.length}).then(res => {
+            let newposts = res.data;
+            this.setState({ posts: currposts.concat(newposts) });
+        });
+    }
+
     componentDidMount() {
         this.interval = setInterval(() => this.setState({ time: Date.now() }), 5);
         console.log('now');
@@ -123,7 +131,7 @@ class Home extends Component {
                         )
                     )}
                     <article>
-                        <a href="#">LOAD MORE</a> {/*Fixa den här sen*/}
+                        <button onClick={this.loadMore}>Load More</button>
                     </article>
                 </div>
                 )}

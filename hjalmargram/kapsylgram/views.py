@@ -34,13 +34,19 @@ class IndexView(generic.ListView):
 
 @api_view(['GET', 'POST'])
 def mainPage(request):
-    posts = Post.objects.filter(postedWhen__lte=timezone.now()).order_by('-postedWhen')[:5]
-    serializer = PostSerializer(posts, context={'request': request}, many=True)
-    return Response(serializer.data)
+    data = request.data
+    if request.method == 'POST':
+        posts = Post.objects.filter(postedWhen__lte=timezone.now()).order_by('-postedWhen')[data['last_post']:data['last_post'] + 5]
+        serializer = PostSerializer(posts, context={'request': request}, many=True)
+        return Response(serializer.data)
+    else:    
+        posts = Post.objects.filter(postedWhen__lte=timezone.now()).order_by('-postedWhen')[:5]
+        serializer = PostSerializer(posts, context={'request': request}, many=True)
+        return Response(serializer.data)
 
 @api_view(['GET'])
 def profile(request, pk):
-    user = UserProfile.objects.filter(pk = pk)
+    user = UserProfile.objects.filter(pk = pk, postedWhen__lte=timezone.now()).order_by('postedWhen')
     serializer = UserSerializer(user, context = {'request': request}, many=True)
     return Response(serializer.data)
 
