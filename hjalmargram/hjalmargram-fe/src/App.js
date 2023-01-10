@@ -31,8 +31,8 @@ function App()
       <div>
         <nav className="Top">
           <h2><Link to="/">Hjalmargram</Link></h2>
-          <Link to="/profile/me">Profile</Link>
-          <Link to="/dms">Direct Messages</Link>
+          {isLogged ? <Link to='/profile/me'>Profile</Link> : null}
+          {isLogged ? <Link to="/dms">Direct Messages</Link> : null}
           <div>
           {isLogged ? <Link to="/logout">Log out</Link> : <Link to="/login">Login</Link>}
           </div>

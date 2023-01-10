@@ -5,7 +5,7 @@ from .models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile 
-        fields = ('pk', 'username', 'password', 'displayname', 'email', 'pfp', 'notifications')
+        fields = ('pk', 'username', 'password', 'displayname', 'email', 'pfp', 'is_admin', 'is_superuser', 'notifications')
     
 
 class CommentSerializer(serializers.ModelSerializer):

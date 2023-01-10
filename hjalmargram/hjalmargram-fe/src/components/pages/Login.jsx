@@ -51,7 +51,7 @@ class Login extends Component {
             const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, "$1");
             if (!jwt) {
             // No JWT is stored in the cookie, so the user is not logged in
-            return null;
+                return null;
             }
             const decodedJwt = jwtDecode(jwt);
             // The decoded JWT contains the user's information

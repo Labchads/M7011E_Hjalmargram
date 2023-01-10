@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import Cookies from 'js-cookie';
+import { logout } from "../../actions/auth";
 
 class Logout extends Component 
 { 
     render()
     {
-        Cookies.remove('jwt')
+        logout();
         window.location.href = "/";  
         return(
             <article>   

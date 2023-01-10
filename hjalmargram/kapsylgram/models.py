@@ -14,19 +14,49 @@ class Message(models.Model):
     isRead = models.SmallIntegerField()
     msgDate = models.DateTimeField('date sent')
 
-class UserProfile(AbstractBaseUser):
+class UserProfileManager(BaseUserManager):
+    """helps django work with our custom user model"""
+    def create_user(self,email,username, displayname, password = None, pfp = None):
+        if not email:
+            raise ValueError('User must have email')
+        email = self.normalize_email(email)
+        user = self.model(email=email, username=username, displayname = displayname, pfp = pfp)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self,email,username,password):
+        """creates and saves a new superuser with given details"""
+        user = self.create_user(email, username, "SuperAdminOfJustice", password)
+        user.is_superuser = True
+        user.is_staff = True
+        user.save(using=self._db) 
+
+class UserProfile(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=30, unique=True)
 #    password = models.CharField(max_length=30, unique=True)
     displayname = models.CharField(max_length=30)
     email = models.CharField(max_length=50, unique=True)
     pfp = models.ImageField(blank=True, upload_to='profile_pictures')
     notifications = models.ManyToManyField(Notification, blank=True)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+    """ is_superuser = models.BooleanField(default = False)
+    is_staff = models.BooleanField(default = False) """
+
+    objects = UserProfileManager()
 
     USERNAME_FIELD = 'username'  # specify the unique field
-    REQUIRED_FIELDS = ['email', 'displayname']  # specify
+    REQUIRED_FIELDS = ['email']  # specify
 
     def __str__(self):
         return self.username
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_admin
 
 class Followers(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)

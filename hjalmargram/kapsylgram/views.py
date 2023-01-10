@@ -188,6 +188,16 @@ def getPost(request, pk):
     return Response(serializer.data)
 
 @api_view(['GET'])
+def getPostsUsername(request, username):
+    user = UserProfile.objects.get(username = username)
+    posts = Post.objects.filter(postedBy = user).order_by('-postedWhen')
+    if posts is not None:
+        serializer = PostSerializer(posts, context = {'request': request}, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({'noPosts': 'no posts here sorry'})
+
+@api_view(['GET'])
 def getPosts(request, pk):
     user = UserProfile.objects.get(pk = pk)
     posts = Post.objects.filter(postedBy = user).order_by('-postedWhen')

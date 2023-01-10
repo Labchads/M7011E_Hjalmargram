@@ -6,6 +6,7 @@ import { getUserProfile } from "../../actions/auth";
 import axios from 'axios';
 import noposts from './img/noposts.gif';
 import challe from './pfp/LeifTeorin.png';
+import NotFound from "../NotFound";
 
 //import {useParams} from "react-router-dom";
 
@@ -49,9 +50,9 @@ import challe from './pfp/LeifTeorin.png';
 
 
 let view = 0;
+var username = window.location.pathname.split("/")[2];
 
 class Profile extends Component{
-        //userdetails = null;
     state = {
         user: getUserProfile(),
         userdetails: [],
@@ -60,23 +61,19 @@ class Profile extends Component{
         followingcount: 0,
     }
 
-    res = axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user.user_id}`).then(res => {
-        //this.userdetails = res.data[0];
+    res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${username}`).then(res => {
+        //this.state.userdetails = res.data[0];
         this.setState({ userdetails: res.data[0] });
         //console.log(this.state.userdetails);
     });
-    res = axios.get(`api/kapsylgram/profile/${this.state.user.user_id}/posts`).then(res => {
+    res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${username}/posts`).then(res => {
         this.setState({ posts: res.data });
-        console.log(res.data);
-
-    }).catch(err => console.log('re'))
-
-    componentDidMount() {
-        this.resetState();
-    }
+        //console.log(res.data);
+        //this.state.posts = res.data;
+    }).catch(err => console.log(err))
 
     getUser = async () => {
-        await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user.user_id}`).then(res => {
+        await axios.get(`http://localhost:8000/api/kapsylgram/profilename/${username}`).then(res => {
             //this.userdetails = res.data[0];
             this.setState({ userdetails: res.data[0] });
             //console.log(this.state.userdetails);
@@ -84,7 +81,7 @@ class Profile extends Component{
     };
 
     getPosts = async () => {
-        await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user.user_id}/posts`).then(res => {
+        await axios.get(`http://localhost:8000/api/kapsylgram/profilename/${username}/posts`).then(res => {
             //this.userdetails = res.data[0];
             this.setState({ posts: res.data});
             //console.log(this.state.userdetails);
@@ -99,10 +96,13 @@ class Profile extends Component{
     render(){
         //this.getUser();
         const userdetails = this.state.userdetails;
+        if(userdetails == null){
+            return <NotFound/>
+        }
         const posts = this.state.posts;
         const followercount = this.state.followercount;
         const followingcount = this.state.followingcount;
-        console.log(userdetails.pfp);
+        console.log(posts);
         return(
                 <div>
                     <article class = "profilepic">
