@@ -122,11 +122,11 @@ class Profile extends Component{
                         <p class="bio"><b>"</b>Live laugh love.<b>"</b></p>
                         <Link to="/settings">Settings</Link>
                     </article>
-                    <article class="buttons">
-                        <button>Images</button> {/* Img är default */}
+                    {/* <article class="buttons">
+                        <button>Images</button> 
                         <button>Videos</button>
                         <button>Texts</button>
-                    </article>
+                    </article> */}
                     {!posts || posts.length <= 0 ? (
                         <article class="noposts">
                             <img src={noposts} alt="¨No posts :("/>

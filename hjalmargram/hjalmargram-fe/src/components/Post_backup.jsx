@@ -12,7 +12,7 @@ console.log(skor);
 console.log(jek);
 console.log(kapsyloffer);
 
-class Post extends Component {
+class Postbackup extends Component {
     state = {
         post: [],
         comments: []
@@ -80,4 +80,4 @@ class Post extends Component {
     }
 }
 
-export default Post;
+export default Post_backup;

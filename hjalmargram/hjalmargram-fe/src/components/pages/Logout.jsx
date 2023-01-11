@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Cookies from 'js-cookie';
-import { logout } from "../../actions/auth";
 import AuthContext from "../../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 class Logout extends Component 
 { 
@@ -12,6 +12,7 @@ class Logout extends Component
         return(
             <article>   
                 <p>Logging you out...</p>
+                <Navigate  to ='/'/>
 		    </article>
         )
     }

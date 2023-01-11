@@ -9,12 +9,9 @@ import jwt_decode from "jwt-decode";
 import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import CreateAccount from "./components/pages/CreateAccount";
-
 import MakePost from "./components/pages/MakePost";
 import Post from "./components/Post";
-
 import NotFound from "./components/NotFound";
-
 import Profile from "./components/pages/Profile";
 import Settings from "./components/pages/Settings";
 import Followers from "./components/pages/Followers";
