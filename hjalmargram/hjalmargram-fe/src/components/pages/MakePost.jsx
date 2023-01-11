@@ -5,18 +5,20 @@ import logo from "./img/logo.png";
 import "./css/login.css";
 import './css/main.css';
 import { getUserProfile } from "../../actions/auth";
+import AuthContext from "../../context/AuthContext";
 
 console.log(logo)
 
 class MakePost extends Component {
+    static contextType = AuthContext;
     previewImage = null;
     user = null;
     state = {
         content: "",
         picture: null,
-        postedBy: getUserProfile().user_id,
+//        postedBy: getUserProfile().user_id,
         comments: [],
-        likes: getUserProfile().user_id,
+//        likes: getUserProfile().user_id,
     };
 
     onChangeContent = e => {
@@ -38,21 +40,25 @@ class MakePost extends Component {
         }); */
         formData.append('picture', this.state.picture, this.state.picture.name);
         formData.append('content', this.state.content);
-        formData.append('postedBy', this.state.postedBy);
+        formData.append('postedBy', this.context.user.user_id);
         formData.append('comments', this.state.comments);
-        formData.append('likes', this.state.likes);
+        formData.append('likes', this.context.user.user_id);
         //console.log(this.state.postedBy);
         //console.log(this.state.likes);
         console.log(formData);
         await axios.post('http://localhost:8000/api/kapsylgram/makepost', formData, {
             headers: {
-              'content-type': 'multipart/form-data'
+              'content-type': 'multipart/form-data',
+              'Authorization':'Bearer ' + String(this.context.authTokens.access)
             }
         }).then(res => {
             window.location.href ="/";
             return <h1>{res.data['success']}</h1>
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            this.context.logoutUser();
+        });
     };
 
     render(){

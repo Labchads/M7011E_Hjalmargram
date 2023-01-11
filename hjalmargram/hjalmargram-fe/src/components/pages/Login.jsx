@@ -9,11 +9,13 @@ import "./css/login.css";
 //import CSRFToken from "../CSRFToken";
 import { Link } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
+import AuthContext from "../../context/AuthContext";
+import { AuthProvider } from "../../context/AuthContext";
 
 console.log(logo)
 
 class Login extends Component {
-
+    static contextType = AuthContext;
     state = {
         username: "",
         password: ""
@@ -28,7 +30,7 @@ class Login extends Component {
     }
 
     loginAccount = e => {
-        e.preventDefault();
+        /* e.preventDefault();
         const config = {
             headers: {
                 'Accept': 'application/json',
@@ -57,18 +59,14 @@ class Login extends Component {
             // The decoded JWT contains the user's information
             console.log(decodedJwt);
             window.location.href = "/";
-        })
-        //const token = res.data['token'];
-        //console.log(res.data);
-        // Store the JWT in a cookie
-        //document.cookie = `jwt=${token}`;
-        // Set the JWT as a default header for all axios requests
-        //axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
+        }) */
+        e.preventDefault();
+        this.context.loginUser(this.state.username, this.state.password);
     };
 
     render(){
         return(
-            <article>   
+            <article>
                 <div class="login">
                     <Form onSubmit={this.loginAccount}>
                         <img src={logo} class="logo" alt="logo"/><br/>

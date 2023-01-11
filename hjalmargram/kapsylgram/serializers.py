@@ -1,11 +1,13 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 #from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile 
-        fields = ('pk', 'username', 'password', 'displayname', 'email', 'pfp', 'is_admin', 'is_superuser', 'notifications')
+        fields = ('pk', 'username', 'displayname', 'email', 'pfp', 'is_admin', 'is_superuser', 'notifications')
     
 
 class CommentSerializer(serializers.ModelSerializer):

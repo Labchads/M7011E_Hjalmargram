@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from kapsylgram.models import UserProfile
+from kapsylgram.models import UserProfile, Post, Comment, Followers
 
 
 class UserCreationForm(forms.ModelForm):
@@ -72,15 +72,35 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'displayname', 'email', 'password1', 'password2')}
+            'fields': ('username', 'displayname', 'email', 'pfp', 'password1', 'password2')}
         ),
     )
     search_fields = ('username','displayname', 'email')
     ordering = ('username',)
     filter_horizontal = ()
 
+class PostAdmin(BaseUserAdmin):
+    # The fields to be used in displaying the Post model.
+    # These override the definitions on the base UserAdmin
+    # that reference specific fields on auth.User.
+    list_display = ('pk', 'content', 'picture', 'postedBy')
+    list_filter = ('postedBy',)
+    fieldsets = (
+        (None, {'fields': ('pk', 'postedBy')}),
+        ('Post info', {'fields': ('content', 'picture')}),
+    )
+    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
+    # overrides get_fieldsets to use this attribute when creating a user.
+    search_fields = ('content',)
+    ordering = ('pk',)
+    filter_horizontal = ()
+
+
 # Now register the new UserAdmin...
 admin.site.register(UserProfile, UserAdmin)
+admin.site.register(Post, PostAdmin)
+admin.site.register(Comment)
+admin.site.register(Followers)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)

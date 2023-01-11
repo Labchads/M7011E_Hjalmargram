@@ -19,9 +19,15 @@ class UserProfileManager(BaseUserManager):
     def create_user(self,email,username, displayname, password = None, pfp = None):
         if not email:
             raise ValueError('User must have email')
+        if not username:
+            raise ValueError('User must have username')
+        if not displayname:
+            raise ValueError('User must have a display-name')
         email = self.normalize_email(email)
+        print("time to make user")
         user = self.model(email=email, username=username, displayname = displayname, pfp = pfp)
         user.set_password(password)
+        print("dags att spara")
         user.save(using=self._db)
         return user
 
@@ -29,7 +35,7 @@ class UserProfileManager(BaseUserManager):
         """creates and saves a new superuser with given details"""
         user = self.create_user(email, username, "SuperAdminOfJustice", password)
         user.is_superuser = True
-        user.is_staff = True
+        user.is_admin = True
         user.save(using=self._db) 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
@@ -47,7 +53,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     objects = UserProfileManager()
 
     USERNAME_FIELD = 'username'  # specify the unique field
-    REQUIRED_FIELDS = ['email']  # specify
+    REQUIRED_FIELDS = ['email', 'displayname']  # specify
 
     def __str__(self):
         return self.username

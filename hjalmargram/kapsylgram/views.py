@@ -16,9 +16,12 @@ from rest_framework import viewsets
 #from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework_jwt.utils import jwt_encode_handler, jwt_payload_handler
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import status, permissions
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import *
 from .models import *
@@ -28,9 +31,6 @@ class IndexView(generic.ListView):
     greeting = "välkommen till hjalmargram"
     def get_queryset(self):
         return HttpResponse(self.greeting)
-
-""" class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer """
 
 @api_view(['GET', 'POST'])
 def mainPage(request):
@@ -49,6 +49,21 @@ def profile(request, pk):
     user = UserProfile.objects.filter(pk = pk)
     serializer = UserSerializer(user, context = {'request': request}, many=True)
     return Response(serializer.data)
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['username'] = user.username
+        token['is_admin'] = user.is_admin
+        # ...
+
+        return token
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 @api_view(['GET'])
 def profile_with_name(request, username):
@@ -127,7 +142,7 @@ def loginuser(request):
 def logout_user(request):
     try:
         logout(request)
-        return Response({'success': 'User logget out'})
+        return Response({'success': 'User logged out'})
     except:
         return Response({'failure': 'Something went wrong'})
         
@@ -143,11 +158,25 @@ def create_user(request):
             return Response(serializer.data) """
     """ newuser = User.objects.create(username = request.username, password = request.password, displayname = request.displayname, email = request.email, pfp = request.pfp)
     newuser.save() """
-    serializer = UserSerializer(data = request.data)
+    """ serializer = UserSerializer(data = request.data)
     if serializer.is_valid():
         serializer.save()
         return Response({'success': 'User was successfully created'})
-    return Response({'failure': serializer.errors})
+    return Response({'failure': serializer.errors}) """
+    data = request.data
+    email = UserProfileManager.normalize_email(data['email'])
+    username = data['username']
+    displayname = data['displayname']
+    password = data['password']
+    pfp = data['pfp']
+    try:
+        user = UserProfile(email=email, username=username, displayname = displayname, pfp = pfp)
+        user.set_password(password)
+        user.save()
+        return JsonResponse({'success': 'User was successfully created'}, status=200)
+    except:
+        return JsonResponse({'failure': 'Something went wrong'}, status=401)
+
     
 
 @api_view(['GET'])
@@ -159,6 +188,7 @@ def getComments(request, pk):
         return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def createPost(request):
     data = request.data
     postedBymodel = UserProfile.objects.get(pk = data['postedBy'])
@@ -169,6 +199,7 @@ def createPost(request):
             postedBy = postedBymodel,
             content = data['content'],
             picture = data['picture'],
+#            likes = postedBymodel,
         )
         newpost.save()
         return Response({'success': 'Post was successfully created'})

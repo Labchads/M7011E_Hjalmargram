@@ -10,6 +10,8 @@ import noposts from './img/noposts.gif';
 import Comment from "./../Comment";
 import './css/main.css';
 import { Link } from "react-router-dom";
+import AuthContext from "../../context/AuthContext";
+import { useContext } from "react";
 
 console.log(limpowitch);
 console.log(skor);
@@ -17,15 +19,8 @@ console.log(jek);
 console.log(kapsyloffer);
 console.log(leifteorin);
 
-    let isLogged = false;
-  const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, "$1");
-    if (jwt.length > 4) 
-    {
-      isLogged = true;
-    }
-
 class Home extends Component {
-
+    static contextType = AuthContext;
     state = {
         user: getUserProfile(),
         posts: [],
@@ -59,11 +54,13 @@ class Home extends Component {
     });
 
     render(){
+        const isLogged = this.context.user!=null ? true : false;
         const posts = this.state.posts;
+        //console.log(this.context);
         return(
             <div>
                 <article>
-                {isLogged ? <Link to="/makepost"> Make post </Link> : <p>Plz login to post</p>}
+                {isLogged ? <Link to="/makepost"> Make post Mr.{this.context.user.username} </Link> : <p>Plz login to post</p>}
                 </article>
                 {!posts || posts.length <= 0 ? ( 
                     <article class="noposts">

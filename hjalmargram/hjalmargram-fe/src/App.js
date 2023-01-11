@@ -1,7 +1,10 @@
-import React from "react";
+import {React, useContext} from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-
+import PrivateRoute from "./utils/PrivateRoute";
+import { AuthProvider } from "./context/AuthContext";
+import AuthContext from "./context/AuthContext";
 import Home from "./components/pages/Home";
+import jwt_decode from "jwt-decode";
 
 import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
@@ -21,11 +24,10 @@ import DirectMessages from "./components/pages/dms";
 function App() 
 {
   let isLogged = false;
-  const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, "$1");
-    if (jwt.length > 4) 
-    {
-      isLogged = true;
-    }
+  let user = localStorage.getItem("authTokens") ? jwt_decode(localStorage.getItem("authTokens")) : null;
+  if (user != null) {
+    isLogged = true;
+  }
   return (
     <BrowserRouter>
       <div>
@@ -37,24 +39,28 @@ function App()
           {isLogged ? <Link to="/logout">Log out</Link> : <Link to="/login">Login</Link>}
           </div>
         </nav>
-      <Routes>
-        <Route exact path="/" element={<Home/>} />
+      <AuthProvider>
+        <Routes>
+        
+          <Route exact path="/" element={<Home/>} />
 
-        <Route path="/settings/" element={<Settings />} />
-        <Route path="/profile/:u_name" element={<Profile/>} />
+          <Route path="/settings/" element={<Settings />} />
+          <Route path="/profile/:u_name" element={<Profile/>} />
           <Route path="/profile/:u_name/followers" element={<Followers/>} />
           <Route path="/profile/:u_name/following" element={<Following/>} />
+          
+          <Route path="/dms/" element={<DirectMessages/>} />
+          <Route path="/makepost" element={<MakePost />} />
+          <Route path="/post/:postid" element={<Post />}/>
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/createaccount" element={<CreateAccount />} />
+
+          <Route path="*" element={<NotFound />} />
         
-        <Route path="/dms/" element={<DirectMessages/>} />
-        <Route path="/makepost" element={<MakePost />} />
-        <Route path="/post/:postid" element={<Post />}/>
-
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/createaccount" element={<CreateAccount />} />
-
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+        </Routes>
+      </AuthProvider>
       </div>
     </BrowserRouter>
   );

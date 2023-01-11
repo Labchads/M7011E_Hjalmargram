@@ -1,17 +1,13 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
-//import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  const [authTokens, setAuthTokens] = useState(() =>
-    localStorage.getItem("authTokens")
-      ? JSON.parse(localStorage.getItem("authTokens"))
-      : null
-  );
+  const [authTokens, setAuthTokens] = useState(() =>localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
   const [user, setUser] = useState(() =>
     localStorage.getItem("authTokens")
       ? jwt_decode(localStorage.getItem("authTokens"))
@@ -19,10 +15,10 @@ export const AuthProvider = ({ children }) => {
   );
   const [loading, setLoading] = useState(true);
 
-//  const history = useHistory();
+  const navigate = useNavigate();
 
   const loginUser = async (username, password) => {
-    const response = await fetch("http://localhost:8000/api/kapsylgram/token", {
+    const response = await fetch("http://localhost:8000/api/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -38,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
-      //history.push("/");
+      navigate("/");
     } else {
       alert("Something went wrong!");
     }
@@ -57,7 +53,7 @@ export const AuthProvider = ({ children }) => {
       })
     });
     if (response.status === 201) {
-      //history.push("/login");
+      navigate("/login");
     } else {
       alert("Something went wrong!");
     }
@@ -67,29 +63,62 @@ export const AuthProvider = ({ children }) => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-  //  history.push("/");
+//    navigate("/");
   };
 
+  const updateToken = async () => {
+    console.log('update');
+
+    const response = await fetch("http://localhost:8000/api/token/refresh/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({'refresh': authTokens?.refresh})
+    });
+
+    const data = await response.json();
+
+    if (response.status === 200) {
+      setAuthTokens(data);
+      setUser(jwt_decode(data.access));
+      localStorage.setItem("authTokens", JSON.stringify(data));
+    } else {
+      alert("Something went wrong when refreshing your token, sire!");
+      logoutUser();
+    } 
+  }
+
   const contextData = {
-    user,
-    setUser,
-    authTokens,
-    setAuthTokens,
-    registerUser,
-    loginUser,
-    logoutUser
+    user:user,
+//    setUser,
+    authTokens:authTokens,
+//    setAuthTokens,
+//    registerUser,
+    loginUser:loginUser,
+    logoutUser:logoutUser,
   };
 
   useEffect(() => {
-    if (authTokens) {
+    /* if (loading) {
+      updateToken();
+    } */
+    let nineminutes = 1000*60*9;
+    let interval = setInterval(() => {
+      if(authTokens){
+        updateToken();
+      }
+    }, nineminutes)
+    return () => clearInterval(interval);
+    /* if (authTokens) {
       setUser(jwt_decode(authTokens.access));
     }
-    setLoading(false);
+    setLoading(false); */
   }, [authTokens, loading]);
 
   return (
     <AuthContext.Provider value={contextData}>
-      {loading ? null : children}
+      {children}
     </AuthContext.Provider>
   );
 };

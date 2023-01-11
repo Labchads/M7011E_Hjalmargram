@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import { Form } from "reactstrap";
 import axios from 'axios';
 import logo from "./img/logo.png";
+import AuthContext from "../../context/AuthContext";
 import "./css/login.css";
 
 console.log(logo)
 
 class CreateAccount extends Component {
+    static contextType = AuthContext;
+
     previewImage = null;
     pfp = null;
     err = "";
@@ -64,8 +67,11 @@ class CreateAccount extends Component {
               'content-type': 'multipart/form-data'
             }
         }).then(res => {
-            console.log(res.data);
-            //idk hur jag gör denna automated, we'll figure it out
+            if (res.status === 200) {
+                this.context.loginUser(this.state.username, this.state.password);
+            } else {
+                alert("Something went wrong when creating your account");
+            }
         })
           .catch(err => "error")
         };
@@ -78,8 +84,7 @@ class CreateAccount extends Component {
                 <div class="login">
                     <img src={logo} class="logo" alt="logo"/><br/>
                     <h1>Welcome to Hjalmargram!</h1><br/>
-                    <Form >
-                        
+                    <Form onSubmit={this.createAccount}>
                         <input type="text" username = "name" placeholder="Username" onChange={this.onChangeUName} required/><br/><br/>
                         <input type="text" displayname = "name" placeholder="Displayname" onChange={this.onChangeDisName} required/><br/><br/>
                         <input type="text" email = "name" placeholder="E-mail" onChange={this.onChangeMail} required/><br/><br/>
