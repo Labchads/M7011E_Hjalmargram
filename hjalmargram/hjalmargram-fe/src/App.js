@@ -17,6 +17,7 @@ import Settings from "./components/pages/Settings";
 import Followers from "./components/pages/Followers";
 import Following from "./components/pages/Following";
 import DirectMessages from "./components/pages/dms";
+import Dropdown from "./components/dropdown";
 
 function App() 
 {
@@ -32,7 +33,7 @@ function App()
           {isLogged ? <Link to={`/profile/${user.username}`}>Profile</Link> : null}
           {isLogged ? <Link to="/dms">Direct Messages</Link> : null}
           <div>
-          {isLogged ? <Link to="/logout">Log out</Link> : <Link to="/login">Login</Link>}
+          {isLogged ? <Link to="/logout">Log out</Link> : <Dropdown options={["Not logged in", "Login", "Create Account"]} paths={["/", "/login", "/createaccount"]}/>}
           </div>
         </nav>
         <AuthProvider>
