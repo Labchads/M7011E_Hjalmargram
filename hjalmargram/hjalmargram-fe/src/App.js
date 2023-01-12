@@ -22,42 +22,35 @@ function App()
 {
   let isLogged = false;
   let user = localStorage.getItem("authTokens") ? jwt_decode(localStorage.getItem("authTokens")) : null;
-  if (user != null) {
-    isLogged = true;
-  }
+  
   return (
     <BrowserRouter>
+      {user != null ? isLogged = true : false}
       <div>
         <nav className="Top">
           <h2><Link to="/">Hjalmargram</Link></h2>
-          {isLogged ? <Link to='/profile/me'>Profile</Link> : null}
+          {isLogged ? <Link to={`/profile/${user.username}`}>Profile</Link> : null}
           {isLogged ? <Link to="/dms">Direct Messages</Link> : null}
           <div>
           {isLogged ? <Link to="/logout">Log out</Link> : <Link to="/login">Login</Link>}
           </div>
         </nav>
-      <AuthProvider>
-        <Routes>
-        
-          <Route exact path="/" element={<Home/>} />
-
-          <Route path="/settings/" element={<Settings />} />
-          <Route path="/profile/:u_name" element={<Profile/>} />
-          <Route path="/profile/:u_name/followers" element={<Followers/>} />
-          <Route path="/profile/:u_name/following" element={<Following/>} />
-          
-          <Route path="/dms/" element={<DirectMessages/>} />
-          <Route path="/makepost" element={<MakePost />} />
-          <Route path="/post/:postid" element={<Post />}/>
-
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/createaccount" element={<CreateAccount />} />
-
-          <Route path="*" element={<NotFound />} />
-        
-        </Routes>
-      </AuthProvider>
+        <AuthProvider>
+          <Routes>
+            <Route exact path="/" element={<Home/>} />
+            <Route path="/settings/" element={<Settings />} />
+            <Route path="/profile/:u_name" element={<Profile/>} />
+            <Route path="/profile/:u_name/followers" element={<Followers/>} />
+            <Route path="/profile/:u_name/following" element={<Following/>} />
+            <Route path="/dms/" element={<DirectMessages/>} />
+            <Route path="/makepost" element={<MakePost />} />
+            <Route path="/post/:postid" element={<Post />}/>
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/createaccount" element={<CreateAccount />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </div>
     </BrowserRouter>
   );

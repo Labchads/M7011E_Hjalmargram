@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from kapsylgram.models import UserProfile, Post, Comment, Followers
+from kapsylgram.models import UserProfile, Post, Comment, Followers, UserProfileManager
 
 
 class UserCreationForm(forms.ModelForm):
@@ -79,7 +79,7 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('username',)
     filter_horizontal = ()
 
-class PostAdmin(BaseUserAdmin):
+class PostAdmin(admin.ModelAdmin):
     # The fields to be used in displaying the Post model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.

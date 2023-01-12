@@ -6,10 +6,10 @@ import "./pages/css/main.css";
 import Comment from "./Comment";
 import leifteorin from "./pages/pfp/LeifTeorin.png";
 
-var postID = window.location.pathname.split("/")[2];
 class Post extends Component
 {
   static contextType=AuthContext;
+  postID = window.location.pathname.split("/")[2];
   post = null;
   state = {
     post: [],
@@ -19,10 +19,10 @@ class Post extends Component
   
   
   getComments = () => {
-    axios.get(`http://localhost:8000/api/kapsylgram/post/${postID}/comments`).then(res => this.setState({ comments: res.data }));
+    axios.get(`http://localhost:8000/api/kapsylgram/post/${this.postID}/comments`).then(res => this.setState({ comments: res.data }));
   };
   getPost = async() => {
-    let res = await axios.get(`http://localhost:8000/api/kapsylgram/post/${postID}`).then(res => this.setState({ post: res.data }));
+    let res = await axios.get(`http://localhost:8000/api/kapsylgram/post/${this.postID}`).then(res => this.setState({ post: res.data }));
     console.log('fuckof');
   };
 
@@ -30,10 +30,11 @@ class Post extends Component
     this.getPost();
   };
 
-  res2 = axios.get(`http://localhost:8000/api/kapsylgram/post/${postID}`).then(res => this.state.post = res.data);
+  res2 = axios.get(`http://localhost:8000/api/kapsylgram/post/${this.postID}`).then(res => this.state.post = res.data);
 
   render(){
       const post = this.state.post[0];
+      console.log(this.postID);
       console.log(post);
       return(
         <article class="Imgpost">
