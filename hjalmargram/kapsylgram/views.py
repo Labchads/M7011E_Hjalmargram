@@ -17,7 +17,7 @@ from rest_framework import viewsets
 from rest_framework_jwt.utils import jwt_encode_handler, jwt_payload_handler
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.views import APIView
 from rest_framework import status, permissions
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -45,6 +45,13 @@ def mainPage(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
+def admin_page(request):
+    users = UserProfile.objects.all()
+    serializer = UserSerializer(users, context={'request': request}, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
 def profile(request, pk):
     user = UserProfile.objects.filter(pk = pk)
     serializer = UserSerializer(user, context = {'request': request}, many=True)
@@ -58,6 +65,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # Add custom claims
         token['username'] = user.username
         token['is_admin'] = user.is_admin
+        token['is_staff'] = user.is_staff
         # ...
 
         return token
@@ -177,7 +185,7 @@ def create_user(request):
     except:
         return JsonResponse({'failure': 'Something went wrong'}, status=401)
 
-    
+
 
 @api_view(['GET'])
 def getComments(request, pk):

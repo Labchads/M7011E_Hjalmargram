@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group, User
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from kapsylgram.models import UserProfile, Post, Comment, Followers, UserProfileManager
@@ -52,7 +52,7 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(UserAdmin, admin.ModelAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
@@ -83,7 +83,7 @@ class PostAdmin(admin.ModelAdmin):
     # The fields to be used in displaying the Post model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('pk', 'content', 'picture', 'postedBy')
+    list_display = ('content', 'picture', 'postedBy')
     list_filter = ('postedBy',)
     fieldsets = (
         (None, {'fields': ('pk', 'postedBy')}),

@@ -22,7 +22,6 @@ console.log(leifteorin);
 class Home extends Component {
     static contextType = AuthContext;
     state = {
-        user: getUserProfile(),
         posts: [],
         m: false,
         time: Date.now()

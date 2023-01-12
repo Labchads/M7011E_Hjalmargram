@@ -2,7 +2,7 @@ import datetime
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager, PermissionsMixin
 # Create your models here.
 
 class Notification(models.Model):
@@ -38,15 +38,16 @@ class UserProfileManager(BaseUserManager):
         user.is_admin = True
         user.save(using=self._db) 
 
-class UserProfile(AbstractBaseUser, PermissionsMixin):
+class UserProfile(AbstractUser, PermissionsMixin):
     username = models.CharField(max_length=30, unique=True)
 #    password = models.CharField(max_length=30, unique=True)
     displayname = models.CharField(max_length=30)
-    email = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(('email address'), unique=True)
     pfp = models.ImageField(blank=True, upload_to='profile_pictures')
     notifications = models.ManyToManyField(Notification, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     """ is_superuser = models.BooleanField(default = False)
     is_staff = models.BooleanField(default = False) """
 
@@ -58,11 +59,6 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-    @property
-    def is_staff(self):
-        "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
-        return self.is_admin
 
 class Followers(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)

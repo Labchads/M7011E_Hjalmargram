@@ -52,4 +52,5 @@ urlpatterns = [
     path('api/kapsylgram/user/isauthenticated', views.checkAuthenticatedView),
     path('api/kapsylgram/csrf_token', views.GetCSRFToken.as_view()),
     path('api/kapsylgram/makepost', views.createPost),
+    path('api/kapsylgram/admin', views.admin_page),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

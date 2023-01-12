@@ -5,7 +5,7 @@ import { AuthProvider } from "./context/AuthContext";
 import AuthContext from "./context/AuthContext";
 import Home from "./components/pages/Home";
 import jwt_decode from "jwt-decode";
-
+import AdminPage from "./components/pages/AdminPage";
 import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import CreateAccount from "./components/pages/CreateAccount";
@@ -30,8 +30,9 @@ function App()
       <div>
         <nav className="Top">
           <h2><Link to="/">Hjalmargram</Link></h2>
-          {isLogged ? <Link to={`/profile/${user.username}`}>Profile</Link> : null}
+          {user != null ? <Link to={`/profile/${user.username}`}>Profile</Link> : null}
           {isLogged ? <Link to="/dms">Direct Messages</Link> : null}
+          {isLogged && user.is_admin ? <a href="http://localhost:8000/admin/">Admin Stuff</a> : null}
           <div>
           {isLogged ? <Link to="/logout">Log out</Link> : <Dropdown options={["Not logged in", "Login", "Create Account"]} paths={["/", "/login", "/createaccount"]}/>}
           </div>
@@ -49,6 +50,7 @@ function App()
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/createaccount" element={<CreateAccount />} />
+            <Route path="/admin" element={<AdminPage/>}/>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
