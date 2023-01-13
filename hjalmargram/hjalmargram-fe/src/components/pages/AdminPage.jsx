@@ -94,7 +94,7 @@ class AdminPage extends Component {
                                         <h5>{user.displayname}</h5>
                                         <h5>{user.email}</h5>
                                         <img src={user.pfp != null ? user.pfp : leifteorin} class = 'pfp'/>
-                                        <button onClick={this.deleteUser(user.pk)}> Delete user </button>
+                                        <button> Delete user </button>
                                     <hr/>
                                     <br/><br/>
                                 </div>

@@ -26,6 +26,11 @@ class Home extends Component {
         m: false,
         time: Date.now()
     }
+
+    constructor(props) {
+        super(props);
+        this.likePost = this.likePost.bind(this);
+    }
     
     makepostpage = e => {
         this.setState({m: !this.state.m})
@@ -39,13 +44,35 @@ class Home extends Component {
         });
     }
 
+    likePost = e => {
+        let res = axios.post(`http://localhost:8000/api/kapsylgram/post/${e}/like`, {'username': this.context.user.username}, {
+            headers: {
+                'content-type': 'multipart/form-data',
+                'Authorization':'Bearer ' + String(this.context.authTokens.access)
+            }
+        }).then(res => {
+            let currpostslen = this.state.posts.length;
+
+        });
+        console.log(this.state.posts);
+        this.getPosts();
+    }
+
+    getPosts = async e => {
+        let res = axios.get(`http://localhost:8000/api/kapsylgram/`).then(res => {
+            this.setState({ posts: res.data });
+        });
+        console.log('getting posts')
+    }
+
     componentDidMount() {
         this.interval = setInterval(() => this.setState({ time: Date.now() }), 5);
-        console.log('now');
+        console.log(this.state.posts);
     }
     
     componentWillUnmount() {
         clearInterval(this.interval);
+        console.log(this.state.posts);
     }
 
     res = axios.get(`http://localhost:8000/api/kapsylgram/`).then(res => {
@@ -95,8 +122,8 @@ class Home extends Component {
                                     {/*Todo: toggla like, 
                                     om du laddar om sidan och 
                                     redan har likeat ska det synas.*/}
-                                    <button>❤</button>
-                                    <b>&nbsp;&nbsp; {post.likes.length} users like this.</b>
+                                    <button onClick={(e) => this.likePost(post.pk, e)}>❤</button>
+                                    <b>&nbsp;&nbsp; {post.likes.length} users like this.</b>{post.likes.includes(this.context.user.user_id) ? <b>including you</b> : null}
                                 </div>
                                 <br/>
                                 <div class="commentfield">

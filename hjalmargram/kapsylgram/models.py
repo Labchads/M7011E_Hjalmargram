@@ -28,18 +28,17 @@ class UserProfileManager(BaseUserManager):
         if not displayname:
             raise ValueError('User must have a display-name')
         email = self.normalize_email(email)
-        print("time to make user")
         user = self.model(email=email, username=username, displayname = displayname, pfp = pfp)
         user.set_password(password)
-        print("dags att spara")
         user.save(using=self._db)
         return user
 
-    def create_superuser(self,email,username,password):
+    def create_superuser(self,email,username, displayname ,password):
         """creates and saves a new superuser with given details"""
-        user = self.create_user(email, username, "SuperAdminOfJustice", password)
+        user = self.create_user(email, username, displayname, password)
         user.is_superuser = True
         user.is_admin = True
+        user.is_staff = True
         user.save(using=self._db) 
 
 class UserProfile(AbstractUser, PermissionsMixin):

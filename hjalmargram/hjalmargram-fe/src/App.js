@@ -33,9 +33,9 @@ function App()
           {user != null ? <Link to={`/profile/${user.username}`}>Profile</Link> : null}
           {isLogged ? <Link to="/dms">Direct Messages</Link> : null}
           {isLogged && user.is_admin ? <a href="http://localhost:8000/admin/">Admin Stuff</a> : null}
-          {isLogged && user.is_admin ? <Link to="/admin">Admin Stuff</Link> : null}
+          {/* {isLogged && user.is_admin ? <Link to="/admin">Admin Stuff</Link> : null} */}
           <div>
-          {isLogged ? <Link to="/logout">Log out</Link> : <Dropdown options={["Not logged in", "Login", "Create Account"]} paths={["/", "/login", "/createaccount"]}/>}
+            {isLogged ? <Link to="/logout">Log out</Link> : <Dropdown options={["Not logged in", "Login", "Create Account"]} paths={["/", "/login", "/createaccount"]}/>}
           </div>
         </nav>
         <AuthProvider>
