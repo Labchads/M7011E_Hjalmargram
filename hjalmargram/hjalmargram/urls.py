@@ -49,6 +49,7 @@ urlpatterns = [
     path('api/kapsylgram/profile/<int:pk>/posts', views.getPosts),
     path('api/kapsylgram/profilename/<str:username>/posts', views.getPostsUsername),
     path('api/kapsylgram/post/<int:pk>', views.getPost),
+    path('api/kapsylgram/post/<int:pk>/like', views.like_post),
     path('api/kapsylgram/post/<int:pk>/comments', views.getComments),
     path('api/kapsylgram/user/isauthenticated', views.checkAuthenticatedView),
     path('api/kapsylgram/csrf_token', views.GetCSRFToken.as_view()),

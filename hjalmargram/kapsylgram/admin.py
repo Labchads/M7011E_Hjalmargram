@@ -86,8 +86,8 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('content', 'picture', 'postedBy')
     list_filter = ('postedBy',)
     fieldsets = (
-        (None, {'fields': ('pk', 'postedBy')}),
-        ('Post info', {'fields': ('content', 'picture')}),
+        (None, {'fields': (['postedBy'])}),
+        ('Post info', {'fields': ['content', 'picture', 'likes']}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.

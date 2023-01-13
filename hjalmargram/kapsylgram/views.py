@@ -126,6 +126,27 @@ def profile_with_name(request, username):
     serializer = UserSerializer(user, context = {'request': request}, many=True)
     return Response(serializer.data)
 
+@permission_classes([IsAuthenticated])
+@api_view(['POST'])
+def like_post(request, pk):
+    data = request.data
+    username = data['username']
+    user = UserProfile.objects.get(username = username)
+    if user is not None:
+        post = Post.objects.get(pk = pk)
+        user_ = Post.objects.get(pk = pk).likes.filter(username = username)
+        if user_.__len__() > 0:
+            post.likes.remove(user)
+            
+        else:
+            post.likes.add(user)
+            
+        post.save()
+        return JsonResponse({'success' : 'Post liked/unliked'})
+    else:
+        return JsonResponse({'failure' : 'Could not find user'})
+
+
 @api_view(['POST'])
 def follow_user(request, pk):
     try:
