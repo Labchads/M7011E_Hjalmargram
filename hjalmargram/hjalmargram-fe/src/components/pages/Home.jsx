@@ -73,15 +73,19 @@ class Home extends Component {
                             <article class="ImgPost">
                                 <div class="topOfPost">
                                     <div class="poster">
-                                        {post.postedBy.pfp != null ?
+                                    <b class="Post_Disp"> {post.postedBy.pfp != null ?
                                             <img src={post.postedBy.pfp} class="pfp" alt="poser"/>
                                         :   <img src={leifteorin} class="pfp" alt="Hjalle idk"/>
                                         }
-                                        <b>&nbsp;<Link to={`/profile/${post.postedBy.username}`}>@{post.postedBy.username}</Link></b>
+                                        &nbsp;
+                                            <Link to={`/profile/${post.postedBy.username}`}>{post.postedBy.displayname}</Link>&nbsp;
+                                            <br/>
+                                            <i class="Post_Tag">@{post.postedBy.username}</i>
+                                        </b>
                                     </div>
 
                                     <div class="spanTime">
-                                        <span>{post.postedWhen}{/* 2h ago */}</span>
+                                        <span>{post.postedWhen.toString().split("T")[0]}{/* 2h ago */ /*TODO: Funktion som kollar datum, och om det postades idag, x hours ago, igår, yesterday, annars visa bara datum.*/ }</span>
                                     </div>
                                 </div>
                                 <br/>

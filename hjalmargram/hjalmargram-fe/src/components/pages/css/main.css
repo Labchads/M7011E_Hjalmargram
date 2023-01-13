@@ -237,7 +237,7 @@
 	.topOfPost
 	{
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 7fr 1fr;
 		column-gap: 7fr;
 		font-size: 2em;
 		width: 100%;
@@ -345,9 +345,20 @@ article
 		display:grid;
 		grid-template-columns: 1fr 1fr;
 	}
+
+	.Post_Disp br
+	{
+		display: None;
+	}
 }
 
 /*UNIVERSAL CSS*/
+
+.Post_Tag
+{
+	color: gray;
+	font-size: 80%;
+}
 
 span
 {
