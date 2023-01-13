@@ -387,7 +387,7 @@ span
 	color: black;
 }
 
-.controls button:focus
+.controls .Liked
 {
 	color: red;
 }

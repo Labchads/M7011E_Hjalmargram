@@ -130,7 +130,9 @@ class Home extends Component {
                                     {/*Todo: toggla like, 
                                     om du laddar om sidan och 
                                     redan har likeat ska det synas.*/}
-                                    <button onClick={(e) => this.likePost(post, e)}>❤</button>
+                                    {this.context.user != null && post.likes.includes(this.context.user.user_id) ? 
+                                    <button class="Liked" onClick={(e) => this.likePost(post, e)}>❤</button> : 
+                                    <button onClick={(e) => this.likePost(post, e)}>❤</button>}
                                     <b>&nbsp;&nbsp; {post.likes.length} users like this.</b>{this.context.user != null && post.likes.includes(this.context.user.user_id) ? <b>including you</b> : null}
                                 </div>
                                 <br/>

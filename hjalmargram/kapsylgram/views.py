@@ -146,6 +146,12 @@ def like_post(request, pk):
     else:
         return JsonResponse({'failure' : 'Could not find user'})
 
+@api_view(['GET'])
+def getFollowers(request, pk):
+
+
+    return 0
+
 
 @api_view(['POST'])
 def follow_user(request, pk):
