@@ -27,28 +27,54 @@ class AdminPage extends Component {
         time: Date.now()
     }
 
-    componentDidMount() {
-        this.interval = setInterval(() => this.setState({ time: Date.now() }), 5);
-        console.log('now');
-    }
-    
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
+    getUsers = async() => {
+        let res = await axios.get(`http://localhost:8000/api/kapsylgram/admin`, {
+            headers: {
+                'content-type': 'multipart/form-data',
+                'Authorization':'Bearer ' + String(this.context.authTokens.access)
+            }
+        }).then(res => {
+            this.setState({ users: res.data });
+        }); 
+    };
 
-    res = axios.get(`http://localhost:8000/api/kapsylgram/admin`, null, {
+    deleteUser = async (userID) => {
+        let response = await axios.post('http://localhost:8000/api/kapsylgram/deleteuser', {'userID' : userID}, {
+            headers: {
+              'content-type': 'multipart/form-data',
+              'Authorization':'Bearer ' + String(this.context.authTokens.access)
+            }
+        }).then(res => {
+            if (res.status === 200){
+                this.getUsers();
+            }
+        })
+    };
+
+    res = axios.get(`http://localhost:8000/api/kapsylgram/admin`, {
         headers: {
             'content-type': 'multipart/form-data',
             'Authorization':'Bearer ' + String(this.context.authTokens.access)
         }
     }).then(res => {
         this.setState({ users: res.data });
-    });
+    }); 
 
+    /* response = fetch("http://localhost:8000/api/kapsylgram/admin", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization':'Bearer '+String(this.context.authTokens.access)
+      },
+    }).then(res => {
+        if (res.status === 200) {
+            this.setState({ users: res.json()});
+        } 
+    }); */
+    
     render(){
         const isLogged = this.context.user!=null ? true : false;
         const users = this.state.users;
-        //console.log(this.context);
         return(
             <div>
                 {!users || users.length <= 0 ? ( 
@@ -57,78 +83,26 @@ class AdminPage extends Component {
                         <p>You are not an admin, sorry. :/</p>
                     </article>
                 ) : (
-                <div>
-                    {users.map(
-                        user => (
-                            <h1>{user.username}</h1>
+                <article>
+                    {
+                        users.map(
+                            user => (
+                                <div>
+                                    <hr/>
+                                        <Link to = {`/profile/${user.username}`}>{user.username}</Link>
+                                        <h6>{user.pk}</h6>
+                                        <h5>{user.displayname}</h5>
+                                        <h5>{user.email}</h5>
+                                        <img src={user.pfp != null ? user.pfp : leifteorin} class = 'pfp'/>
+                                        <button onClick={this.deleteUser(user.pk)}> Delete user </button>
+                                    <hr/>
+                                    <br/><br/>
+                                </div>
+                            )
                         )
-                    )}
-                </div>
+                    }
+                </article>
                 )}
-                {/* <article class="Imgpost">
-                    <div class="topOfPost">
-                        <div>
-                            <img src={limpowitch} class="pfp2"/>
-                            <b>Limpowitch</b>
-                        </div>
-                        <div>
-                            <span>3h ago</span>
-                        </div>
-                    </div>
-                    <div class="image">
-                        <img src={skor} onclick="location = 'imgpost.html'"/>
-                    </div>
-                    <div class="controls">
-                        <button>3</button>
-                        <b><a class="tag" href="profile.html">@Kapsyloffer</a> and 12 others like this.</b>
-                    </div>
-                    <hr/>
-                    <div class="commentfield">
-                        <Comment
-                            comment_text = "lmao who did this?"
-                            commentBy = "Limpowitch"
-                            pic = {limpowitch}
-                        />
-                        <Comment
-                            comment_text = "Not me bro. It's Kapsyloffer"
-                            commentBy = "Jek9412"
-                            pic = {jek}
-                        />
-                        <Comment
-                            comment_text = "Nah bro I went home early frfr"
-                            commentBy = "Kapsyloffer"
-                            pic = {kapsyloffer}
-                        />
-                    </div>
-                </article> */}
-                {/* <article class="Textpost">
-                    <div class="topOfPost">
-                        <div class="topLeft">
-                            <img src={kapsyloffer} class="pfp2"/>
-                            <b>Kapsyloffer</b>
-                        </div>
-                        <div class="topRight">
-                            <span>4h ago</span>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="text" onclick="location = 'textpost.html'">
-                        <p>Professorn sa pp pa lektionen lmao</p>
-                    </div>
-                    <hr/>
-                    <div class="controls">
-                        <button>&lt;3</button>
-                        <b><a class="tag" href="profile.html">@LeifTeorin</a> and 3 others like this.</b>
-                    </div>
-                    <hr/>
-                    <div class="commentfield">
-                        <Comment
-                            comment_text = "lmao"
-                            commentBy = "jek9412"
-                            pic = {jek}
-                        />
-                    </div>
-                </article> */}
             </div>
         )
     }

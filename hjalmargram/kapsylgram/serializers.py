@@ -30,6 +30,14 @@ class FollowerSerializer(serializers.ModelSerializer):
         model = Followers
         fields = ('pk', 'user', 'another_user')
 
+class ChangePasswordSerializer(serializers.Serializer):
+    model=UserProfile
+    """
+    Serializer for password change endpoint.
+    """
+    old_password=serializers.CharField(required=True)
+    new_password=serializers.CharField(required=True)
+
 """ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):

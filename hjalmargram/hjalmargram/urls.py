@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth.views import LoginView
+from django.contrib.auth import views as auth_views
 from django.urls import include, path, re_path
 from kapsylgram import views
 from django.conf import settings
@@ -53,4 +54,6 @@ urlpatterns = [
     path('api/kapsylgram/csrf_token', views.GetCSRFToken.as_view()),
     path('api/kapsylgram/makepost', views.createPost),
     path('api/kapsylgram/admin', views.admin_page),
+    path('api/kapsylgram/deleteuser', views.delete_user),
+    path('api/kapsylgram/change-password/', views.ChangePasswordView.as_view(), name='change-password'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

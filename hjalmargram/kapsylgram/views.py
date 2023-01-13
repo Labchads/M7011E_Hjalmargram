@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 from rest_framework import viewsets
+from rest_framework import generics
 #from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework_jwt.utils import jwt_encode_handler, jwt_payload_handler
 from rest_framework.response import Response
@@ -51,11 +52,57 @@ def admin_page(request):
     serializer = UserSerializer(users, context={'request': request}, many=True)
     return Response(serializer.data)
 
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def delete_user(request):
+    data = request.data
+    if data['userID']:
+        userid = data['userID']
+        user = UserProfile.objects.get(pk = userid)
+        user.delete()
+        return JsonResponse({'success': 'User deleted'}, status=200)
+    else:
+        return JsonResponse({'failure': 'Invalid user'}, status=401)
+
 @api_view(['GET'])
 def profile(request, pk):
     user = UserProfile.objects.filter(pk = pk)
     serializer = UserSerializer(user, context = {'request': request}, many=True)
     return Response(serializer.data)
+
+class ChangePasswordView(generics.UpdateAPIView):
+    """
+    An end point for changing password.
+    """
+    serializer_class = ChangePasswordSerializer
+    model = UserProfile
+    permission_classes = ([IsAuthenticated])
+
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            # Check old password
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            # set_password also hashes the password that the user will get
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            response = {
+            'status': 'success',
+            'code': status.HTTP_200_OK,
+                'message': 'Password updated successfully',
+                'data': []
+            }
+
+            return Response(response)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod

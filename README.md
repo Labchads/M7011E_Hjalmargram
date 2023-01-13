@@ -1,10 +1,21 @@
 # M7011E_Hjalmargram
-A bootleg instagram used for M7011E using some sorta framework
+A downscaled instagram used for M7011E using Python with Django for the backend and React JS for the frontend.
 
-how 2 run:
+How to run Hjalmargram:
 
->.\env\scripts\activate 
+Backend:
+
+>.\djangoenv\scripts\activate 
 
 >cd hjalmargram
 
 >py manage.py runserver
+
+
+Frontend:
+
+Open a new terminal
+
+>cd hjalmargram-fe
+
+>npm start

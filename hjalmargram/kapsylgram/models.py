@@ -3,6 +3,10 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager, PermissionsMixin
+from django.dispatch import receiver
+from django.urls import reverse
+from django_rest_passwordreset.signals import reset_password_token_created
+from django.core.mail import send_mail
 # Create your models here.
 
 class Notification(models.Model):
@@ -59,6 +63,21 @@ class UserProfile(AbstractUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
+@receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
+
+    email_plaintext_message="{}?token={}".format(reverse('password_reset:reset-password-request'),reset_password_token.key)
+
+    send_mail(
+        # title:
+        "Password Reset for {title}".format(title="Hjalmargram"),
+        # message:
+        email_plaintext_message,
+        # from:
+        "noreply@hjalmargram.local",
+        # to:
+        [reset_password_token.user.email]
+    )
 
 class Followers(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
