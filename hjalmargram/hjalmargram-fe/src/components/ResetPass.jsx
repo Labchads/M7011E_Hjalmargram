@@ -2,17 +2,38 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { Form } from "reactstrap";
+import AuthContext from "../context/AuthContext";
 
 class ResetPass extends Component
 {
+    static contextType = AuthContext;
     state = {
-        username: "",
-        userdetails : [],
+        old_pass: "",
+        new_pass: "",
     };
 
-    onChangeUName = e => 
+    onChangeOPass = e => 
     {
-        this.setState({username: e.target.value });
+        this.setState({old_pass: e.target.value });
+    }
+
+    onChangeNewPass = e => 
+    {
+        this.setState({new_pass: e.target.value });
+    }
+
+    resetPassword = async e => {
+        e.preventDefault();
+        await axios.post('http://localhost:8000/api/kapsylgram/change-password/', {
+            "username": this.context.user.username,
+            "old_password": this.state.old_pass,
+            "new_password": this.state.new_pass
+        }, {
+            headers: {
+              'content-type': 'multipart/form-data',
+              'Authorization':'Bearer ' + String(this.context.authTokens.access)
+            }
+        }).then(res => console.log(res));
     }
 
     mailUser = e =>
@@ -30,10 +51,14 @@ class ResetPass extends Component
         return(
             <article>
                 <h2>Reset password</h2>
-                <Form onSubmit={this.mailUser}>
-                <p>Username:<br/>
-                <input type="text" name="username" onChange={this.onChangeUName} required /></p>
-                <button>Send new password</button>
+                <Form onSubmit={this.resetPassword}>
+                    <p>Old Password:<br/>
+                    <input type="text" onChange={this.onChangeOPass} required /></p>
+                    <p>{this.state.old_pass}</p>
+                    <p>New Password:<br/>
+                    <input type="text" onChange={this.onChangeNewPass} required /></p>
+                    <p>{this.state.new_pass}</p>
+                    <button>Send new password</button>
                 </Form>
             </article>
         );

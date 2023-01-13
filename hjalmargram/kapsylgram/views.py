@@ -70,6 +70,23 @@ def profile(request, pk):
     serializer = UserSerializer(user, context = {'request': request}, many=True)
     return Response(serializer.data)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def changePassword(request):
+    data = request.data
+    user = UserProfile.objects.get(username = data['username'])
+    if not user.check_password(data['old_password']):
+        return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+    user.set_password(data['new_password'])
+    user.save()
+    response = {
+        'status': 'success',
+        'code': status.HTTP_200_OK,
+        'message': 'Password updated successfully',
+        'data': []
+    }
+    return Response(response)
+
 class ChangePasswordView(generics.UpdateAPIView):
     """
     An end point for changing password.

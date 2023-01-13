@@ -18,6 +18,7 @@ import Followers from "./components/pages/Followers";
 import Following from "./components/pages/Following";
 import DirectMessages from "./components/pages/dms";
 import Dropdown from "./components/dropdown";
+import ResetPass from "./components/ResetPass";
 
 function App() 
 {
@@ -34,6 +35,7 @@ function App()
           {isLogged ? <Link to="/dms">Direct Messages</Link> : null}
           {isLogged && user.is_admin ? <a href="http://localhost:8000/admin/">Admin Stuff</a> : null}
           {/* {isLogged && user.is_admin ? <Link to="/admin">Admin Stuff</Link> : null} */}
+          {isLogged ? <Link to="/resetpassword">Change Password</Link> : null}
           <div>
             {isLogged ? <Link to="/logout">Log out</Link> : <Dropdown options={["Not logged in", "Login", "Create Account"]} paths={["/", "/login", "/createaccount"]}/>}
           </div>
@@ -52,6 +54,7 @@ function App()
             <Route path="/logout" element={<Logout />} />
             <Route path="/createaccount" element={<CreateAccount />} />
             <Route path="/admin" element={<AdminPage/>}/>
+            <Route path="/resetpassword" element={<ResetPass/>}/>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

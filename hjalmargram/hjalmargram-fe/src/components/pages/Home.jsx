@@ -90,7 +90,7 @@ class Home extends Component {
         return(
             <div>
                 <article>
-                {isLogged ? <Link to="/makepost"> Make post Mr.{this.context.user.username} </Link> : <p>Plz login to post</p>}
+                {isLogged ? <Link to="/makepost"> Make post </Link> : <p>Plz login to post</p>}
                 </article>
                 {!posts || posts.length <= 0 ? ( 
                     <article class="noposts">

@@ -56,5 +56,5 @@ urlpatterns = [
     path('api/kapsylgram/makepost', views.createPost),
     path('api/kapsylgram/admin', views.admin_page),
     path('api/kapsylgram/deleteuser', views.delete_user),
-    path('api/kapsylgram/change-password/', views.ChangePasswordView.as_view(), name='change-password'),
+    path('api/kapsylgram/change-password/', views.changePassword, name='change-password'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
