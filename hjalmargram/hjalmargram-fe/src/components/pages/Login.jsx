@@ -77,8 +77,7 @@ class Login extends Component {
                     </Form>
                     <br/>
                     <Link to="/createaccount">Create account</Link><br/>
-                    <h2>OR</h2><br/>
-                    <b>Login with google</b>
+                    
                 </div>
 		    </article>
         )
