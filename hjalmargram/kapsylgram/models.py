@@ -80,7 +80,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
 class Followers(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
-    another_user = models.ManyToManyField(UserProfile, related_name='another_user')
+    another_user = models.ManyToManyField(UserProfile, related_name='another_user', blank =True)
 
     def __str__(self):
         return self.user.displayname

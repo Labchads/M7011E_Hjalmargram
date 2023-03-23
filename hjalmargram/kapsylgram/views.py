@@ -167,7 +167,7 @@ def like_post(request, pk):
 def getFollowers(request, pk):
     user = UserProfile.objects.filter(pk = pk)
     followers = Followers.objects.filters(another_user = user)
-    serializer = FollowerSerializer(followers, many = True)
+    serializer = FollowerSerializer(followers, context = {'request': request}, many = True)
     return Response(serializer.data)
 
 
@@ -231,6 +231,8 @@ def create_user(request):
         user = UserProfile(email=email, username=username, displayname = displayname, pfp = pfp)
         user.set_password(password)
         user.save()
+        following = Followers(user = user)
+        following.save()
         return JsonResponse({'success': 'User was successfully created'}, status=200)
     except:
         return JsonResponse({'failure': 'Something went wrong'}, status=401)
