@@ -120,7 +120,6 @@ class Profile extends Component{
                         </div>
                         <br/>
                         <p class="bio"><b>"</b>Live laugh love.<b>"</b></p>
-                        <Link to="/settings">Settings</Link>
                     </article>
                     {/* <article class="buttons">
                         <button>Images</button> 

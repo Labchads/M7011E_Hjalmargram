@@ -38,13 +38,3 @@ class ChangePasswordSerializer(serializers.Serializer):
     old_password=serializers.CharField(required=True)
     new_password=serializers.CharField(required=True)
 
-""" class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        # Add custom claims
-        token['pk'] = user.pk
-        token['username'] = user.username
-        token['email'] = user.email
-        # ...
-        return token """

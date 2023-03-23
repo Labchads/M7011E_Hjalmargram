@@ -165,36 +165,34 @@ def like_post(request, pk):
 
 @api_view(['GET'])
 def getFollowers(request, pk):
-
-
-    return 0
+    user = UserProfile.objects.filter(pk = pk)
+    followers = Followers.objects.filters(another_user = user)
+    serializer = FollowerSerializer(followers, many = True)
+    return Response(serializer.data)
 
 
 @api_view(['POST'])
 def follow_user(request, pk):
     try:
-        other_user = UserProfile.objects.filter(id = pk)
+        other_user = UserProfile.objects.filter(pk = pk)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
         
-    session_user = request.user
-    get_user = UserProfile.objects.filter(name=session_user)
-    check_follower = Followers.objects.filter(user=get_user.id)
-    is_followed = False
+    session_user = request.data['username']
+    get_user = UserProfile.objects.filter(username=session_user)
+    check_follower = Followers.objects.filter(user=get_user.pk)
     if other_user.username != session_user:
         if check_follower.another_user.filter(name=other_user).exists():
             add_usr = Followers.objects.filter(user=get_user)
             add_usr.another_user.remove(other_user)
-            is_followed = False
-            return Response(is_followed)
+            return JsonResponse({'success': 'You no longer follow this user'})
             
         else:
             add_usr = Followers.objects.get(user=get_user)
             add_usr.another_user.add(other_user)
-            is_followed = True
-            return Response(is_followed)
+            return JsonResponse({'success': 'You now follow this user'})
     else:
-        return Response(is_followed)
+        return JsonResponse({'failure': "That's you, dummy"})
             
 
 @api_view(['POST'])
@@ -204,14 +202,6 @@ def loginuser(request):
     password = request.data['password']
     print(username)
     print(password)
-    """ user = authenticate(username=username, password=password)
-    if user is not None:
-        login(request, user)
-        payload = jwt_payload_handler(user)
-        token = jwt_encode_handler(payload)
-        return JsonResponse({'token': token}, status=200)
-    else:
-        return JsonResponse({'failure': 'Invalid password'}, status=401) """
     try:
         user = UserProfile.objects.get(username=username)
     except UserProfile.DoesNotExist:
@@ -221,22 +211,6 @@ def loginuser(request):
     payload = jwt_payload_handler(user)
     token = jwt_encode_handler(payload)
     return JsonResponse({'token': token}, status=200)
-    """ else:
-        return JsonResponse({'failure': 'Invalid password'}, status=401) """
-
-    """ if request.method == 'POST':
-        serializer = UserSerializer(data=request.data)
-        name = serializer.get('username')
-        password = serializer.get('password')
-
-        check_user = User.objects.filter(name=name, pwd=password)
-        if check_user:
-            request.session['user'] = check_user.first().name
-            return Response()
-        else:
-            return Response()
-    return Response(request)
- """
 
 def logout_user(request):
     try:
@@ -247,21 +221,6 @@ def logout_user(request):
         
 @api_view(['POST'])
 def create_user(request):
-    """ if request.method == 'POST':
-        if User.objects.filter(username = username, password = password, email = email).exists():
-            return Response("that user exists bro")
-        else:
-            newuser = User.objects.create(username = username, password = password, displayname = displayname, email = email)
-            newuser.save()
-            serializer = UserSerializer(newuser)
-            return Response(serializer.data) """
-    """ newuser = User.objects.create(username = request.username, password = request.password, displayname = request.displayname, email = request.email, pfp = request.pfp)
-    newuser.save() """
-    """ serializer = UserSerializer(data = request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({'success': 'User was successfully created'})
-    return Response({'failure': serializer.errors}) """
     data = request.data
     email = UserProfileManager.normalize_email(data['email'])
     username = data['username']
@@ -304,12 +263,6 @@ def createPost(request):
         return Response({'success': 'Post was successfully created'})
     except:
         return Response({'error': 'Something went wrong'})
-
-    """ serializer = PostSerializer(data = data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({'success': 'Post was successfully created'})
-    return Response({'failure': serializer.errors}) """
 
 @api_view(['GET'])
 def getPost(request, pk):
