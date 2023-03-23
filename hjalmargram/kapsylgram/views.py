@@ -172,6 +172,7 @@ def getFollowers(request, pk):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def follow_user(request, pk):
     try:
         other_user = UserProfile.objects.filter(pk = pk)
@@ -237,7 +238,22 @@ def create_user(request):
     except:
         return JsonResponse({'failure': 'Something went wrong'}, status=401)
 
-
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def makeComment(request, pk):
+    post = Post.objects.filter(pk = pk)
+    commentBy = UserProfile.objects.filter(username = request.data['sender'])
+    comment_text = request.data['text']
+    try:
+        comment = Comment(
+            sender = commentBy,
+            text = comment_text
+        )
+        comment.save()
+        post.comments.add(comment)
+        return JsonResponse({'success': 'You have commented'})
+    except:
+        return JsonResponse({'failure': 'You did not comment :,('})
 
 @api_view(['GET'])
 def getComments(request, pk):
