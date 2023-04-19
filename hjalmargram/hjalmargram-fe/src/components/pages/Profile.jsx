@@ -1,53 +1,10 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
-import { useLocation} from "react-router-dom";
 import './css/profile.css'
 import { getUserProfile } from "../../actions/auth";
 import axios from 'axios';
 import noposts from './img/noposts.gif';
 import challe from './pfp/LeifTeorin.png';
-import NotFound from "../NotFound";
-
-//import {useParams} from "react-router-dom";
-
-//TODO:
-//Get profile ID
-//Profilepic = profile.src_pfp
-//Fetch all images as images[], should contain ID, src, likecount, commentcount
-//Foreach img in images[] : 
-/*
-<div class="image">
-    <img src="img.src" / onClick = {(e) => imgPost(img.ID)}>
-    <span>Likes: img.like_c</span>
-    <span>Comments: img.com_c</span>
-</div>
-*/      //Or something
-//Om man klickar på textposts, fetcha alla textposts, samma sak, visa comment count och likes osv
-//Kanske typ: 
-/*
-<div class="textpost">
-<p>txt.content</p>
-<span>Likes: txt.likes</span> <span>Comments: txt.com</span>
-</div>
-*/
-
-//TODO: Gör också dessa till components:
-/*
- <article class="imgposts">
-    ...
-</article>
-<article class="textposts">
-    ...
-</article>
-<article class="videoposts">
-    ...
-</article>
-<article class="noposts">
-    <img src="img/noposts.gif"/>
-    <p><b>_USERNAME</b> has not uploaded any posts yet. :/</p>
-</article>
-*/
-
 
 let view = 0;
 
