@@ -92,14 +92,14 @@ class Profile extends Component{
                         <article class="imgposts">
                             {posts.map(post => (
                                 <div class="image">
+                                    {console.log(post)}
+                                <Link to={`../post/${post.pk}`}>
                                     <img src={post.picture} alt="post"/>
+                                    </Link>
                                 </div>
                             ))}
                         </article>
                     )}
-                    
-                        
-                    
                     {/* <article class="textposts">
                         
                     </article> */}

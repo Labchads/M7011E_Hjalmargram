@@ -80,4 +80,4 @@ class Postbackup extends Component {
     }
 }
 
-export default Post_backup;
+export default Postbackup;

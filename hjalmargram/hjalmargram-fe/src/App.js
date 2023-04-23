@@ -10,7 +10,7 @@ import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import CreateAccount from "./components/pages/CreateAccount";
 import MakePost from "./components/pages/MakePost";
-import Post from "./components/Post";
+import PostView from "./components/pages/PostView";
 import NotFound from "./components/NotFound";
 import Profile from "./components/pages/Profile";
 import Settings from "./components/pages/Settings";
@@ -49,7 +49,7 @@ function App()
             <Route path="/profile/:u_name/following" element={<Following/>} />
             <Route path="/dms/" element={<DirectMessages/>} />
             <Route path="/makepost" element={<MakePost />} />
-            <Route path="/post/:postid" element={<Post />}/>
+            <Route path="/post/:postid" element={<PostView />}/>
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/createaccount" element={<CreateAccount />} />
