@@ -12,6 +12,7 @@ class Home extends Component {
     state = {
         user: getUserProfile(),
         posts: [],
+        hasPosts: true,
         m: false,
         time: Date.now()
     }
@@ -25,6 +26,10 @@ class Home extends Component {
         let res = axios.post(`http://localhost:8000/api/kapsylgram/`, {'last_post': currposts.length}).then(res => {
             let newposts = res.data;
             this.setState({ posts: currposts.concat(newposts) });
+            if(newposts.length < 5)
+            {
+                this.state.hasPosts = false;
+            }
         });
     }
 
@@ -62,7 +67,8 @@ class Home extends Component {
                             </div>
                         )
                         )}
-                    <article>
+                        
+                    <article style={!this.state.hasPosts ? {display: "none"} : {}}>
                         <button onClick={this.loadMore}>Load More</button>
                     </article>
                 </div>
