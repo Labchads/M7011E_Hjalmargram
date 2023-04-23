@@ -30,36 +30,6 @@ class Login extends Component {
     }
 
     loginAccount = e => {
-        /* e.preventDefault();
-        const config = {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-CSRFToken': Cookies.get('csrftoken')
-            }
-        };
-
-        let formData = new FormData();
-        formData.append('username', this.state.username);
-        formData.append('password', this.state.password);
-        
-        const res = axios.post('http://localhost:8000/api/kapsylgram/login', formData, config).then(response => {
-            console.log(response.data['token'])
-            const token = response.data['token'];
-        // Store the JWT in a cookie
-            document.cookie = `jwt=${token}`;
-        // Set the JWT as a default header for all axios requests
-            axios.defaults.headers.common['Authorization'] = `JWT ${token}`;
-            const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, "$1");
-            if (!jwt) {
-            // No JWT is stored in the cookie, so the user is not logged in
-                return null;
-            }
-            const decodedJwt = jwtDecode(jwt);
-            // The decoded JWT contains the user's information
-            console.log(decodedJwt);
-            window.location.href = "/";
-        }) */
         e.preventDefault();
         this.context.loginUser(this.state.username, this.state.password);
     };

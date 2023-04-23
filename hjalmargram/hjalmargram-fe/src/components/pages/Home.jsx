@@ -63,7 +63,7 @@ class Home extends Component {
                     {posts.map(
                         postobj => (
                             <div>
-                            <Post post={postobj} />
+                            <Post post={postobj}/>
                             </div>
                         )
                         )}

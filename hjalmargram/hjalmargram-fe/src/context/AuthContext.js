@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
-      navigate("/");
+      window.location.href = "/";
     } else {
       alert("Something went wrong!");
     }

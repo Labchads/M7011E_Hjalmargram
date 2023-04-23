@@ -12,7 +12,7 @@ class Logout extends Component
         return(
             <article>   
                 <p>Logging you out...</p>
-                <Navigate  to ='/'/>
+                {window.location.href = "/"};
 		    </article>
         )
     }

@@ -52,7 +52,7 @@ class PostView extends Component {
                     {post.map(
                         postobj => (
                             <div>
-                            <Post post={postobj} />
+                            <Post post={postobj}/>
                             </div>
                         )
                         )}
