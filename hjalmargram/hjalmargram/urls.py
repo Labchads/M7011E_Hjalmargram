@@ -44,6 +44,8 @@ urlpatterns = [
     path('api/kapsylgram/logout', views.logout_user),
     path('api/kapsylgram/createacc', views.create_user),
     path('api/kapsylgram/follow/<int:pk>', views.follow_user),
+    path('api/kapsylgram/profile/<int:pk>/followers', views.getFollowers),
+    path('api/kapsylgram/profile/<int:pk>/following', views.getFollowing),
     path('api/kapsylgram/profile/<int:pk>', views.profile),
     path('api/kapsylgram/profilename/<str:username>', views.profile_with_name),
     path('api/kapsylgram/profile/<int:pk>/posts', views.getPosts),

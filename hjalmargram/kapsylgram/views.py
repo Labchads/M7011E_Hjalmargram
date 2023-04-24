@@ -170,6 +170,13 @@ def getFollowers(request, pk):
     serializer = FollowerSerializer(followers, context = {'request': request}, many = True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def getFollowing(request, pk):
+    user = UserProfile.objects.filter(pk = pk)
+    following = Followers.objects.filters(user = user)
+    serializer = FollowerSerializer(following, context = {'request': request}, many = True)
+    return Response(serializer.data)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
