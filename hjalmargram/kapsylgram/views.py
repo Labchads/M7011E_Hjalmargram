@@ -166,14 +166,14 @@ def like_post(request, pk):
 @api_view(['GET'])
 def getFollowers(request, pk):
     user = UserProfile.objects.filter(pk = pk)
-    followers = Followers.objects.filters(another_user = user)
+    followers = Followers.objects.filter(another_user = user)
     serializer = FollowerSerializer(followers, context = {'request': request}, many = True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def getFollowing(request, pk):
     user = UserProfile.objects.filter(pk = pk)
-    following = Followers.objects.filters(user = user)
+    following = Followers.objects.filter(user = user)
     serializer = FollowerSerializer(following, context = {'request': request}, many = True)
     return Response(serializer.data)
 
