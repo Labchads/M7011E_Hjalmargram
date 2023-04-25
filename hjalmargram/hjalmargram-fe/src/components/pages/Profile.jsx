@@ -5,13 +5,15 @@ import { getUserProfile } from "../../actions/auth";
 import axios from 'axios';
 import noposts from './img/noposts.gif';
 import challe from './pfp/LeifTeorin.png';
+import AuthContext from "../../context/AuthContext";
 
 //let view = 0;
 
 class Profile extends Component{
     username = window.location.pathname.split("/")[2];
+    static contextType = AuthContext;
     state = {
-        user: getUserProfile(),
+        user: this.context.user,
         user_id: 6,
         userdetails: [],
         posts: [],
@@ -83,9 +85,9 @@ class Profile extends Component{
     };
 
     toggleFollow = async () => {
-        this.resetState();
+        //this.resetState();
         let formData = new FormData();
-        console.log("fd:", this.state.user);
+        console.log("fd:", this.context.user);
         console.log("id: ", this.state.user_id);
         formData.append('username', this.state.user.username);
         await axios.post(`http://localhost:8000/api/kapsylgram/follow/${this.state.user_id}`, formData, {

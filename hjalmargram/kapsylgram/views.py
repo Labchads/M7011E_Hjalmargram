@@ -188,16 +188,17 @@ def getFollowing(request, pk):
 @permission_classes([IsAuthenticated])
 def follow_user(request, pk):
     try:
-        other_user = UserProfile.objects.filter(pk = pk)
+        other_user = UserProfile.objects.get(pk = pk)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
         
     session_user = request.data['username']
-    get_user = UserProfile.objects.filter(username=session_user)
-    check_follower = Followers.objects.filter(user=get_user)
+    print(session_user)
+    get_user = UserProfile.objects.get(username=session_user)
+    check_follower = Followers.objects.get(user=get_user)
     if other_user.username != session_user:
-        if check_follower.another_user.filter(name=other_user).exists():
-            add_usr = Followers.objects.filter(user=get_user)
+        if check_follower.another_user.filter(username=other_user.username).exists():
+            add_usr = Followers.objects.get(user=get_user)
             add_usr.another_user.remove(other_user)
             return JsonResponse({'success': 'You no longer follow this user'})
             
