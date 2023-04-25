@@ -12,7 +12,7 @@ class Follower extends Component{
                 <div>
                     <img src={this.props.pic} class="pfp" alt="pfp"/>
                     <div>
-                        <Link>{this.props.displayName}</Link><br/>
+                        <Link to={`../profile/${this.props.userName}`}>{this.props.displayName}</Link><br/>
                         <p>
                             @{this.props.userName}</p>
                     </div>

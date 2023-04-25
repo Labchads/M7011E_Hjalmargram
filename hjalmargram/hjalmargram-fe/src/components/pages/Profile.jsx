@@ -82,11 +82,24 @@ class Profile extends Component{
         this.getPosts();
     };
 
-    toggleFollow = () => {
-        axios.post(`http://localhost:8000/api/kapsylgram/profile/${this.state.userId}/follow`).then(res => {
-            console.log(res);
+    toggleFollow = async () => {
+        this.resetState();
+        let formData = new FormData();
+        console.log("fd:", this.state.user);
+        console.log("id: ", this.state.user_id);
+        formData.append('username', this.state.user.username);
+        await axios.post(`http://localhost:8000/api/kapsylgram/follow/${this.state.user_id}`, formData, {
+            headers: {
+              'content-type': 'multipart/form-data',
+              'Authorization':'Bearer ' + String(this.context.authTokens.access)
+            }
+        }).then(res => {
+            return <h1>{res.data['success']}</h1>
+        })
+        .catch(err => {
+            console.log(err);
         });
-        };
+    }
 
     render(){
         //this.getUser();

@@ -3,7 +3,7 @@ import { Form } from "reactstrap";
 import axios from 'axios';
 import logo from "./img/logo.png";
 import "./css/login.css";
-import './css/main.css';
+import './css/main.css'; 
 import AuthContext from "../../context/AuthContext";
 
 console.log(logo)
@@ -15,7 +15,9 @@ class MakePost extends Component {
     state = {
         content: "",
         picture: null,
+//        postedBy: getUserProfile().user_id,
         comments: [],
+//        likes: getUserProfile().user_id,
     };
 
     onChangeContent = e => {

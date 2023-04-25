@@ -9,7 +9,7 @@ class Following extends Component
     username = window.location.pathname.split("/")[2];
     state = {
         user: getUserProfile(),
-        user_id: 6,
+        user_id: 4,
         following: [],
     }
 
