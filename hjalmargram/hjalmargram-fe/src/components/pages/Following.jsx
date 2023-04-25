@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import './css/profile.css'
 import Follower from "../Follower";
 
-class Following extends Component{
+class Following extends Component
+{
     
-    render(){
-        
+    render()
+    {
         return(
             <article>
                     {/*foreach follower of user*/}

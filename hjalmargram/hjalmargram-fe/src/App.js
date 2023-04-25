@@ -27,7 +27,7 @@ function App()
     ? jwt_decode(localStorage.getItem("authTokens")) 
     : null;
   
-  user != null ? isLogged = true : false;
+  isLogged = user != null ? true : false;
   return (
     <BrowserRouter>
     <div>
