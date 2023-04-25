@@ -165,14 +165,20 @@ def like_post(request, pk):
 
 @api_view(['GET'])
 def getFollowers(request, pk):
-    user = UserProfile.objects.get(pk = pk)
+    try:
+        user = UserProfile.objects.get(pk = pk)
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
     followers = Followers.objects.filter(another_user = user)
     serializer = FollowerSerializer(followers, context = {'request': request}, many = True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def getFollowing(request, pk):
-    user = UserProfile.objects.get(pk = pk)
+    try:
+        user = UserProfile.objects.get(pk = pk)
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
     following = Followers.objects.filter(user = user)
     serializer = FollowerSerializer(following, context = {'request': request}, many = True)
     return Response(serializer.data)
@@ -188,7 +194,7 @@ def follow_user(request, pk):
         
     session_user = request.data['username']
     get_user = UserProfile.objects.filter(username=session_user)
-    check_follower = Followers.objects.filter(user=get_user.pk)
+    check_follower = Followers.objects.filter(user=get_user)
     if other_user.username != session_user:
         if check_follower.another_user.filter(name=other_user).exists():
             add_usr = Followers.objects.filter(user=get_user)
