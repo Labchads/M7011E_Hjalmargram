@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { getUserProfile } from "../../actions/auth";
 import axios from 'axios';
 import limpowitch from "./pfp/Limpowitch.png";
 import skor from "./img/Skor.png";
@@ -7,11 +6,9 @@ import jek from "./pfp/Jek9412.png";
 import kapsyloffer from "./pfp/Kapsyloffer.png";
 import leifteorin from "./pfp/LeifTeorin.png";
 import noposts from './img/noposts.gif';
-import Comment from "./../Comment";
 import './css/main.css';
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
-import { useContext } from "react";
 
 console.log(limpowitch);
 console.log(skor);
@@ -28,7 +25,7 @@ class AdminPage extends Component {
     }
 
     getUsers = async() => {
-        let res = await axios.get(`http://localhost:8000/api/kapsylgram/admin`, {
+        await axios.get(`http://localhost:8000/api/kapsylgram/admin`, {
             headers: {
                 'content-type': 'multipart/form-data',
                 'Authorization':'Bearer ' + String(this.context.authTokens.access)
@@ -39,7 +36,7 @@ class AdminPage extends Component {
     };
 
     deleteUser = async (userID) => {
-        let response = await axios.post('http://localhost:8000/api/kapsylgram/deleteuser', {'userID' : userID}, {
+        await axios.post('http://localhost:8000/api/kapsylgram/deleteuser', {'userID' : userID}, {
             headers: {
               'content-type': 'multipart/form-data',
               'Authorization':'Bearer ' + String(this.context.authTokens.access)
@@ -73,7 +70,7 @@ class AdminPage extends Component {
     }); */
     
     render(){
-        const isLogged = this.context.user!=null ? true : false;
+        //const isLogged = this.context.user!=null ? true : false;
         const users = this.state.users;
         return(
             <div>
@@ -93,7 +90,7 @@ class AdminPage extends Component {
                                         <h6>{user.pk}</h6>
                                         <h5>{user.displayname}</h5>
                                         <h5>{user.email}</h5>
-                                        <img src={user.pfp != null ? user.pfp : leifteorin} class = 'pfp'/>
+                                        <img src={user.pfp != null ? user.pfp : leifteorin} class = 'pfp' alt='pfp'/>
                                         <button> Delete user </button>
                                     <hr/>
                                     <br/><br/>

@@ -1,7 +1,5 @@
 import React, { Component} from "react";
 import { Link } from 'react-router-dom';
-import axios from "axios";
-import AuthContext from "../context/AuthContext";
 import "./pages/css/main.css";
 import Comment from "./Comment";
 import leifteorin from "./pages/pfp/LeifTeorin.png";

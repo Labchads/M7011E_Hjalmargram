@@ -6,7 +6,7 @@ import axios from 'axios';
 import noposts from './img/noposts.gif';
 import challe from './pfp/LeifTeorin.png';
 
-let view = 0;
+//let view = 0;
 
 class Profile extends Component{
     username = window.location.pathname.split("/")[2];

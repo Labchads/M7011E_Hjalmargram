@@ -1,8 +1,6 @@
-import {React, useContext} from "react";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import PrivateRoute from "./utils/PrivateRoute";
+import React from "react";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import AuthContext from "./context/AuthContext";
 import Home from "./components/pages/Home";
 import jwt_decode from "jwt-decode";
 import AdminPage from "./components/pages/AdminPage";

@@ -7,7 +7,7 @@ class Chat extends Component
     render()
     {
         return(
-            <div class={this.props.from != "sender" ? "me" : "notMe"}>
+            <div class={this.props.from !== "sender" ? "me" : "notMe"}>
                 <p>{this.props.content}</p>
             </div>
         );

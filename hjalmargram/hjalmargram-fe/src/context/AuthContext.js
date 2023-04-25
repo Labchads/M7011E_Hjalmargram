@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
       ? jwt_decode(localStorage.getItem("authTokens"))
       : null
   );
-  const [loading, setLoading] = useState(true);
+  const [loading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   
-  const registerUser = async (username, password, password2) => {
+  const registeruser = async (username, password, password2) => {
     const response = await fetch("http://127.0.0.1:8000/api/register/", {
       method: "POST",
       headers: {
