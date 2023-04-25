@@ -12,10 +12,12 @@ class Profile extends Component{
     username = window.location.pathname.split("/")[2];
     state = {
         user: getUserProfile(),
+        user_id: 6,
         userdetails: [],
         posts: [],
-        followercount: 0,
-        followingcount: 0,
+        followercount: 11,
+        followingcount: 11,
+        isFollowing : false,
     }
 
     res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then(res => {
@@ -28,6 +30,36 @@ class Profile extends Component{
         //console.log(res.data);
         //this.state.posts = res.data;
     }).catch(err => console.log(err))
+
+    res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then((res) => 
+    {
+    this.setState({ user_id: res.data[0].pk });
+    return axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/followers`);
+    })
+    .then((res) => 
+    {
+        this.setState({followercount: res.data.length});
+        console.log(res.data.length);
+    })
+    .catch((error) => 
+    {
+        console.log(error);
+    });
+
+    res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then((res) => 
+    {
+    this.setState({ user_id: res.data[0].pk });
+    return axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/following`);
+    })
+    .then((res) => 
+    {
+        this.setState({followingcount: res.data.length});
+        console.log(res.data.length);
+    })
+    .catch((error) => 
+    {
+        console.log(error);
+    });
 
     getUser = async () => {
         await axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then(res => {
@@ -50,6 +82,12 @@ class Profile extends Component{
         this.getPosts();
     };
 
+    toggleFollow = () => {
+        axios.post(`http://localhost:8000/api/kapsylgram/profile/${this.state.userId}/follow`).then(res => {
+            console.log(res);
+        });
+        };
+
     render(){
         //this.getUser();
         const userdetails = this.state.userdetails;
@@ -57,8 +95,6 @@ class Profile extends Component{
             return <NotFound/>
         } */
         const posts = this.state.posts;
-        const followercount = this.state.followercount;
-        const followingcount = this.state.followingcount;
         console.log(posts);
         return(
                 <div>
@@ -68,11 +104,13 @@ class Profile extends Component{
                         <b>@{userdetails.username}</b>
                         <br/>
                         <div class = "profileinfo">
-                            <b>Posts:<br/>{posts.length}</b><Link to="./Followers"><b>Followers:</b><br/>{followercount}</Link><Link to="./Following"><b>Following:</b><br/>{followingcount}</Link>
+                            <b>Posts:<br/>{posts.length}</b><Link to="./Followers"><b>Followers:</b><br/>{this.state.followercount}</Link><Link to="./Following"><b>Following:</b><br/>{this.state.followingcount}</Link>
                         </div>
                         <br/>
                         <div class="followbuttons">
-                            { 0 ? <button onclick="location='https://youtu.be/O_IYLqIjtMg?t=17'">Follow</button> : <button>Unfollow</button>}
+                        { 1 
+                        ? <button onClick={this.toggleFollow}> Follow </button>
+                        : <button onClick={this.toggleFollow}> Unfollow </button> }
                             <button> DM </button>
                         </div>
                         <br/>
