@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import jek from "./pages/pfp/Jek9412.png";
 
 console.log(jek);
@@ -9,16 +9,17 @@ class Follower extends Component{
     render(){
         return(
             <div class ="follower">
-                <p>
+                <div>
                     <img src={this.props.pic} class="pfp" alt="pfp"/>
-                    <b>
-                        <a href="#">{this.props.displayName}
-                            @{this.props.userName}
-                        </a>
-                    </b>
+                    <div>
+                        <Link to={`../profile/${this.props.userName}`}>{this.props.displayName}</Link><br/>
+                        <p>
+                            @{this.props.userName}</p>
+                    </div>
                     <button>Follow</button>
-                </p>
+                </div>
             </div>
+            
         )
     }
 }

@@ -3,8 +3,7 @@ import { Form } from "reactstrap";
 import axios from 'axios';
 import logo from "./img/logo.png";
 import "./css/login.css";
-import './css/main.css';
-import { getUserProfile } from "../../actions/auth";
+import './css/main.css'; 
 import AuthContext from "../../context/AuthContext";
 
 console.log(logo)

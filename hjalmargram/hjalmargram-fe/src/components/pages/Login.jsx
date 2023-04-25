@@ -1,16 +1,10 @@
 import React, { Component } from "react";
 //import AuthContext from "../../context/AuthContext";
-import Cookies from 'js-cookie';
 import { Form } from "reactstrap";
-import axios from 'axios';
 import logo from "./img/logo.png";
 import "./css/login.css";
-//import { Connect , connect} from "react-redux";
-//import CSRFToken from "../CSRFToken";
 import { Link } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
 import AuthContext from "../../context/AuthContext";
-import { AuthProvider } from "../../context/AuthContext";
 
 console.log(logo)
 

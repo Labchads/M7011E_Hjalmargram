@@ -6,16 +6,18 @@ import axios from 'axios';
 import noposts from './img/noposts.gif';
 import challe from './pfp/LeifTeorin.png';
 
-let view = 0;
+//let view = 0;
 
 class Profile extends Component{
     username = window.location.pathname.split("/")[2];
     state = {
         user: getUserProfile(),
+        user_id: 6,
         userdetails: [],
         posts: [],
-        followercount: 0,
-        followingcount: 0,
+        followercount: 11,
+        followingcount: 11,
+        isFollowing : false,
     }
 
     res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then(res => {
@@ -28,6 +30,36 @@ class Profile extends Component{
         //console.log(res.data);
         //this.state.posts = res.data;
     }).catch(err => console.log(err))
+
+    res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then((res) => 
+    {
+    this.setState({ user_id: res.data[0].pk });
+    return axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/followers`);
+    })
+    .then((res) => 
+    {
+        this.setState({followercount: res.data.length});
+        console.log(res.data.length);
+    })
+    .catch((error) => 
+    {
+        console.log(error);
+    });
+
+    res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then((res) => 
+    {
+    this.setState({ user_id: res.data[0].pk });
+    return axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/following`);
+    })
+    .then((res) => 
+    {
+        this.setState({followingcount: res.data.length});
+        console.log(res.data.length);
+    })
+    .catch((error) => 
+    {
+        console.log(error);
+    });
 
     getUser = async () => {
         await axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then(res => {
@@ -50,6 +82,25 @@ class Profile extends Component{
         this.getPosts();
     };
 
+    toggleFollow = async () => {
+        this.resetState();
+        let formData = new FormData();
+        console.log("fd:", this.state.user);
+        console.log("id: ", this.state.user_id);
+        formData.append('username', this.state.user.username);
+        await axios.post(`http://localhost:8000/api/kapsylgram/follow/${this.state.user_id}`, formData, {
+            headers: {
+              'content-type': 'multipart/form-data',
+              'Authorization':'Bearer ' + String(this.context.authTokens.access)
+            }
+        }).then(res => {
+            return <h1>{res.data['success']}</h1>
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
     render(){
         //this.getUser();
         const userdetails = this.state.userdetails;
@@ -57,8 +108,6 @@ class Profile extends Component{
             return <NotFound/>
         } */
         const posts = this.state.posts;
-        const followercount = this.state.followercount;
-        const followingcount = this.state.followingcount;
         console.log(posts);
         return(
                 <div>
@@ -68,11 +117,13 @@ class Profile extends Component{
                         <b>@{userdetails.username}</b>
                         <br/>
                         <div class = "profileinfo">
-                            <b>Posts:<br/>{posts.length}</b><Link to="./Followers"><b>Followers:</b><br/>{followercount}</Link><Link to="./Following"><b>Following:</b><br/>{followingcount}</Link>
+                            <b>Posts:<br/>{posts.length}</b><Link to="./Followers"><b>Followers:</b><br/>{this.state.followercount}</Link><Link to="./Following"><b>Following:</b><br/>{this.state.followingcount}</Link>
                         </div>
                         <br/>
                         <div class="followbuttons">
-                            { 0 ? <button onclick="location='https://youtu.be/O_IYLqIjtMg?t=17'">Follow</button> : <button>Unfollow</button>}
+                        { 1 
+                        ? <button onClick={this.toggleFollow}> Follow </button>
+                        : <button onClick={this.toggleFollow}> Unfollow </button> }
                             <button> DM </button>
                         </div>
                         <br/>

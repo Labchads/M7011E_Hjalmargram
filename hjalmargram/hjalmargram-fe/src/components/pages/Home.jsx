@@ -23,12 +23,12 @@ class Home extends Component {
 
     loadMore = async e => {
         let currposts = this.state.posts;
-        let res = axios.post(`http://localhost:8000/api/kapsylgram/`, {'last_post': currposts.length}).then(res => {
+        axios.post(`http://localhost:8000/api/kapsylgram/`, {'last_post': currposts.length}).then(res => {
             let newposts = res.data;
             this.setState({ posts: currposts.concat(newposts) });
             if(newposts.length < 5)
             {
-                this.state.hasPosts = false;
+                this.setState({hasPosts: false});
             }
         });
     }

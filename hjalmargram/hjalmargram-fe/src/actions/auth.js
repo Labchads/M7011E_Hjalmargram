@@ -41,7 +41,7 @@ export const checkAuthenticated = () => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
-    const res = await axios.post(`http://localhost:8000/api/kapsylgram/logout`);
+    await axios.post(`http://localhost:8000/api/kapsylgram/logout`);
     document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     // Remove the JWT from the axios default headers
     delete axios.defaults.headers.common['Authorization'];

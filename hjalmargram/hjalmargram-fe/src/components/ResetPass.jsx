@@ -40,7 +40,7 @@ class ResetPass extends Component
     {
         let formData = new FormData();
         formData.append('username', this.state.username);
-        res : axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.state.username}`).then(res => {
+         axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.state.username}`).then(res => {
             this.setState({ userdetails: res.data[0] });
             alert(this.state.username); 
         })  

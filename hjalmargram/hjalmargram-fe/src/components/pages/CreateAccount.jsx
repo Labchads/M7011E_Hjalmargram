@@ -62,7 +62,7 @@ class CreateAccount extends Component {
         formData.append('email', this.state.email);
         console.log(this.pfp);
 
-        const response = axios.post('http://localhost:8000/api/kapsylgram/createacc', formData, {
+        axios.post('http://localhost:8000/api/kapsylgram/createacc', formData, {
             headers: {
               'content-type': 'multipart/form-data'
             }
