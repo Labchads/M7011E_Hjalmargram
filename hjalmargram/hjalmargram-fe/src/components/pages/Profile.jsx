@@ -14,7 +14,7 @@ class Profile extends Component{
     static contextType = AuthContext;
     state = {
         user: this.context.user,
-        user_id: 6,
+        user_id: null,
         userdetails: [],
         posts: [],
         followercount: 11,
@@ -22,7 +22,7 @@ class Profile extends Component{
         isFollowing : false,
     }
 
-    res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then(res => {
+    /* res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then(res => {
         //this.state.userdetails = res.data[0];
         this.setState({ userdetails: res.data[0] });
         //console.log(this.state.userdetails);
@@ -35,36 +35,34 @@ class Profile extends Component{
 
     res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then((res) => 
     {
-    this.setState({ user_id: res.data[0].pk });
-    return axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/followers`);
-    })
-    .then((res) => 
-    {
-        this.setState({followercount: res.data.length});
-        console.log(res.data.length);
+        this.setState({ user_id: res.data[0].pk });
+        this.getFollowers();
+        this.getFollowing();
     })
     .catch((error) => 
     {
         console.log(error);
-    });
+    }); */
+    res = this.getUser();
+    res = this.getPosts();
+    res = this.getFollowers();
+    res = this.getFollowing()
 
-    res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then((res) => 
-    {
-    this.setState({ user_id: res.data[0].pk });
-    return axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/following`);
-    })
-    .then((res) => 
-    {
-        this.setState({followingcount: res.data.length});
-        console.log(res.data.length);
-    })
-    .catch((error) => 
-    {
-        console.log(error);
-    });
+    getFollowers = async () => {
+        return await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/followers`).then(res => {
+            this.setState({followercount: res.data.length});
+        });
+    }
+    
+    getFollowing = async () => {
+        return await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/following`).then(res => {
+            let following = res.data[0];
+            this.setState({followingcount: following.another_user.length});
+        });
+    }
 
     getUser = async () => {
-        await axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then(res => {
+        return await axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then(res => {
             //this.userdetails = res.data[0];
             this.setState({ userdetails: res.data[0] });
             //console.log(this.state.userdetails);
@@ -72,7 +70,7 @@ class Profile extends Component{
     };
 
     getPosts = async () => {
-        await axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}/posts`).then(res => {
+        return await axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}/posts`).then(res => {
             //this.userdetails = res.data[0];
             this.setState({ posts: res.data});
             //console.log(this.state.userdetails);
@@ -85,7 +83,6 @@ class Profile extends Component{
     };
 
     toggleFollow = async () => {
-        //this.resetState();
         let formData = new FormData();
         console.log("fd:", this.context.user);
         console.log("id: ", this.state.user_id);
@@ -96,6 +93,7 @@ class Profile extends Component{
               'Authorization':'Bearer ' + String(this.context.authTokens.access)
             }
         }).then(res => {
+            this.resetState();
             return <h1>{res.data['success']}</h1>
         })
         .catch(err => {
@@ -112,51 +110,51 @@ class Profile extends Component{
         const posts = this.state.posts;
         console.log(posts);
         return(
-                <div>
-                    <article class = "profilepic">
-                        {userdetails.pfp != null ? <img src={userdetails.pfp} alt="#"/> : <img src={challe} alt="#"/>}
-                        <h2>{userdetails.displayname}</h2>
-                        <b>@{userdetails.username}</b>
-                        <br/>
-                        <div class = "profileinfo">
-                            <b>Posts:<br/>{posts.length}</b><Link to="./Followers"><b>Followers:</b><br/>{this.state.followercount}</Link><Link to="./Following"><b>Following:</b><br/>{this.state.followingcount}</Link>
-                        </div>
-                        <br/>
-                        <div class="followbuttons">
-                        { 1 
-                        ? <button onClick={this.toggleFollow}> Follow </button>
-                        : <button onClick={this.toggleFollow}> Unfollow </button> }
-                            <button> DM </button>
-                        </div>
-                        <br/>
-                        <p class="bio"><b>"</b>Live laugh love.<b>"</b></p>
+            <div>
+                <article class = "profilepic">
+                    {userdetails.pfp != null ? <img src={userdetails.pfp} alt="#"/> : <img src={challe} alt="#"/>}
+                    <h2>{userdetails.displayname}</h2>
+                    <b>@{userdetails.username}</b>
+                    <br/>
+                    <div class = "profileinfo">
+                        <b>Posts:<br/>{posts.length}</b><Link to="./Followers"><b>Followers:</b><br/>{this.state.followercount}</Link><Link to="./Following"><b>Following:</b><br/>{this.state.followingcount}</Link>
+                    </div>
+                    <br/>
+                    <div class="followbuttons">
+                    { 1 
+                    ? <button onClick={this.toggleFollow}> Follow </button>
+                    : <button onClick={this.toggleFollow}> Unfollow </button> }
+                        <button> DM </button>
+                    </div>
+                    <br/>
+                    <p class="bio"><b>"</b>Live laugh love.<b>"</b></p>
+                </article>
+                {/* <article class="buttons">
+                    <button>Images</button> 
+                    <button>Videos</button>
+                    <button>Texts</button>
+                </article> */}
+                {!posts || posts.length <= 0 ? (
+                    <article class="noposts">
+                        <img src={noposts} alt="¨No posts :("/>
+                        <p><b>@{userdetails.username}</b> has not uploaded any posts yet. :/</p>
                     </article>
-                    {/* <article class="buttons">
-                        <button>Images</button> 
-                        <button>Videos</button>
-                        <button>Texts</button>
-                    </article> */}
-                    {!posts || posts.length <= 0 ? (
-                        <article class="noposts">
-                            <img src={noposts} alt="¨No posts :("/>
-                            <p><b>@{userdetails.username}</b> has not uploaded any posts yet. :/</p>
-                        </article>
-                    ) : (
-                        <article class="imgposts">
-                            {posts.map(post => (
-                                <div class="image">
-                                    {console.log(post)}
-                                <Link to={`../post/${post.pk}`}>
-                                    <img src={post.picture} alt="post"/>
-                                    </Link>
-                                </div>
-                            ))}
-                        </article>
-                    )}
-                    {/* <article class="textposts">
-                        
-                    </article> */}
-                </div>
+                ) : (
+                    <article class="imgposts">
+                        {posts.map(post => (
+                            <div class="image">
+                                {console.log(post)}
+                            <Link to={`../post/${post.pk}`}>
+                                <img src={post.picture} alt="post"/>
+                                </Link>
+                            </div>
+                        ))}
+                    </article>
+                )}
+                {/* <article class="textposts">
+                    
+                </article> */}
+            </div>
         )
     }
 }

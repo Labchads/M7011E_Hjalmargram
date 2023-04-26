@@ -34,15 +34,15 @@ class Following extends Component
             <article>
                     <p>Following: {this.state.following.length}</p>
                 {this.state.following.map(
-                        follower => (
-                            <Follower
+                    follower => (
+                        <Follower
                             pic = {follower.user.pfp}
                             displayName = {follower.user.displayname}
                             userName = {follower.user.displayname}
-                            /> ))}   
+                        /> ))}   
             </article>
         )
     }
 }
 
-export default Following;
+export default Following; 
