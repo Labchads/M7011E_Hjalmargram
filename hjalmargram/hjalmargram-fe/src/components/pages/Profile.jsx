@@ -17,8 +17,8 @@ class Profile extends Component{
         user_id: null,
         userdetails: [],
         posts: [],
-        followercount: 11,
-        followingcount: 11,
+        followercount: 0,
+        followingcount: 0,
         isFollowing : false,
     }
 
@@ -57,6 +57,20 @@ class Profile extends Component{
         });
     };
 
+    amIFollowing = async () =>
+    {
+        return await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/followers`).then(res => {
+            res.data.forEach(element => {
+            //console.log("FOLLOWER:", element.user.pk)
+            //console.log("ME", this.context.user.user_id);
+            if(parseInt(element.user.pk) == parseInt(this.context.user.user_id))
+            {
+                this.setState({isFollowing: true});
+            }
+            });
+        });
+    }
+
     resetState = () => {
         this.getUser();
         this.getPosts();
@@ -86,7 +100,9 @@ class Profile extends Component{
         res = await this.getUser();
         res = await this.getPosts();
         res = await this.getFollowers();
-        res = await this.getFollowing()
+        res = await this.getFollowing();
+        res = await this.amIFollowing();
+        //console.log(this.state.isFollowing);
     }
 
     render(){
