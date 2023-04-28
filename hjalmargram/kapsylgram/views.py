@@ -255,9 +255,11 @@ def create_user(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def makeComment(request, pk):
-    post = Post.objects.filter(pk = pk)
-    commentBy = UserProfile.objects.filter(username = request.data['sender'])
+    post = Post.objects.get(pk = pk)
+    commentBy = UserProfile.objects.get(username = request.data['sender'])
     comment_text = request.data['text']
+    print(commentBy.username)
+    print(comment_text)
     try:
         comment = Comment(
             sender = commentBy,

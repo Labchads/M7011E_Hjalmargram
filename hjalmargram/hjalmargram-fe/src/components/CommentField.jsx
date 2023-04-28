@@ -61,7 +61,7 @@ class CommentField extends Component {
             }
         }).then(res => {
             window.location.href =`/post/${this.state.comment_on}/`;
-            return <h1>{res.data['success']}</h1>
+            //console.log(res)
         })
         .catch(err => {
             console.log(err);
