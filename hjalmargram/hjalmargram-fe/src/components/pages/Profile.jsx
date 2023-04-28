@@ -30,9 +30,9 @@ class Profile extends Component{
                 return;
             }
             this.state.userdetails = res.data[0];
-            console.log("userdeets: ", this.state.userdetails); // check if userdetails is set correctly
+            //console.log("userdeets: ", this.state.userdetails); // check if userdetails is set correctly
             this.setState({ user_id: this.state.userdetails.pk}); // this line should use this.state.userdetails.pk instead of userdetails.pk
-            console.log("user_id:",  this.state.userdetails.pk );
+            //console.log("user_id:",  this.state.userdetails.pk );
         });
     };
 
@@ -57,6 +57,20 @@ class Profile extends Component{
         });
     };
 
+    amIFollowing = async () =>
+    {
+        return await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/followers`).then(res => {
+            res.data.forEach(element => {
+            console.log("FOLLOWER:", element.user.pk)
+            console.log("ME", this.context.user.user_id);
+            if(parseInt(element.user.pk) == parseInt(this.context.user.user_id))
+            {
+                this.setState({isFollowing: true});
+            }
+            });
+        });
+    }
+
     resetState = () => {
         this.getUser();
         this.getPosts();
@@ -74,6 +88,7 @@ class Profile extends Component{
             }
         }).then(res => {
             this.resetState();
+            window.location.reload();
             return <h1>{res.data['success']}</h1>
         })
         .catch(err => {
@@ -82,11 +97,14 @@ class Profile extends Component{
     }
     async componentDidMount() 
     {
+        this.state.isFollowing = false;
         let res;
         res = await this.getUser();
         res = await this.getPosts();
         res = await this.getFollowers();
-        res = await this.getFollowing()
+        res = await this.getFollowing();
+        res = await this.amIFollowing();
+        console.log(this.state.isFollowing);
     }
 
     render(){
@@ -96,7 +114,7 @@ class Profile extends Component{
             return <NotFound/>
         } */
         const posts = this.state.posts;
-        console.log(posts);
+        //console.log(posts);
         return(
             <div>
                 <article class = "profilepic">
@@ -109,7 +127,7 @@ class Profile extends Component{
                     </div>
                     <br/>
                     <div class="followbuttons">
-                    { 1 
+                    {!this.state.isFollowing
                     ? <button onClick={this.toggleFollow}> Follow </button>
                     : <button onClick={this.toggleFollow}> Unfollow </button> }
                         <button> DM </button>

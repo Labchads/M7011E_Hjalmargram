@@ -12,16 +12,16 @@ class Following extends Component
         user_id: 4,
         following: [],
     }
-
+    
     res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then((res) => 
     {
-    this.setState({ user_id: res.data[0].pk });
+    this.state.user_id = res.data[0].pk;
     return axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/following`);
     })
     .then((res) => 
     {
-        this.setState({following: res.data});
-        console.log(res.data);
+        this.state.following = res.data[0].another_user;
+        console.log(res.data[0].another_user);
     })
     .catch((error) => 
     {
@@ -36,9 +36,9 @@ class Following extends Component
                 {this.state.following.map(
                     follower => (
                         <Follower
-                            pic = {follower.user.pfp}
-                            displayName = {follower.user.displayname}
-                            userName = {follower.user.displayname}
+                            pic = {follower.pfp}
+                            displayName = {follower.displayname}
+                            userName = {follower.displayname}
                         /> ))}   
             </article>
         )
