@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import "./pages/css/main.css";
 import Comment from "./Comment";
 import leifteorin from "./pages/pfp/LeifTeorin.png";
+import CommentField from "./CommentField";
 
 class Post extends Component 
 {
@@ -73,7 +74,7 @@ class Post extends Component
                             )}
                         </>
                     ) : null}
-                    <span>Plese view <Link to={`/post/${post.pk}`}>THIS POST </Link> to comment</span>
+                    <CommentField comment_on={post.pk}/>
                 </div>
             </article>
         );
