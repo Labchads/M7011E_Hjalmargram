@@ -51,7 +51,7 @@ class PostView extends Component {
                 <div>
                     {post.map(
                         postobj => (
-                            <div>
+                            <div  key={postobj.postid}>
                             <Post post={postobj}/>
                             </div>
                         )

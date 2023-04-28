@@ -20,12 +20,12 @@ class CommentField extends Component {
 
     setPost = e =>
     {
-        this.setState({comment_on: this.props.comment_on});
+        this.state.comment_on= this.props.comment_on;
     }
 
     onChangeText = e => {
         this.setState({comment_text: e.target.value });
-        console.log(this.state.comment_text);
+        //console.log(this.state.comment_text);
     }
 
     makeComment = async e =>{
@@ -39,23 +39,22 @@ class CommentField extends Component {
 
         if(this.state.comment_text.length < 2)
         {
-            alert("Nah");
+            //alert("Nah");
             return;
         }
 
         //Comment data
         formData.append('text', this.state.comment_text);
-        formData.append('commentWhen', today);
-        formData.append('sender_id', this.context.user.user_id);
+        formData.append('sender', this.context.user.username);
 
         
-        console.log(this.state.comment_text);
-        console.log(today);
-        console.log(this.context.user.user_id);
+        //console.log(this.state.comment_on);
+        //console.log(this.state.comment_text);
+        //console.log(today);
+        //console.log(this.context.user.username);
+        //console.log(formData);
 
-        console.log(formData);
-
-        await axios.post(`http://localhost:8000/api/kapsylgram/post/${this.state.comment_on}}/makecomment`, formData, {
+        await axios.post(`http://localhost:8000/api/kapsylgram/post/${this.state.comment_on}/makecomment`, formData, {
             headers: {
               'content-type': 'multipart/form-data',
               'Authorization':'Bearer ' + String(this.context.authTokens.access)
