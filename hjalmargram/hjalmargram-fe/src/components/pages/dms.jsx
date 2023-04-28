@@ -16,7 +16,7 @@ class Settings extends Component{
                     <Contact pfp = {def_pfp} name = "Gigachad" lastMsg = "Very nice" />
                     <Contact pfp = {def_pfp} name = "Kapsyloffer" lastMsg = "u dum?" />
                     <Contact pfp = {def_pfp} name = "Challe" lastMsg = "where backend" />
-                    <Contact pfp = {def_pfp} name = "Sandeep" lastMsg = "You two are the worst students I've ever had" />
+                    <Contact pfp = {"https://ltu.instructure.com/images/thumbnails/1481005/qIcwnGQgTXlJBZJFxU4f40x1tPzMDJSF5ghKNETr"} name = "Sandeep" lastMsg = "You two are the worst students I've ever had" />
                 </div>
                 <div class="chatWindow">
                     <div class ="topOfChat">
