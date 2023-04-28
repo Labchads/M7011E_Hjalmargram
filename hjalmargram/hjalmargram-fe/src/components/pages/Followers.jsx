@@ -16,7 +16,7 @@ class Followers extends Component
 
     res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then((res) => 
     {
-    this.setState({ user_id: res.data[0].pk });
+    this.state.user_id = res.data[0].pk;
     return axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/followers`);
     })
     .then((res) => 
