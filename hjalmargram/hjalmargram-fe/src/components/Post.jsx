@@ -25,6 +25,7 @@ class Post extends Component
     {
         const post = this.props.post;
         const { isHidden } = this.state;
+        const date = new Date(post.postedWhen).toLocaleString();
         return(
             <article class="ImgPost">
                 <div class="topOfPost">
@@ -40,7 +41,7 @@ class Post extends Component
                     </div>
 
                     <div class="spanTime">
-                        <span>{post.postedWhen}{/* 2h ago */}</span>
+                        <span>{date}{/* 2h ago */}</span>
                     </div>
                 </div>
                 <br/>
