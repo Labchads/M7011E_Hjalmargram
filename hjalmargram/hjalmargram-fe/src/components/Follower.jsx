@@ -10,13 +10,8 @@ class Follower extends Component{
         return(
             <div class ="follower">
                 <div>
-                    <img src={this.props.pic} class="pfp" alt="pfp"/>
-                    <div>
-                        <Link to={`../profile/${this.props.userName}`}>{this.props.displayName}</Link><br/>
-                        <p>
-                            @{this.props.userName}</p>
-                    </div>
-                    <button>Follow</button>
+                <p><img src={this.props.pic == null ? jek : this.props.pic} class="pfp" alt="pfp"/><br/>
+                    <Link to={`../profile/${this.props.userName}`}>{this.props.displayName}</Link>@{this.props.userName}</p>
                 </div>
             </div>
             

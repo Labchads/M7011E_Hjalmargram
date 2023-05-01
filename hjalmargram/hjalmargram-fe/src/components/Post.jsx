@@ -41,7 +41,7 @@ class Post extends Component
                     </div>
 
                     <div class="spanTime">
-                        <span>{date}{/* 2h ago */}</span>
+                        <span>{date}</span>
                     </div>
                 </div>
                 <br/>

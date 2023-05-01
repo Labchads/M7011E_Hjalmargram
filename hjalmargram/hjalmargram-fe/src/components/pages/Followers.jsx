@@ -9,37 +9,38 @@ class Followers extends Component
     username = window.location.pathname.split("/")[2];
     state = {
         user: getUserProfile(),
-        user_id: 4,
+        user_id: 0,
         followers: [],
     }
 
+    componentDidMount() {
+        axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`)
+          .then((res) => {
+            this.setState({ user_id: res.data[0].pk });
+            if(this.state.user_id == 0){return;}
+            console.log(this.username, "id: ", this.state.user_id);
+            return axios.get(`http://localhost:8000/api/kapsylgram/profile/${res.data[0].pk}/followers`);
+          })
+          .then((res) => {
+            this.setState({ followers: res.data[0].another_user });
+            console.log(res.data[0].another_user);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
 
-    res = axios.get(`http://localhost:8000/api/kapsylgram/profilename/${this.username}`).then((res) => 
-    {
-    this.setState({ user_id: res.data[0].pk });
-    return axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/followers`);
-    })
-    .then((res) => 
-    {
-        console.log(res.data.length);
-    })
-    .catch((error) => 
-    {
-        console.log(error);
-    });
-
-    render()
-    {
+      render() {
         return(
             <article>
                 <p>Followers: {this.state.followers.length}</p>
-                {this.state.followers.map(
-                        follower => (
-                            <Follower
-                            pic = {follower.user.pfp}
-                            displayName = {follower.user.displayname}
-                            userName = {follower.user.displayname}
-                            /> ))}   
+                {this.state.followers.map(follower => (
+                    <Follower
+                        pic={follower.pfp}
+                        displayName={follower.displayname}
+                        userName={follower.username}
+                    />
+                ))}
             </article>
         )
     }
