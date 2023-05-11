@@ -169,8 +169,9 @@ def getFollowers(request, pk):
         user = UserProfile.objects.get(pk = pk)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    followers = Followers.objects.filter(another_user = user)
-    serializer = FollowerSerializer(followers, context = {'request': request}, many = True)
+    followers = Followers.objects.filter(another_user=user)
+    user_list = [follower.user for follower in followers]
+    serializer = UserSerializer(user_list, context = {'request': request}, many = True)
     return Response(serializer.data)
 
 @api_view(['GET'])
