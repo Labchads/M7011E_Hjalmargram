@@ -18,12 +18,12 @@ class Followers extends Component
           .then((res) => {
             this.setState({ user_id: res.data[0].pk });
             if(this.state.user_id == 0){return;}
-            console.log(this.username, "id: ", this.state.user_id);
+            //console.log(this.username, "id: ", this.state.user_id);
             return axios.get(`http://localhost:8000/api/kapsylgram/profile/${res.data[0].pk}/followers`);
           })
           .then((res) => {
-            this.setState({ followers: res.data[0].another_user });
-            console.log(res.data[0].another_user);
+            this.setState({ followers: res.data });
+            console.log(res.data);
           })
           .catch((error) => {
             console.log(error);

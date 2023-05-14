@@ -14,7 +14,7 @@ class Navbar extends Component
             <nav className="Top">
                 <h2><Link to="/">Hjalmargram</Link></h2>
                 {user != null ? <Link to={`/profile/${user.username}`}>Profile</Link> : null}
-                {isLogged ? <Link to="/dms">Direct Messages</Link> : null}
+                {/*isLogged ? <Link to="/dms">Direct Messages</Link> : null*/}
                 {isLogged && user.is_admin ? <a href="http://localhost:8000/admin/">Admin Stuff</a> : null}
                 {isLogged ? <Link to="/resetpassword">Change Password</Link> : null}
                 <div>
