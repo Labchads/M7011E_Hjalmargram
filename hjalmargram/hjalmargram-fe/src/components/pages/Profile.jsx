@@ -109,6 +109,17 @@ class Profile extends Component{
     render(){
         //this.getUser();
         const userdetails = this.state.userdetails;
+        const [user, setUser] = useState(null);
+        const { u_name } = useParams();
+        
+        useEffect(() => {
+            // fetch user data based on u_name from the server
+            // and set the user state
+            fetch(`/api/users/${u_name}`)
+            .then(response => response.json())
+            .then(data => setUser(data))
+            .catch(error => console.error(error));
+        }, [u_name]);
         /* if(userdetails == null){
             return <NotFound/>
         } */
