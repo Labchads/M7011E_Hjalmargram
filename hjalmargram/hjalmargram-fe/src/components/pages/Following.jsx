@@ -20,7 +20,7 @@ class Following extends Component {
           })
           .then((res) => {
             this.setState({ following: res.data[0].another_user });
-            console.log(res.data[0].another_user);
+            //console.log(res.data[0].another_user);
           })
           .catch((error) => {
             console.log(error);

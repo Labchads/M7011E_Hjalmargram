@@ -23,7 +23,7 @@ class Followers extends Component
           })
           .then((res) => {
             this.setState({ followers: res.data });
-            console.log(res.data);
+            //console.log(res.data);
           })
           .catch((error) => {
             console.log(error);
