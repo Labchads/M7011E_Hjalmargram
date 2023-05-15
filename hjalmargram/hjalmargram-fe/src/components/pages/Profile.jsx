@@ -14,7 +14,7 @@ class Profile extends Component{
     static contextType = AuthContext;
     state = {
         user: this.context.user,
-        user_id: null,
+        user_id: 0,
         userdetails: [],
         posts: [],
         followercount: 0,
@@ -62,7 +62,7 @@ class Profile extends Component{
         return await axios.get(`http://localhost:8000/api/kapsylgram/profile/${this.state.user_id}/followers`).then(res => {
             this.setState({isFollowing: false}); //soft reset
             res.data.forEach(element => {
-            if(parseInt(element.user.pk) == parseInt(this.context.user.user_id))
+            if(parseInt(element.pk) == parseInt(this.context.user.user_id))
             {
                 this.setState({isFollowing: true});
             }
@@ -89,6 +89,14 @@ class Profile extends Component{
               'Authorization':'Bearer ' + String(this.context.authTokens.access)
             }
         }).then(res => {
+            if(this.state.isFollowing)
+            {
+                this.setState({isFollowing: false});
+            }
+            else
+            {
+                this.setState({isFollowing: true});
+            } //ugly hack
             this.resetState();
             return <h1>{res.data['success']}</h1>
         })
@@ -107,22 +115,8 @@ class Profile extends Component{
     }
 
     render(){
-        //this.getUser();
+        const {isFollowing} = this.state;
         const userdetails = this.state.userdetails;
-        const [user, setUser] = useState(null);
-        const { u_name } = useParams();
-        
-        useEffect(() => {
-            // fetch user data based on u_name from the server
-            // and set the user state
-            fetch(`/api/users/${u_name}`)
-            .then(response => response.json())
-            .then(data => setUser(data))
-            .catch(error => console.error(error));
-        }, [u_name]);
-        /* if(userdetails == null){
-            return <NotFound/>
-        } */
         const posts = this.state.posts;
         return(
             <div>
@@ -136,10 +130,9 @@ class Profile extends Component{
                     </div>
                     <br/>
                     <div class="followbuttons">
-                    { !this.state.isFollowing 
-                    ? <button onClick={this.toggleFollow}> Follow </button>
-                    : <button onClick={this.toggleFollow}> Unfollow </button> }
-                        <button> DM </button>
+                    { isFollowing 
+                    ? <button onClick={this.toggleFollow}> Unfollow </button>
+                    : <button onClick={this.toggleFollow}> Follow </button> }
                     </div>
                     <br/>
                     <p class="bio"><b>"</b>Live laugh love.<b>"</b></p>
