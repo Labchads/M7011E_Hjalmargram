@@ -75,13 +75,11 @@ class Post extends Component {
                         <span>{date}</span>
                     </div>
                 </div>
-                <br/>
                 {post.picture != null ?
                 <div class="image" style={isHidden ? {display: "none"} : {}}>
                     <img src={post.picture} alt="imgpost"/>
                 </div> 
                 : null}
-                <br/>
                 <div class="controls" style={isHidden ? {display: "none"} : {}}>
 
                 {isLiked? //this.context.user != null && post.likes.includes(this.context.user.user_id)
@@ -92,26 +90,27 @@ class Post extends Component {
 
 
                 </div>
-                <br/>
                 <div class="commentfield" style={isHidden ? {display: "none"} : {}}>
                     <h2>Comments:</h2>
-                    <Comment
-                        comment_text = {post.content}
-                        commentBy = {post.postedBy.username}
-                        pic = {post.postedBy.pfp!=null ? post.postedBy.pfp: leifteorin}
-                    />
-                    {post.comments.length > 0 ? (
-                        <>
-                            {post.comments.map(comment => (
-                                <Comment 
-                                comment_text = {comment.text}
-                                commentBy = {comment.sender.username}
-                                pic = {comment.sender.pfp!=null ? comment.sender.pfp: leifteorin}
-                                />
-                            )
-                            )}
-                        </>
-                    ) : null}
+                    <div class="comments">
+                      <Comment
+                          comment_text = {post.content}
+                          commentBy = {post.postedBy.username}
+                          pic = {post.postedBy.pfp!=null ? post.postedBy.pfp: leifteorin}
+                      />
+                      {post.comments.length > 0 ? (
+                          <>
+                              {post.comments.map(comment => (
+                                  <Comment 
+                                  comment_text = {comment.text}
+                                  commentBy = {comment.sender.username}
+                                  pic = {comment.sender.pfp!=null ? comment.sender.pfp: leifteorin}
+                                  />
+                              )
+                              )}
+                          </>
+                      ) : null}
+                    </div>
                     <CommentField comment_on={post.pk}/>
                 </div>
             </article>

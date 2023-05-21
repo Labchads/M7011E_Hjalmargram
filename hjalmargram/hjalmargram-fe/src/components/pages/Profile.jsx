@@ -20,6 +20,7 @@ class Profile extends Component{
         followercount: 0,
         followingcount: 0,
         isFollowing : false,
+        isMe : false,
     }
 
 
@@ -70,17 +71,30 @@ class Profile extends Component{
         });
     }
 
+    isThisMe = async() =>
+    {
+        if(this.context.user.user_id == this.state.user_id)
+        {
+            this.setState({isMe: true});
+        }
+        else
+        {
+            this.setState({isMe: false});
+        }
+    }
+
     resetState = () => {
         this.getUser();
         this.getPosts();
         this.getFollowers();
         this.getFollowing();
         this.amIFollowing();
+        this.isThisMe();
     };
 
     toggleFollow = async () => {
         let formData = new FormData();
-        console.log("fd:", this.context.user);
+        console.log("fd:", this.context.user.user_id);
         console.log("id: ", this.state.user_id);
         formData.append('username', this.state.user.username);
         await axios.post(`http://localhost:8000/api/kapsylgram/follow/${this.state.user_id}`, formData, {
@@ -112,10 +126,12 @@ class Profile extends Component{
         res = await this.getFollowers();
         res = await this.getFollowing();
         res = await this.amIFollowing();
+        res = await this.isThisMe();
     }
 
     render(){
         const {isFollowing} = this.state;
+        const {isMe} = this.state;
         const userdetails = this.state.userdetails;
         const posts = this.state.posts;
         return(
@@ -130,9 +146,15 @@ class Profile extends Component{
                     </div>
                     <br/>
                     <div class="followbuttons">
-                    { isFollowing 
-                    ? <button onClick={this.toggleFollow}> Unfollow </button>
-                    : <button onClick={this.toggleFollow}> Follow </button> }
+                    {isMe ? (
+                        <p>This is you</p>
+                        ) : (
+                        isFollowing ? (
+                            <button onClick={this.toggleFollow}>Unfollow</button>
+                        ) : (
+                            <button onClick={this.toggleFollow}>Follow</button>
+                        )
+                        )}
                     </div>
                     <br/>
                     <p class="bio"><b>"</b>Live laugh love.<b>"</b></p>

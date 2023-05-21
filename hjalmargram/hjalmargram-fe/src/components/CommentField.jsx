@@ -73,7 +73,7 @@ class CommentField extends Component {
             <div class="makeComment">
                 <Form onSubmit={this.makeComment}>
                     <p>Comment:</p>
-                    <input type="text" onChange={this.onChangeText}></input>
+                    <input type="text" onChange={this.onChangeText} class="commentinput"></input>
                     <button>Submit</button><br/>
                 </Form><br/>
             </div>

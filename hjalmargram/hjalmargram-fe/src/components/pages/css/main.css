@@ -130,9 +130,11 @@
 		border-radius: 20px;
 	}
 
-	.commentfield
+	.comments
 	{
 		width: 100%;
+		aspect-ratio: 2/1;
+		overflow-y:auto;
 	}
 
 /*Mobile css*/
@@ -152,6 +154,21 @@
 		font-size: 1.5em;
 	}
 
+	.makeComment
+	{
+		align-items: end;
+	}
+
+	.makeComment input
+	{
+		width: 100%;
+	}
+
+	.makeComment button
+	{
+		width: 20%;
+	}
+
 /*Mobile css*/
 	.pfp
 	{
@@ -165,6 +182,13 @@
 	{
 		line-height: 1em;
 		text-align: center;
+	}
+
+	.controls
+	{
+		display: grid;
+  		grid-template-rows: 1fr 1fr; 
+		font-size: 2em;
 	}
 }
 
@@ -331,8 +355,16 @@ article
 	.commentfield
 	{
 		grid-area: 2 / 2 / auto / 3;
-		aspect-ratio: 1/1;
+	}
+	.comments
+	{
 		overflow-y:auto;
+		aspect-ratio: 17/12;
+	}
+	.makeComment 
+	{
+		display: grid;
+		grid-area: 3 / 1;
 	}
 	.controls
 	{
@@ -341,9 +373,16 @@ article
 
 	.controls
 	{
-		font-size: 2em;
+		font-size: 1em;
 		display:grid;
 		grid-template-columns: 1fr 1fr;
+	}
+
+	
+	.controls button
+	{
+		width: 100%;
+		height: 100%;
 	}
 
 	.Post_Disp br

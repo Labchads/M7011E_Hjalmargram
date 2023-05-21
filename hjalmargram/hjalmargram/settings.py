@@ -98,6 +98,18 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+# Session duration in seconds (10 hours = 36000 seconds)
+SESSION_COOKIE_AGE = 36000
+
+# Session expires when the browser is closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# Session cookie is secure (HTTPS only)
+SESSION_COOKIE_SECURE = True
+
+# Session cookie is accessible only through HTTP
+SESSION_COOKIE_HTTPONLY = True
+
 ROOT_URLCONF = 'hjalmargram.urls'
 
 TEMPLATES = [
