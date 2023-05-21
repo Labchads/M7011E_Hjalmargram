@@ -13,7 +13,7 @@ class Navbar extends Component
         return(
             <nav className="Top">
                 <h2><Link to="/">Hjalmargram</Link></h2>
-                {user != null ? <Link to={`/profile/${user.username}`}>Profile</Link> : null}
+                {user != null ? <Link to={`/profile/${user.username}`} onClick="window.location.reload();">Profile</Link> : null /*Det här är så janky holy shit*/} 
                 {/*isLogged ? <Link to="/dms">Direct Messages</Link> : null*/}
                 {isLogged && user.is_admin ? <a href="http://localhost:8000/admin/">Admin Stuff</a> : null}
                 {isLogged ? <Link to="/resetpassword">Change Password</Link> : null}
