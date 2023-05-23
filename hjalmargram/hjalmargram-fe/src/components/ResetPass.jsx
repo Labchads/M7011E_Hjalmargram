@@ -33,7 +33,11 @@ class ResetPass extends Component
               'content-type': 'multipart/form-data',
               'Authorization':'Bearer ' + String(this.context.authTokens.access)
             }
-        }).then(res => console.log(res));
+        }).then(res => {
+            console.log(res)
+            alert ("Success");
+            window.location.reload();
+        } );
     }
 
     mailUser = e =>
@@ -53,11 +57,9 @@ class ResetPass extends Component
                 <h2>Reset password</h2>
                 <Form onSubmit={this.resetPassword}>
                     <p>Old Password:<br/>
-                    <input type="text" onChange={this.onChangeOPass} required /></p>
-                    <p>{this.state.old_pass}</p>
+                    <input type="password" onChange={this.onChangeOPass} required /></p>
                     <p>New Password:<br/>
-                    <input type="text" onChange={this.onChangeNewPass} required /></p>
-                    <p>{this.state.new_pass}</p>
+                    <input type="password" onChange={this.onChangeNewPass} required /></p>
                     <button>Send new password</button>
                 </Form>
             </article>
