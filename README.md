@@ -19,3 +19,5 @@ Open a new terminal
 >cd hjalmargram-fe
 
 >npm start
+
+THE LAB IS DONE!!
